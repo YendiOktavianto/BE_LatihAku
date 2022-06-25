@@ -1,0 +1,26 @@
+{
+  "name": "be_latihaku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YendiOktavianto/BE_LatihAku.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YendiOktavianto/BE_LatihAku/issues"
+  },
+  "homepage": "https://github.com/YendiOktavianto/BE_LatihAku#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "sequelize": "^6.21.0"
+  }
+}
