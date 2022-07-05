@@ -1,4 +1,10 @@
 const { User } = require("../models");
+const {
+  compareHash
+} = require('../helper');
+const {
+  createToken
+} = require('../helper/jwt');
 class userController {
   static async login(request, response) {
     try {
