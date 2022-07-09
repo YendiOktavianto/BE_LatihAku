@@ -1,4 +1,3 @@
-const { User } = require("../models");
 const { compareHash } = require("../helper/hashPassword");
 const { createToken } = require("../helper/jwt");
 const {

@@ -1,3 +1,4 @@
+const { Coach } = require("../models");
 const LoginCoach = async (username) => {
   const foundUser = await Coach.findOne({
     where: {

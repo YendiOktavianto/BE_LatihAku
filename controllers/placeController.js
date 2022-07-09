@@ -204,3 +204,5 @@ class placeController {
     }
   }
 }
+
+module.exports = placeController;
