@@ -1,5 +1,5 @@
 const { User } = require("../models");
-const { compareHash } = require("../helper");
+const { compareHash } = require("../helper/hashPassword");
 const { createToken } = require("../helper/jwt");
 const {
   login,
@@ -54,7 +54,7 @@ class userController {
     }
   }
 
-  static delete(response) {
+  static deleteUser(response) {
     try {
       const userID = request.params.id;
 
@@ -85,7 +85,7 @@ class userController {
     }
   }
 
-  static register(request, response) {
+  static registerUser(request, response) {
     try {
       const {
         firstName,
@@ -130,7 +130,7 @@ class userController {
     }
   }
 
-  static update(request, response) {
+  static updateUser(request, response) {
     try {
       const userID = request.params.id;
       const {
@@ -181,7 +181,7 @@ class userController {
     }
   }
 
-  static searchUser(request, response) {
+  static findUser(request, response) {
     try {
       const userID = request.params.id;
 
