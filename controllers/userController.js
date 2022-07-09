@@ -100,6 +100,32 @@ class userController {
     }
   }
 
+  static list(response) {
+    try {
+      const findAllUser = readAllUser();
+      if (findAllUser <= 0) {
+        throw new Error("User_IS_EMPTY");
+      }
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data User Found",
+        data: findAllUser,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "USER_IS_EMPTY") {
+        code = 400;
+        message = "Data User Is Empty";
+      }
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
   static update(request, response) {
     try {
       const userId = request.params.id;
@@ -159,16 +185,16 @@ class userController {
     try {
       const userId = request.params.id;
 
-      const deleteUser = deleteUser(userId);
+      const deletedUser = deleteUser(userId);
 
-      if (deleteUser < 0) {
+      if (deletedUser < 0) {
         throw new Error("USER_NOT_FOUND");
       }
 
       response.status(200).json({
         statusCode: 200,
         message: "Data User Deleted Successfully",
-        data: deleteUser,
+        data: deletedUser,
       });
     } catch (err) {
       let code = 500;

@@ -105,7 +105,7 @@ class placeController {
         comments,
       } = request.body;
 
-      const updatePlace = {
+      const updateData = {
         name,
         owner,
         price,
@@ -123,7 +123,7 @@ class placeController {
       if (oldPlace <= 0) {
         throw new Error("PLACE_NOT_FOUND");
       } else {
-        newPlace = updatePlace(updatePlace);
+        newPlace = updatePlace(updateData);
       }
 
       response.status(200).json({
