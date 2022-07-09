@@ -1,56 +1,53 @@
-const LoginUser = async (username) => {
+const { User } = require("../models");
+const loginUser = async (username) => {
   const foundUser = await User.findOne({
     where: {
-      username,
+      username: username,
     },
   });
   return foundUser;
 };
 
-const RegisterUser = async (dataUser) => {
+const registerUser = async (dataUser) => {
   const newUser = await User.create({
     dataUser,
   });
   return newUser;
 };
 
-const DeleteUser = async (idUser) => {
-  const deleteUser = await User.destroy({
-    where: {
-      idUser,
-    },
-  });
-  return deleteUser;
+const readOneUser = async (userId) => {
+  const findUser = await User.findOne(userId);
+  return findUser;
 };
 
-const UpdateUser = async (updateUser) => {
+const readAllUser = async () => {
+  const findAllUser = await User.findAll();
+  return findAllUser;
+};
+
+const updateUser = async (updateData) => {
   const updatedUser = await User.update({
     where: {
-      updateUser,
+      updateData,
     },
   });
   return updatedUser;
 };
 
-const FindUser = async (idUser) => {
-  const findUser = await User.findOne({
+const deleteUser = async (userId) => {
+  const deleteUser = await User.destroy({
     where: {
-      idUser,
+      userId,
     },
   });
-  return findUser;
-};
-
-const FindAllUser = async () => {
-  const findAllUser = await User.findAll({});
-  return findAllUser;
+  return deleteUser;
 };
 
 module.exports = {
-  LoginUser,
-  RegisterUser,
-  DeleteUser,
-  UpdateUser,
-  FindUser,
-  FindAllUser,
+  loginUser,
+  registerUser,
+  deleteUser,
+  updateUser,
+  readOneUser,
+  readAllUser,
 };

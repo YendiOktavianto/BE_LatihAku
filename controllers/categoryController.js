@@ -141,19 +141,19 @@ class categoryController {
     }
   }
 
-  static searchCategory(request, response) {
+  static search(request, response) {
     try {
       const categoryId = request.params.id;
-      const category = readOneCategory(categoryId);
+      const findCategory = readOneCategory(categoryId);
 
-      if (category <= 0) {
+      if (findCategory <= 0) {
         throw new Error("CATEGORY_NOT_FOUND");
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Category Found",
-        data: category,
+        message: "Data Category Found",
+        data: findCategory,
       });
     } catch (err) {
       let code = 500;

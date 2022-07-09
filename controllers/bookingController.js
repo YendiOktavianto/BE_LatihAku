@@ -76,7 +76,7 @@ class bookingController {
       };
 
       const updatedData = "";
-      const oldBooking = readOneBooking(updateData);
+      const oldBooking = readOneBooking(bookingId);
       if (oldBooking <= 0) {
         throw new Error("BOOKING_NOT_FOUND");
       } else {
@@ -85,7 +85,7 @@ class bookingController {
 
       response.status(200).json({
         statusCode: 200,
-        message: "Booking updated successfully",
+        message: "Data Booking updated successfully",
         data: updatedData,
       });
     } catch (error) {
@@ -97,7 +97,7 @@ class bookingController {
         msg = "Bad Request";
       } else if (err.message === "BOOKING_NOT_FOUND") {
         code = 404;
-        msg = "Booking not found";
+        msg = "Booking Not Found";
       }
 
       response.status(code).json({
@@ -120,7 +120,7 @@ class bookingController {
 
       response.status(200).json({
         statusCode: 200,
-        message: `Booking deleted successfully`,
+        message: `Data Booking deleted successfully`,
         data: deletedBooking,
       });
     } catch (err) {
