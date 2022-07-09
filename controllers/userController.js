@@ -2,10 +2,10 @@ const { User } = require("../models");
 const { compareHash } = require("../helper");
 const { createToken } = require("../helper/jwt");
 const {
-  login,
-  register,
-  deleteUser,
-  updateUser,
+  LoginUser,
+  RegisterUser,
+  DeleteUser,
+  UpdateUser,
   FindUser,
 } = require("../services/userServices");
 
