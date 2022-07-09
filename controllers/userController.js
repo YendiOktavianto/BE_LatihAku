@@ -1,18 +1,19 @@
 const { compareHash } = require("../helper/hashPassword");
 const { createToken } = require("../helper/jwt");
 const {
-  login,
-  register,
+  loginUser,
+  registerUser,
   deleteUser,
   updateUser,
-  FindUser,
+  readOneUser,
+  readAllUser,
 } = require("../services/userServices");
 
 class userController {
   static login(request, response) {
     try {
       const { username, password } = request.body;
-      const foundUser = LoginUser(username);
+      const foundUser = loginUser(username);
 
       if (!foundUser) {
         throw new Error("USER_NOT_FOUND");
@@ -53,38 +54,7 @@ class userController {
     }
   }
 
-  static deleteUser(response) {
-    try {
-      const userID = request.params.id;
-
-      const deleteUser = DeleteUser(userID);
-
-      if (deleteUser < 0) {
-        throw new Error("USER_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Register Successfully",
-      });
-    } catch (err) {
-      console.log(err);
-      let code = 500;
-      let message = "Internal Server Error";
-
-      if (err.message === "USER_NOT_FOUND") {
-        code = 400;
-        message = "Invalid Username or Password";
-      }
-
-      response.status(code).json({
-        statusCode: code,
-        message,
-      });
-    }
-  }
-
-  static registerUser(request, response) {
+  static register(request, response) {
     try {
       const {
         firstName,
@@ -106,11 +76,12 @@ class userController {
         address,
       };
 
-      const newUser = RegisterUser(dataUser);
+      const newUser = registerUser(dataUser);
 
       response.status(200).json({
         statusCode: 200,
         message: "Register Successfully",
+        data: newUser,
       });
     } catch (err) {
       console.log(err);
@@ -129,9 +100,9 @@ class userController {
     }
   }
 
-  static updateUser(request, response) {
+  static update(request, response) {
     try {
-      const userID = request.params.id;
+      const userId = request.params.id;
       const {
         firstName,
         lastName,
@@ -142,7 +113,7 @@ class userController {
         address,
       } = request.body;
 
-      const updateUser = {
+      const updateData = {
         firstName,
         lastName,
         phoneNumber,
@@ -152,25 +123,29 @@ class userController {
         address,
       };
 
-      const oldUser = FindUser(userID);
-      if (oldUser < 0) {
+      const newUser = "";
+      const oldUser = readOneUser(userId);
+      if (oldUser <= 0) {
         throw new Error("USER_NOT_FOUND");
       } else {
-        UpdateUser(updateUser);
+        newUser = updateUser(updateData);
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Register Successfully",
+        message: "Data User Updated Successfully",
+        data: newUser,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.name === "SequelizeValidationError") {
         code = 400;
-        message = "Invalid Username or Password";
+        msg = "Bad Request";
+      } else if (err.message === "USER_NOT_FOUND") {
+        code = 404;
+        msg = "User Not Found";
       }
 
       response.status(code).json({
@@ -180,27 +155,28 @@ class userController {
     }
   }
 
-  static findUser(request, response) {
+  static delete(response) {
     try {
-      const userID = request.params.id;
+      const userId = request.params.id;
 
-      const oldUser = FindUser(userID);
-      if (oldUser < 0) {
+      const deleteUser = deleteUser(userId);
+
+      if (deleteUser < 0) {
         throw new Error("USER_NOT_FOUND");
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Register Successfully",
+        message: "Data User Deleted Successfully",
+        data: deleteUser,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
       if (err.message === "USER_NOT_FOUND") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "Data User Not Found";
       }
 
       response.status(code).json({
@@ -210,25 +186,29 @@ class userController {
     }
   }
 
-  static findAllUser(response) {
+  static search(request, response) {
     try {
-      const findAllUser = FindAllUser();
-      if (oldUser < 0) {
+      const userId = request.params.id;
+
+      const findUser = readOneUser(userId);
+      if (oldUser <= 0) {
         throw new Error("USER_NOT_FOUND");
       }
+
       response.status(200).json({
         statusCode: 200,
-        message: "Register Successfully",
+        message: "Data User Found",
+        data: findUser,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
       if (err.message === "USER_NOT_FOUND") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "Data User Not Found";
       }
+
       response.status(code).json({
         statusCode: code,
         message,

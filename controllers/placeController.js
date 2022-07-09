@@ -1,43 +1,13 @@
 const {
-  DeletePlace,
-  CreatePlace,
-  FindPlace,
-  UpdatePlace,
+  createPlace,
+  readOnePlace,
+  readAllPlace,
+  updatePlace,
+  deletePlace,
 } = require("../services/placeServices");
 
 class placeController {
-  static deletePlace(response) {
-    try {
-      const placeID = request.params.id;
-
-      const deletedPlace = DeletePlace(placeID);
-
-      if (deletedPlace < 0) {
-        throw new Error("USER_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Register Successfully",
-      });
-    } catch (err) {
-      console.log(err);
-      let code = 500;
-      let message = "Internal Server Error";
-
-      if (err.message === "USER_NOT_FOUND") {
-        code = 400;
-        message = "Invalid Username or Password";
-      }
-
-      response.status(code).json({
-        statusCode: code,
-        message,
-      });
-    }
-  }
-
-  static createPlace(request, response) {
+  static create(request, response) {
     try {
       const {
         name,
@@ -65,20 +35,24 @@ class placeController {
         comments,
       };
 
-      const newPlace = CreatePlace(dataPlace);
+      const newPlace = createPlace(dataPlace);
 
-      response.status(200).json({
-        statusCode: 200,
-        message: "Register Successfully",
+      if (!name) {
+        throw new Error("FAIL_CREATE_PLACE");
+      }
+
+      response.status(201).json({
+        statusCode: 201,
+        message: "Create Place Successfully",
+        data: newPlace,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.message === "FAIL_CREATE_PLACE") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "Fail Create Place";
       }
 
       response.status(code).json({
@@ -88,9 +62,36 @@ class placeController {
     }
   }
 
-  static updatePlace(request, response) {
+  static list(response) {
     try {
-      const placeID = request.params.id;
+      const findAllPlace = readAllPlace();
+      if (findAllPlace <= 0) {
+        throw new Error("PLACE_IS_EMPTY");
+      }
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Place Found",
+        data: findAllPlace,
+      });
+    } catch (err) {
+      console.log(err);
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "PLACE_IS_EMPTY") {
+        code = 400;
+        message = "Data Place is Empty";
+      }
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static update(request, response) {
+    try {
+      const placeId = request.params.id;
       const {
         name,
         owner,
@@ -117,16 +118,17 @@ class placeController {
         comments,
       };
 
-      const oldPlace = FindPlace(placeID);
-      if (oldPlace < 0) {
-        throw new Error("USER_NOT_FOUND");
+      const newPlace = "";
+      const oldPlace = readOnePlace(placeId);
+      if (oldPlace <= 0) {
+        throw new Error("PLACE_NOT_FOUND");
       } else {
-        newPlace = UpdatePlace(updatePlace);
+        newPlace = updatePlace(updatePlace);
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Update Successfully",
+        message: "Data Place Updated Successfully",
         data: newPlace,
       });
     } catch (err) {
@@ -134,9 +136,12 @@ class placeController {
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.name === "SequelizeValidationError") {
         code = 400;
-        message = "Invalid Username or Password";
+        msg = "Bad Request";
+      } else if (err.message === "PLACE_NOT_FOUND") {
+        code = 404;
+        msg = "Place Not Found";
       }
 
       response.status(code).json({
@@ -146,28 +151,27 @@ class placeController {
     }
   }
 
-  static findPlace(request, response) {
+  static delete(response) {
     try {
-      const placeID = request.params.id;
+      const placeId = request.params.id;
 
-      const oldPlace = FindUser(placeID);
-      if (oldPlace < 0) {
-        throw new Error("USER_NOT_FOUND");
+      const deletedPlace = deletePlace(placeId);
+
+      if (deletedPlace <= 0) {
+        throw new Error("PLACE_NOT_FOUND");
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Register Successfully",
-        data: oldPlace,
+        message: "Data Place deleted Successfully",
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.message === "PLACE_NOT_FOUND") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "Data Place Not Found";
       }
 
       response.status(code).json({
@@ -177,26 +181,29 @@ class placeController {
     }
   }
 
-  static findAllPlace(response) {
+  static search(request, response) {
     try {
-      const findAllPlace = FindAllPlace();
-      if (findAllPlace < 0) {
-        throw new Error("USER_NOT_FOUND");
+      const placeId = request.params.id;
+
+      const findPlace = readOnePlace(placeId);
+      if (oldPlace <= 0) {
+        throw new Error("PLACE_NOT_FOUND");
       }
+
       response.status(200).json({
         statusCode: 200,
-        message: "Find Place Successfully",
-        data: findAllPlace,
+        message: "Data Place Found",
+        data: findPlace,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.message === "PLACE_NOT_FOUND") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "Data Place Not Found";
       }
+
       response.status(code).json({
         statusCode: code,
         message,

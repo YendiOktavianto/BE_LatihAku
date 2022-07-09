@@ -1,57 +1,53 @@
 const { Coach } = require("../models");
-const LoginCoach = async (username) => {
-  const foundUser = await Coach.findOne({
+const loginCoach = async (username) => {
+  const foundCoach = await Coach.findOne({
     where: {
-      username,
+      username: username,
     },
   });
   return foundCoach;
 };
 
-const RegisterCoach = async (dataCoach) => {
+const registerCoach = async (dataCoach) => {
   const newCoach = await Coach.create({
-    dataUser,
+    dataCoach,
   });
   return newCoach;
 };
 
-const DeleteCoach = async (idCoach) => {
+const readOneCoach = async (coachId) => {
+  const findCoach = await Coach.findByPk(coachId);
+  return findCoach;
+};
+
+const readAllCoach = async () => {
+  const findAllCoach = await Coach.findAll();
+  return findAllCoach;
+};
+
+const updateCoach = async (updateData) => {
+  const updatedCoach = await Coach.update({
+    where: {
+      updateData,
+    },
+  });
+  return updatedCoach;
+};
+
+const deleteCoach = async (coachId) => {
   const deletedCoach = await Coach.destroy({
     where: {
-      idCoach,
+      coachId,
     },
   });
   return deletedCoach;
 };
 
-const UpdateCoach = async (updateCoach) => {
-  const updatedCoach = await Coach.update({
-    where: {
-      updateCoach,
-    },
-  });
-  return updatedUser;
-};
-
-const FindCoach = async (idCoach) => {
-  const findUser = await Coach.findOne({
-    where: {
-      idCoach,
-    },
-  });
-  return findCoach;
-};
-
-const FindAllCoach = async () => {
-  const findAllCoach = await Coach.findAll({});
-  return findAllCoach;
-};
-
 module.exports = {
-  LoginCoach,
-  RegisterCoach,
-  DeleteCoach,
-  UpdateCoach,
-  FindCoach,
-  FindAllCoach,
+  loginCoach,
+  registerCoach,
+  readOneCoach,
+  readAllCoach,
+  updateCoach,
+  deleteCoach,
 };
