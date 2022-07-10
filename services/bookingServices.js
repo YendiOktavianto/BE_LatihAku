@@ -1,8 +1,6 @@
 const { Booking } = require("../models");
-const createBooking = async (dataBooking) => {
-  const newBooking = await Booking.create({
-    dataBooking,
-  });
+const createBooking = async () => {
+  const newBooking = await Booking.create();
   return newBooking;
 };
 

@@ -8,10 +8,8 @@ const loginUser = async (username) => {
   return foundUser;
 };
 
-const registerUser = async (dataUser) => {
-  const newUser = await User.create({
-    dataUser,
-  });
+const registerUser = async () => {
+  const newUser = await User.create();
   return newUser;
 };
 

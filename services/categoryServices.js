@@ -1,8 +1,6 @@
 const { Category } = require("../models");
-const createCategory = async (dataCategory) => {
-  const newCategory = await Category.create({
-    dataCategory,
-  });
+const createCategory = async () => {
+  const newCategory = await Category.create();
   return newCategory;
 };
 
