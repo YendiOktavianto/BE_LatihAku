@@ -13,8 +13,26 @@ module.exports = (sequelize, DataTypes) => {
   }
   Booking.init(
     {
-      bookingDate: DataTypes.DATE,
-      notes: DataTypes.TEXT,
+      bookingDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please choose the date",
+          },
+          isDate: true,
+        },
+      },
+      notes: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please enter the text",
+          },
+          len: [20, 300],
+        },
+      },
     },
     {
       sequelize,
