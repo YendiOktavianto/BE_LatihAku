@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
           isUrl: true,
         },
       },
+      CoachId: DataTypes.INTEGER,
     },
-    CoachId: DataTypes.INTEGER
     {
       sequelize,
       modelName: "Category",
