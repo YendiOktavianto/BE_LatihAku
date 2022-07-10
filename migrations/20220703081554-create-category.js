@@ -13,14 +13,14 @@ module.exports = {
         allowNull: false,
         validate: {
           len: [3, 50],
-        }
+        },
       },
       image: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           isUrl: true,
-        }
+        },
       },
       createdAt: {
         allowNull: false,

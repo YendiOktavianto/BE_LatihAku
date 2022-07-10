@@ -13,18 +13,123 @@ module.exports = (sequelize, DataTypes) => {
   }
   Coach.init(
     {
-      name: DataTypes.STRING,
-      phone: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      profileImage: DataTypes.STRING,
-      ktp: DataTypes.STRING,
-      rating: DataTypes.FLOAT,
-      description: DataTypes.TEXT,
-      address: DataTypes.TEXT,
-      favourite: DataTypes.BOOLEAN,
-      comments: DataTypes.TEXT,
-      budget: DataTypes.FLOAT,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your name",
+          },
+          len: [3, 100],
+        },
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your phone number",
+          },
+          len: [10, 13],
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert the name",
+          },
+          len: [3, 100],
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your password",
+          },
+        },
+      },
+      profileImage: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          len: [3, 100],
+        },
+      },
+      ktp: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your ktp number",
+          },
+          len: [16, 16],
+        },
+      },
+      rating: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Rate this Coach",
+          },
+          isFloat: true,
+          min: 0,
+          max: 5,
+        },
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Describe your personality or skill",
+          },
+          len: [20, 300],
+        },
+      },
+      address: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your address",
+          },
+          len: [20, 100],
+        },
+      },
+      favourite: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your favourite or not",
+          },
+        },
+      },
+      comments: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your comments",
+          },
+          len: [20, 100],
+        },
+      },
+      budget: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please Insert your budget",
+          },
+          isFloat: true,
+        },
+      },
       MyCoachId: DataTypes.INTEGER,
     },
     {
