@@ -10,24 +10,49 @@ module.exports = {
       },
       firstName: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 100],
+        },
       },
       lastName: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 100],
+        },
       },
       phoneNumber: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [10, 13],
+        },
       },
       email: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          isEmail: true,
+        },
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       profileImage: {
         type: Sequelize.STRING,
+        allowNull: true,
+        validate: {
+          isUrl: true,
+        },
       },
       address: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [20, 100],
+        },
       },
       createdAt: {
         allowNull: false,
