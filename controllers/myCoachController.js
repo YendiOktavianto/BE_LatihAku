@@ -1,36 +1,12 @@
+const {
+  createMyCoach,
+  deleteMyCoach,
+  updateMyCoach,
+  readOneMyCoach,
+  readAllMyCoach,
+} = require("../services/myCoachServices");
 class myCoachController {
-  static deleteMyCoach(response) {
-    try {
-      const myCoachID = request.params.id;
-
-      const deletedMyCoach = DeletePlace(myCoachID);
-
-      if (deletedMyCoach < 0) {
-        throw new Error("USER_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Register Successfully",
-      });
-    } catch (err) {
-      console.log(err);
-      let code = 500;
-      let message = "Internal Server Error";
-
-      if (err.message === "USER_NOT_FOUND") {
-        code = 400;
-        message = "Invalid Username or Password";
-      }
-
-      response.status(code).json({
-        statusCode: code,
-        message,
-      });
-    }
-  }
-
-  static createMyCoach(request, response) {
+  static create(request, response) {
     try {
       const { schedule, timeRemaining, salary } = request.body;
 
@@ -39,20 +15,20 @@ class myCoachController {
         timeRemaining,
         salary,
       };
-      const newMyCoach = CreateMyCoach(dataMyCoach);
 
+      const newMyCoach = createMyCoach(dataMyCoach);
       response.status(200).json({
         statusCode: 200,
-        message: "Register Successfully",
+        message: "Create MyCocach Successfully",
+        data: newMyCoach,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.message === "SequelizeValidationError") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "Bad Request";
       }
 
       response.status(code).json({
@@ -62,9 +38,35 @@ class myCoachController {
     }
   }
 
-  static updateMyCoach(request, response) {
+  static list(response) {
     try {
-      const myCoachID = request.params.id;
+      const findAllMyCoach = readAllMyCoach();
+      if (findAllMyCoach <= 0) {
+        throw new Error("MY_COACH_IS_EMPTY");
+      }
+      response.status(200).json({
+        statusCode: 200,
+        message: "My Coach found",
+        data: findAllMyCoach,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "MY_COACH_IS_EMPTY") {
+        code = 400;
+        message = "Data My Coach is Empty";
+      }
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static update(request, response) {
+    try {
+      const myCoachId = request.params.id;
       const {
         name,
         owner,
@@ -78,7 +80,7 @@ class myCoachController {
         comments,
       } = request.body;
 
-      const myCoachPlace = {
+      const updateData = {
         name,
         owner,
         price,
@@ -91,26 +93,29 @@ class myCoachController {
         comments,
       };
 
-      const oldMyCoach = FindMyCoach(myCoachID);
+      const updatedData = "";
+      const oldMyCoach = FindMyCoach(myCoachId);
       if (oldMyCoach < 0) {
-        throw new Error("USER_NOT_FOUND");
+        throw new Error("MY_COACH_NOT_FOUND");
       } else {
-        newMyCoach = UpdateMyCoach(updateMyCoach);
+        updatedData = updateMyCoach(updateData);
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Update Successfully",
-        data: newMyCoach,
+        message: "My Coach updated Successfully",
+        data: updatedData,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.name === "SequelizeValidationError") {
         code = 400;
-        message = "Invalid Username or Password";
+        msg = "Bad Request";
+      } else if (err.message === "MY_COACH_NOT_FOUND") {
+        code = 404;
+        msg = "My Coach not found";
       }
 
       response.status(code).json({
@@ -120,28 +125,26 @@ class myCoachController {
     }
   }
 
-  static findMyCoach(request, response) {
+  static delete(response) {
     try {
-      const myCoachID = request.params.id;
+      const myCoachId = request.params.id;
+      const deletedMyCoach = deleteMyCoach(myCoachId);
 
-      const oldMyCoach = FindMyCoach(placeID);
-      if (oldMyCoach < 0) {
-        throw new Error("USER_NOT_FOUND");
+      if (deletedMyCoach < 0) {
+        throw new Error("MY_COACH_NOT_FOUND");
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Register Successfully",
-        data: oldMyCoach,
+        message: "My Coach deleted Successfully",
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.message === "MY_COACH_NOT_FOUND") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "My Coach not Found";
       }
 
       response.status(code).json({
@@ -151,26 +154,29 @@ class myCoachController {
     }
   }
 
-  static findAllMyCoach(response) {
+  static search(request, response) {
     try {
-      const findAllPlace = FindAllPlace();
-      if (findAllPlace < 0) {
-        throw new Error("USER_NOT_FOUND");
+      const myCoachId = request.params.id;
+
+      const findMyCoach = readOneMyCoach(myCoachId);
+      if (findMyCoach <= 0) {
+        throw new Error("MY_COACH_NOT_FOUND");
       }
+
       response.status(200).json({
         statusCode: 200,
-        message: "Find Place Successfully",
-        data: findAllPlace,
+        message: "My Coach found",
+        data: findMyCoach,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "USER_NOT_FOUND") {
+      if (err.message === "MY_COACH_NOT_FOUND") {
         code = 400;
-        message = "Invalid Username or Password";
+        message = "My Coach Not Found";
       }
+
       response.status(code).json({
         statusCode: code,
         message,

@@ -1,47 +1,43 @@
 const { MyCoach } = require("../models");
-const CreateMyCoach = async (dataMyCoach) => {
+const createMyCoach = async (dataMyCoach) => {
   const newMyCoach = await MyCoach.create({
-    MyCoach,
+    dataMyCoach,
   });
   return newMyCoach;
 };
 
-const DeleteMyCoach = async (idMyCoach) => {
-  const deletedMyCoach = await MyCoach.destroy({
-    where: {
-      idMyCoach,
-    },
-  });
-  return deletedMyCoach;
+const readOneMyCoach = async (myCoachId) => {
+  const findMyCoach = await MyCoach.findByPk(myCoachId);
+  return findMyCoach;
 };
 
-const UpdateMyCoach = async (updateMyCoach) => {
+const readAllMyCoach = async () => {
+  const findAllMyCoach = await MyCoach.findAll({});
+  return findAllMyCoach;
+};
+
+const updateMyCoach = async (updateData) => {
   const updatedMyCoach = await MyCoach.update({
     where: {
-      updateMyCoach,
+      updateData,
     },
   });
   return updatedMyCoach;
 };
 
-const FindMyCoach = async (idMyCoach) => {
-  const findMyCoach = await MyCoach.findOne({
+const deleteMyCoach = async (myCoachId) => {
+  const deletedMyCoach = await MyCoach.destroy({
     where: {
-      idMyCoach,
+      myCoachId,
     },
   });
-  return findMyCoach;
-};
-
-const FindAllMyCoach = async () => {
-  const findAllMyCoach = await MyCoach.findAll({});
-  return findAllMyCoach;
+  return deletedMyCoach;
 };
 
 module.exports = {
-  CreateMyCoach,
-  DeleteMyCoach,
-  UpdateMyCoach,
-  FindMyCoach,
-  FindAllMyCoach,
+  createMyCoach,
+  deleteMyCoach,
+  updateMyCoach,
+  readOneMyCoach,
+  readAllMyCoach,
 };
