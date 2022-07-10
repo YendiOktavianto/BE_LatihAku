@@ -1,60 +1,60 @@
-'use strict';
+"use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('coaches', {
+    await queryInterface.createTable("Coaches", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       profileImage: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       ktp: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       rating: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       address: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       favourite: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       comments: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       budget: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('coaches');
-  }
+    await queryInterface.dropTable("coaches");
+  },
 };

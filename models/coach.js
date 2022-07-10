@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       favourite: DataTypes.BOOLEAN,
       comments: DataTypes.TEXT,
       budget: DataTypes.FLOAT,
+      MyCoachId: DataTypes.INTEGER,
     },
     {
       sequelize,
