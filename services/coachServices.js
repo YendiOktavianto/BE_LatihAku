@@ -1,17 +1,11 @@
 const { Coach } = require("../models");
 const loginCoach = async (username) => {
-  const foundCoach = await Coach.findOne({
-    where: {
-      username: username,
-    },
-  });
+  const foundCoach = await Coach.findOne();
   return foundCoach;
 };
 
-const registerCoach = async (dataCoach) => {
-  const newCoach = await Coach.create({
-    dataCoach,
-  });
+const registerCoach = async () => {
+  const newCoach = await Coach.create();
   return newCoach;
 };
 

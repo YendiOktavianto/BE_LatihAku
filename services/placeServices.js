@@ -1,8 +1,6 @@
 const { Place } = require("../models");
-const createPlace = async (dataPlace) => {
-  const newPlace = await Place.create({
-    dataPlace,
-  });
+const createPlace = async () => {
+  const newPlace = await Place.create();
   return newPlace;
 };
 
