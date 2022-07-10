@@ -1,3 +1,4 @@
+const { uploadImage } = require("../helper/uploadImage");
 const {
   createPlace,
   readOnePlace,
@@ -38,7 +39,7 @@ class placeController {
       const newPlace = createPlace(dataPlace);
       //createPlace(dataPlace);
 
-      if (!name) {
+      if (!newPlace) {
         throw new Error("FAIL_CREATE_PLACE");
       }
 

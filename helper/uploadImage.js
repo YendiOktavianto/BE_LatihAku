@@ -1,5 +1,5 @@
 let multer = require("multer");
-const DIR = "./images/";
+const DIR = "../images/";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -27,3 +27,7 @@ var uploadImage = multer({
   },
   limits: { fileSize: 5 * 1024 * 1024 }, // 1mb
 });
+
+module.exports = {
+  uploadImage,
+};
