@@ -9,10 +9,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       bookingDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false,
+        validate: {
+          isDate: true
+        }
       },
       notes: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
+        validate: {
+          len: [20, 300]
+        }
       },
       createdAt: {
         allowNull: false,
