@@ -38,7 +38,7 @@ class categoryController {
     }
   }
 
-  static list(request, response) {
+  static list(response) {
     try {
       const findAllCategory = readAllCategory();
       if (findAllCategory <= 0) {
