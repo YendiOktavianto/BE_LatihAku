@@ -9,33 +9,34 @@ const {
 class placeController {
   static create(request, response) {
     try {
-      const {
-        name,
-        owner,
-        price,
-        location,
-        rating,
-        description,
-        favourite,
-        images,
-        phone,
-        comments,
-      } = request.body;
+      // const {
+      //   name,
+      //   owner,
+      //   price,
+      //   location,
+      //   rating,
+      //   description,
+      //   favourite,
+      //   images,
+      //   phone,
+      //   comments,
+      // } = request.body;
 
-      const dataPlace = {
-        name,
-        owner,
-        price,
-        location,
-        rating,
-        description,
-        favourite,
-        images,
-        phone,
-        comments,
-      };
+      // const dataPlace = {
+      //   name,
+      //   owner,
+      //   price,
+      //   location,
+      //   rating,
+      //   description,
+      //   favourite,
+      //   images,
+      //   phone,
+      //   comments,
+      // };
 
       const newPlace = createPlace(dataPlace);
+      //createPlace(dataPlace);
 
       if (!name) {
         throw new Error("FAIL_CREATE_PLACE");

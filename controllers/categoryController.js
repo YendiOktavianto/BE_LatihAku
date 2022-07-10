@@ -9,14 +9,15 @@ const {
 class categoryController {
   static create(request, response) {
     try {
-      const { name, image } = request.body;
+      // const { name, image } = request.body;
 
-      const dataCategory = {
-        name,
-        image,
-      };
+      // const dataCategory = {
+      //   name,
+      //   image,
+      // };
 
       const newCategory = createCategory(dataCategory);
+      //createCategory(dataCategory);
       response.status(200).json({
         statusCode: 200,
         message: "Create Category Successfully",

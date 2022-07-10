@@ -56,27 +56,28 @@ class userController {
 
   static register(request, response) {
     try {
-      const {
-        firstName,
-        lastName,
-        phoneNumber,
-        email,
-        password,
-        profileImage,
-        address,
-      } = request.body;
+      // const {
+      //   firstName,
+      //   lastName,
+      //   phoneNumber,
+      //   email,
+      //   password,
+      //   profileImage,
+      //   address,
+      // } = request.body;
 
-      const dataUser = {
-        firstName,
-        lastName,
-        phoneNumber,
-        email,
-        password,
-        profileImage,
-        address,
-      };
+      // const dataUser = {
+      //   firstName,
+      //   lastName,
+      //   phoneNumber,
+      //   email,
+      //   password,
+      //   profileImage,
+      //   address,
+      // };
 
       const newUser = registerUser(dataUser);
+      //registerUser(dataUser);
 
       response.status(200).json({
         statusCode: 200,
