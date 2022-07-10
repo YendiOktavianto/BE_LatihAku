@@ -99,10 +99,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-<<<<<<< HEAD
-    await queryInterface.dropTable("coaches");
-=======
     await queryInterface.dropTable("Coaches");
->>>>>>> 228bfe4d6a6d330d3e9e3c997d336ca96f84e090
   },
 };
