@@ -130,6 +130,7 @@ module.exports = (sequelize, DataTypes) => {
           isFloat: true,
         },
       },
+      MyCoachId: DataTypes.INTEGER,
     },
     {
       sequelize,

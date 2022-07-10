@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    CoachId: DataTypes.INTEGER
     {
       sequelize,
       modelName: "Category",
