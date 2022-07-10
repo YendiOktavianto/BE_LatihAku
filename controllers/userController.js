@@ -76,7 +76,7 @@ class userController {
       //   address,
       // };
 
-      const newUser = registerUser(dataUser);
+      const newUser = registerUser();
       //registerUser(dataUser);
 
       response.status(200).json({
