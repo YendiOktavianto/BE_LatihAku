@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your first name",
           },
+          len: [3, 100],
         },
       },
       lastName: {
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your last name",
           },
+          len: [3, 100],
         },
       },
       phoneNumber: {
@@ -38,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your phone number",
           },
+          len: [10, 13],
         },
       },
       email: {
@@ -47,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your email",
           },
+          isEmail: true,
         },
       },
       password: {
@@ -60,8 +64,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       profileImage: {
         Type: DataTypes.STRING,
-        allowNull: false,
-        validate: {},
+        allowNull: true,
+        validate: { isUrl: true },
       },
       address: {
         Type: DataTypes.STRING,
@@ -70,6 +74,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your address",
           },
+          len: [20, 100],
         },
       },
       BookingId: DataTypes.INTEGER,

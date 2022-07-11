@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your schedule",
+            msg: "Please enter or choose your schedule",
           },
+          isDate: true,
         },
       },
       timeRemaining: {
@@ -29,6 +30,8 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your time remaining",
           },
+          isInt: true,
+          min: 1,
         },
       },
       salary: {
@@ -38,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your salary",
           },
+          isFloat: true,
         },
       },
       UserId: DataTypes.INTEGER,

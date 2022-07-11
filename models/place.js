@@ -18,8 +18,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your name",
+            msg: "Please enter the place name",
           },
+          len: [3, 100],
         },
       },
       owner: {
@@ -27,8 +28,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your owner",
+            msg: "Please enter the place name",
           },
+          len: [3, 100],
         },
       },
       price: {
@@ -38,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your price",
           },
+          isFloat: true,
         },
       },
       location: {
@@ -45,8 +48,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your location",
+            msg: "Please enter your place location",
           },
+          len: [3, 100],
         },
       },
       rating: {
@@ -56,6 +60,8 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your rating",
           },
+          len: [0, 5],
+          isFloat: true,
         },
       },
       description: {
@@ -63,8 +69,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your description",
+            msg: "Please enter place description",
           },
+          len: [20, 500],
         },
       },
       favourite: {
@@ -72,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your favourite",
+            msg: "Please choose this place is favourite or not for you",
           },
         },
       },
@@ -83,6 +90,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your images",
           },
+          isUrl: true,
         },
       },
       phone: {
@@ -92,12 +100,15 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please enter your phone",
           },
+          len: [10, 13],
         },
       },
       comments: {
         Type: DataTypes.TEXT,
         allowNull: false,
-        validate: {},
+        validate: {
+          len: [20, 300],
+        },
       },
       BookingId: DataTypes.INTEGER,
     },
