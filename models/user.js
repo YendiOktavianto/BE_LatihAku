@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasOne(models.MyCoach, {
+        foreignKey: "UserId",
+      });
+
+      User.hasOne(models.Booking, {
+        foreignKey: "BookingId",
+      });
     }
   }
   User.init(
@@ -18,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your first name",
+            msg: "Please enter your First Name",
           },
           len: [3, 100],
         },
@@ -28,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your last name",
+            msg: "Please enter your Last Name",
           },
           len: [3, 100],
         },
@@ -38,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your phone number",
+            msg: "Please enter your Phone Number",
           },
           len: [10, 13],
         },
@@ -48,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your email",
+            msg: "Please enter your Email",
           },
           isEmail: true,
         },
@@ -65,7 +72,9 @@ module.exports = (sequelize, DataTypes) => {
       profileImage: {
         Type: DataTypes.STRING,
         allowNull: true,
-        validate: { isUrl: true },
+        validate: {
+          isUrl: true,
+        },
       },
       address: {
         Type: DataTypes.STRING,
