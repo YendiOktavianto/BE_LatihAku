@@ -1,6 +1,6 @@
 const { MyCoach } = require("../models");
-const createMyCoach = async () => {
-  const newMyCoach = await MyCoach.create();
+const createMyCoach = async (dataMyCoach) => {
+  const newMyCoach = await MyCoach.create(dataMyCoach);
   return newMyCoach;
 };
 

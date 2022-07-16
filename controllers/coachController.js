@@ -56,38 +56,37 @@ class coachController {
 
   static register(request, response) {
     try {
-      // const {
-      //   name,
-      //   phone,
-      //   email,
-      //   password,
-      //   profileImage,
-      //   ktp,
-      //   rating,
-      //   description,
-      //   address,
-      //   favourite,
-      //   comments,
-      //   budget,
-      // } = request.body;
+      const {
+        name,
+        phone,
+        email,
+        password,
+        ktp,
+        rating,
+        description,
+        address,
+        favourite,
+        comments,
+        budget,
+      } = request.body;
 
-      // const dataCoach = {
-      //   name,
-      //   phone,
-      //   email,
-      //   password,
-      //   profileImage,
-      //   ktp,
-      //   rating,
-      //   description,
-      //   address,
-      //   favourite,
-      //   comments,
-      //   budget,
-      // };
+      const profileImage = request.file.path;
+      const dataCoach = {
+        name,
+        phone,
+        email,
+        password,
+        profileImage,
+        ktp,
+        rating,
+        description,
+        address,
+        favourite,
+        comments,
+        budget,
+      };
 
-      const newCoach = registerCoach();
-      //      registerCoach(dataCoach);
+      const newCoach = registerCoach(dataCoach);
 
       if (!email) {
         throw new Error("FAIL_CREATE_ACCOUNT");

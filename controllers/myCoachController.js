@@ -8,16 +8,16 @@ const {
 class myCoachController {
   static create(request, response) {
     try {
-      // const { schedule, timeRemaining, salary } = request.body;
+      const { schedule, timeRemaining, salary } = request.body;
 
-      // const dataMyCoach = {
-      //   schedule,
-      //   timeRemaining,
-      //   salary,
-      // };
+      const dataMyCoach = {
+        schedule,
+        timeRemaining,
+        salary,
+      };
 
       const newMyCoach = createMyCoach(dataMyCoach);
-      //createMyCoach(dataMyCoach);
+
       response.status(200).json({
         statusCode: 200,
         message: "Create MyCocach Successfully",

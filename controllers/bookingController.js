@@ -9,15 +9,15 @@ const {
 class bookingController {
   static create(request, response) {
     try {
-      // const { bookingDate, notes } = request.body;
+      const { bookingDate, notes } = request.body;
 
-      // const dataBooking = {
-      //   bookingDate,
-      //   notes,
-      // };
+      const dataBooking = {
+        bookingDate,
+        notes,
+      };
 
       const newBooking = createBooking(dataBooking);
-      //createBooking(dataBooking);
+
       response.status(200).json({
         statusCode: 200,
         message: "Create Booking Successfully",
@@ -172,3 +172,5 @@ class bookingController {
     }
   }
 }
+
+module.exports = bookingController;

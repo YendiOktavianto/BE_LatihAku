@@ -56,28 +56,20 @@ class userController {
 
   static register(request, response) {
     try {
-      // const {
-      //   firstName,
-      //   lastName,
-      //   phoneNumber,
-      //   email,
-      //   password,
-      //   profileImage,
-      //   address,
-      // } = request.body;
+      const { firstName, lastName, phoneNumber, email, password, address } =
+        request.body;
+      const profileImage = request.file.path;
+      const dataUser = {
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        password,
+        profileImage,
+        address,
+      };
 
-      // const dataUser = {
-      //   firstName,
-      //   lastName,
-      //   phoneNumber,
-      //   email,
-      //   password,
-      //   profileImage,
-      //   address,
-      // };
-
-      const newUser = registerUser();
-      //registerUser(dataUser);
+      const newUser = registerUser(dataUser);
 
       response.status(200).json({
         statusCode: 200,
@@ -130,16 +122,9 @@ class userController {
   static update(request, response) {
     try {
       const userId = request.params.id;
-      const {
-        firstName,
-        lastName,
-        phoneNumber,
-        email,
-        password,
-        profileImage,
-        address,
-      } = request.body;
-
+      const { firstName, lastName, phoneNumber, email, password, address } =
+        request.body;
+      const profileImage = request.file.path;
       const updateData = {
         firstName,
         lastName,
