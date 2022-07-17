@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   MyCoach.init(
     {
       schedule: {
-        Type: DataTypes.DATE,
+        type: DataTypes.DATE,
         allowNull: false,
         validate: {
           notNull: {
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       timeRemaining: {
-        Type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           notNull: {
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       salary: {
-        Type: DataTypes.FLOAT,
+        type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
           notNull: {
