@@ -8,7 +8,7 @@ class uploadImagesController {
         throw new Error("MULTER_UPLOADING_ERROR");
       }
 
-      response.status(200).end("Your files uploaded.");
+      //response.status(200).end("Your files uploaded.");
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
@@ -19,10 +19,10 @@ class uploadImagesController {
         code = 413;
         message = err.message;
       }
-      response.status(code).json({
-        statusCode: code,
-        message,
-      });
+      // response.status(code).json({
+      //   statusCode: code,
+      //   message,
+      // });
     }
   }
   static uploadMultipleImage(request, response, limit) {
@@ -32,7 +32,7 @@ class uploadImagesController {
         throw new Error("MULTER_UPLOADING_ERROR");
       }
 
-      response.status(200).end("Your files uploaded.");
+      //response.status(200).end("Your files uploaded.");
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
@@ -43,10 +43,10 @@ class uploadImagesController {
         code = 413;
         message = err.message;
       }
-      response.status(code).json({
-        statusCode: code,
-        message,
-      });
+      // response.status(code).json({
+      //   statusCode: code,
+      //   message,
+      // });
     }
   }
 }
