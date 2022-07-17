@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   Place.init(
     {
       name: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       owner: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       price: {
-        Type: DataTypes.FLOAT,
+        type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
           notNull: {
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       location: {
-        Type: DataTypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notNull: {
@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       rating: {
-        Type: DataTypes.FLOAT,
+        type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
           notNull: {
@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       description: {
-        Type: DataTypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notNull: {
@@ -76,7 +76,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       favourite: {
-        Type: DataTypes.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
         validate: {
           notNull: {
@@ -85,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       images: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -95,7 +95,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       phone: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -105,7 +105,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       comments: {
-        Type: DataTypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           len: [20, 300],

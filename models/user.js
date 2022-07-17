@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   User.init(
     {
       firstName: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       lastName: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       phoneNumber: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       email: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       password: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
@@ -70,14 +70,14 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       profileImage: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: true,
         validate: {
           isUrl: true,
         },
       },
       address: {
-        Type: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {

@@ -68,30 +68,12 @@ class myCoachController {
   static update(request, response) {
     try {
       const myCoachId = request.params.id;
-      const {
-        name,
-        owner,
-        price,
-        location,
-        rating,
-        description,
-        favourite,
-        images,
-        phone,
-        comments,
-      } = request.body;
+      const { schedule, timeRemaining, salary } = request.body;
 
       const updateData = {
-        name,
-        owner,
-        price,
-        location,
-        rating,
-        description,
-        favourite,
-        images,
-        phone,
-        comments,
+        schedule,
+        timeRemaining,
+        salary,
       };
 
       const updatedData = "";
