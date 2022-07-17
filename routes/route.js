@@ -7,6 +7,7 @@ const categoryController = require("../controllers/categoryController");
 const bookingController = require("../controllers/bookingController");
 const myCoachController = require("../controllers/myCoachController");
 const uploadImagesController = require("../controllers/uploadImagesController");
+const { uploadImage } = require("../helper/uploadImage");
 
 //user
 routes.post("user/register", userController.register);
@@ -14,7 +15,7 @@ routes.post("user/login", userController.login);
 routes.get("user/list", userController.list);
 routes.put(
   "user/update/:id",
-  uploadImagesController.uploadOneImage("profileImage"),
+  uploadImage.single("profileImage"),
   userController.update
 );
 routes.delete("user/delete/:id", userController.delete);
@@ -26,7 +27,7 @@ routes.post("coach/login", coachController.login);
 routes.get("coach/list", coachController.list);
 routes.put(
   "coach/update/:id",
-  uploadImagesController.uploadOneImage("profileImage"),
+  uploadImage.single("profileImage"),
   coachController.update
 );
 routes.delete("coach/delete/:id", coachController.delete);
@@ -35,13 +36,13 @@ routes.get("coach/search/:id", coachController.search);
 //place
 routes.post(
   "place/create",
-  uploadImagesController.uploadMultipleImage("Images", 5),
+  uploadImage.array("images", 5),
   placeController.create
 );
 routes.get("place/list", placeController.list);
 routes.put(
   "place/update/:id",
-  uploadImagesController.uploadOneImage("Images", 5),
+  uploadImage.array("images", 5),
   placeController.update
 );
 routes.delete("place/delete/:id", placeController.delete);
