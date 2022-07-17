@@ -12,11 +12,11 @@ const uploadImagesController = require("../controllers/uploadImagesController");
 routes.post("user/register", userController.register);
 routes.post("user/login", userController.login);
 routes.get("user/list", userController.list);
-routes.put(
-  "user/update/:id",
-  uploadImagesController.uploadOneImage("profileImage"),
-  userController.update
-);
+// routes.put(
+//   "user/update/:id",
+//   uploadImagesController.uploadOneImage("profileImage"),
+//   userController.update
+// );
 routes.delete("user/delete/:id", userController.delete);
 routes.get("user/search/:id", userController.search);
 
@@ -24,26 +24,26 @@ routes.get("user/search/:id", userController.search);
 routes.post("coach/register", coachController.register);
 routes.post("coach/login", coachController.login);
 routes.get("coach/list", coachController.list);
-routes.put(
-  "coach/update/:id",
-  uploadImagesController.uploadOneImage("profileImage"),
-  coachController.update
-);
+// routes.put(
+//   "coach/update/:id",
+//   uploadImagesController.uploadOneImage("profileImage"),
+//   coachController.update
+// );
 routes.delete("coach/delete/:id", coachController.delete);
 routes.get("coach/search/:id", coachController.search);
 
 //place
-routes.post(
-  "place/create",
-  uploadImagesController.uploadMultipleImage("Images", 5),
-  placeController.create
-);
+// routes.post(
+//   "place/create",
+//   uploadImagesController.uploadMultipleImage("Images", 5),
+//   placeController.create
+// );
 routes.get("place/list", placeController.list);
-routes.put(
-  "place/update/:id",
-  uploadImagesController.uploadOneImage("Images", 5),
-  placeController.update
-);
+// routes.put(
+//   "place/update/:id",
+//   uploadImagesController.uploadOneImage("Images", 5),
+//   placeController.update
+// );
 routes.delete("place/delete/:id", placeController.delete);
 routes.get("place/search/:id", placeController.search);
 
@@ -69,6 +69,6 @@ routes.delete("myCoach/delete/:id", myCoachController.delete);
 routes.get("myCoach/search/:id", myCoachController.search);
 
 // upload image
-routes.post("image/oneImage", uploadImagesController.uploadOneImage);
-routes.post("image/multipleImage", uploadImagesController.uploadMultipleImage);
+// routes.post("image/oneImage", uploadImagesController.uploadOneImage);
+// routes.post("image/multipleImage", uploadImagesController.uploadMultipleImage);
 module.exports = routes;

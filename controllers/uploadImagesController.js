@@ -1,9 +1,9 @@
 const { uploadImage } = require("../helper/uploadImage");
 
 class uploadImagesController {
-  static uploadOneImage(image) {
+  static uploadOneImage(request, response) {
     try {
-      uploadImage.single(image);
+      uploadImage.single(request);
       if (err instanceof multer.MulterError) {
         throw new Error("MULTER_UPLOADING_ERROR");
       }
@@ -13,7 +13,7 @@ class uploadImagesController {
       let code = 500;
       let message = "Internal Server Error";
       if (err.message === "MULTER_UPLOADING_ERROR") {
-        code = 501;
+        code = 500;
         message = `Multer uploading error: ${err.message}`;
       } else if (err.name == "ExtensionError") {
         code = 413;
@@ -25,9 +25,9 @@ class uploadImagesController {
       });
     }
   }
-  static uploadMultipleImage(image, limit) {
+  static uploadMultipleImage(request, response, limit) {
     try {
-      uploadImage.array(image, limit);
+      uploadImage.array(request, limit);
       if (err instanceof multer.MulterError) {
         throw new Error("MULTER_UPLOADING_ERROR");
       }
