@@ -43,9 +43,9 @@ module.exports = {
       profileImage: {
         type: Sequelize.STRING,
         allowNull: true,
-        validate: {
-          isUrl: true,
-        },
+        // validate: {
+        //   isUrl: true,
+        // },
       },
       address: {
         type: Sequelize.STRING,

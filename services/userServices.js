@@ -1,8 +1,8 @@
 const { User } = require("../models");
-const loginUser = async (username) => {
+const loginUser = async (firstName) => {
   const foundUser = await User.findOne({
     where: {
-      username: username,
+      firstName: firstName,
     },
   });
   return foundUser;
@@ -13,8 +13,9 @@ const registerUser = async (dataUser) => {
   return newUser;
 };
 
-const readOneUser = async (userId) => {
-  const findUser = await User.findOne(userId);
+const readOneUser = async (userId, cb) => {
+  const findUser = await User.findByPk(userId);
+  console.log(findUser);
   return findUser;
 };
 

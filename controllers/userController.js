@@ -1,4 +1,4 @@
-const { compareHash } = require("../helper/hashPassword");
+const { compareHash, hashPassword } = require("../helper/hashPassword");
 const { createToken } = require("../helper/jwt");
 const {
   loginUser,
@@ -12,8 +12,10 @@ const {
 class userController {
   static login(request, response) {
     try {
-      const { username, password } = request.body;
-      const foundUser = loginUser(username);
+      const { firstName, password } = request.body;
+      console.log(firstName);
+      const foundUser = loginUser(firstName);
+      console.log(foundUser);
 
       if (!foundUser) {
         throw new Error("USER_NOT_FOUND");
@@ -59,6 +61,7 @@ class userController {
       const { firstName, lastName, phoneNumber, email, password, address } =
         request.body;
       const profileImage = request.file.path;
+
       const dataUser = {
         firstName,
         lastName,
@@ -68,6 +71,7 @@ class userController {
         profileImage,
         address,
       };
+      dataUser.password = hashPassword(password);
 
       const newUser = registerUser(dataUser);
 
@@ -203,7 +207,8 @@ class userController {
       const userId = request.params.id;
 
       const findUser = readOneUser(userId);
-      if (oldUser <= 0) {
+
+      if (findUser <= 0) {
         throw new Error("USER_NOT_FOUND");
       }
 

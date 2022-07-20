@@ -72,9 +72,9 @@ module.exports = (sequelize, DataTypes) => {
       profileImage: {
         type: DataTypes.STRING,
         allowNull: true,
-        validate: {
-          isUrl: true,
-        },
+        // validate: {
+        //   isUrl: true,
+        // },
       },
       address: {
         type: DataTypes.STRING,

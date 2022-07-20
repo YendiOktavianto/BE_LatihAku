@@ -1,5 +1,5 @@
 let multer = require("multer");
-const DIR = "../images";
+const DIR = "./images";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const fileName = file.originalname.toLowerCase().split(" ").join("-");
-    cb(null, fileName + Date.now());
+    cb(null, Date.now() + fileName);
   },
 });
 
@@ -25,7 +25,7 @@ var uploadImage = multer({
       return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
   },
-  limits: { fileSize: 5 * 1024 * 1024 }, // 1mb
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5mb
 });
 
 module.exports = {
