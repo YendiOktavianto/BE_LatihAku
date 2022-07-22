@@ -9,19 +9,21 @@ const {
 class categoryController {
   static create(request, response) {
     try {
-      const { name, image } = request.body;
+      const { name } = request.body;
+
+      const image = request.file.path;
 
       const dataCategory = {
         name,
         image,
       };
 
-      createCategory(dataCategory).then(function (newCategory) {
-        response.status(200).json({
-          statusCode: 200,
-          message: "Create Category Successfully",
-          data: newCategory,
-        });
+      const newCategory = await createCategory(dataCategory);
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Create Category Successfully",
+        data: newCategory,
       });
     } catch (err) {
       let code = 500;
@@ -41,16 +43,16 @@ class categoryController {
 
   static list(response) {
     try {
-      readAllCategory().then(function (findAllCategory) {
-        if (findAllCategory <= 0) {
-          throw new Error("CATEGORY_IS_EMPTY");
-        }
+      const findAllCategory = await readAllCategory();
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Category found",
-          data: findAllCategory,
-        });
+      if (findAllCategory <= 0) {
+        throw new Error("CATEGORY_IS_EMPTY");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Category found",
+        data: findAllCategory,
       });
     } catch (err) {
       let code = 500;
@@ -70,25 +72,27 @@ class categoryController {
   static update(request, response) {
     try {
       const categoryId = request.params.id;
-      const { name, image } = request.body;
+      const { name } = request.body;
+      const image = request.file.path;
 
       const updateData = {
         name,
         image,
       };
-      readOneCategory(categoryId).then(function (unUpdatedCategory) {
-        if (unUpdatedCategory <= 0) {
-          throw new Error("CATEGORY_NOT_FOUND");
-        } else {
-          updateCategory(updateData).then(function (updatedCategory) {
-            response.status(200).json({
-              statusCode: 200,
-              message: "Category updated successfully",
-              data: updatedCategory,
-            });
-          });
-        }
-      });
+
+      const unUpdatedCategory = await readOneCategory(categoryId);
+
+      if (unUpdatedCategory <= 0) {
+        throw new Error("CATEGORY_NOT_FOUND");
+      } else {
+        const updatedCategory = await updateCategory(updateData);
+
+        response.status(200).json({
+          statusCode: 200,
+          message: "Category updated successfully",
+          data: updatedCategory,
+        });
+      }
     } catch (err) {
       let code = 500;
       let msg = "Internal Server Error";
@@ -113,15 +117,15 @@ class categoryController {
   static delete(request, response) {
     try {
       const categoryId = request.params.id;
-      deleteCategory(categoryId).then(function (deletedCategory) {
-        if (deletedCategory <= 0) {
-          throw new Error("CATEGORY_NOT_FOUND");
-        }
-        response.status(200).json({
-          statusCode: 200,
-          message: `Category deleted successfully`,
-          data: deletedCategory,
-        });
+      const deletedCategory = await deleteCategory(categoryId);
+
+      if (deletedCategory <= 0) {
+        throw new Error("CATEGORY_NOT_FOUND");
+      }
+      response.status(200).json({
+        statusCode: 200,
+        message: `Category deleted successfully`,
+        data: deletedCategory,
       });
     } catch (err) {
       let code = 500;
@@ -144,16 +148,17 @@ class categoryController {
   static search(request, response) {
     try {
       const categoryId = request.params.id;
-      readOneCategory(categoryId).then(function (findCategory) {
-        if (findCategory <= 0) {
-          throw new Error("CATEGORY_NOT_FOUND");
-        }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Category Found",
-          data: findCategory,
-        });
+      const findCategory = await readOneCategory(categoryId);
+
+      if (findCategory <= 0) {
+        throw new Error("CATEGORY_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Category Found",
+        data: findCategory,
       });
     } catch (err) {
       let code = 500;

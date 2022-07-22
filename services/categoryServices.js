@@ -1,26 +1,26 @@
 const { Category } = require("../models");
-const createCategory = async (dataCategory) => {
-  return await Category.create(dataCategory);
+const createCategory =  (dataCategory) => {
+  return  Category.create(dataCategory);
 };
 
-const readOneCategory = async (categoryId) => {
-  return await Category.findByPk(categoryId);
+const readOneCategory =  (categoryId) => {
+  return  Category.findByPk(categoryId);
 };
 
-const readAllCategory = async () => {
-  return await Category.findAll();
+const readAllCategory =  () => {
+  return  Category.findAll();
 };
 
-const updateCategory = async (updateData) => {
-  return await Category.update({
+const updateCategory =  (updateData) => {
+  return  Category.update({
     where: {
       updateData,
     },
   });
 };
 
-const deleteCategory = async (categoryId) => {
-  return await Category.destroy({
+const deleteCategory =  (categoryId) => {
+  return  Category.destroy({
     where: {
       categoryId,
     },

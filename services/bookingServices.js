@@ -1,24 +1,24 @@
 const { Booking } = require("../models");
-const createBooking = async (dataBooking) => {
-  return await Booking.create(dataBooking);
+const createBooking = (dataBooking) => {
+  return Booking.create(dataBooking);
 };
 
-const readOneBooking = async (bookingId) => {
-  return await Booking.findByPk(bookingId);
+const readOneBooking = (bookingId) => {
+  return Booking.findByPk(bookingId);
 };
 
-const readAllBooking = async () => {
-  return await Booking.findAll();
+const readAllBooking = () => {
+  return Booking.findAll();
 };
 
-const updateBooking = async (updateData) => {
-  return await Booking.update({
+const updateBooking = (updateData) => {
+  return Booking.update({
     where: { updateData },
   });
 };
 
-const deleteBooking = async (bookingId) => {
-  return await Booking.destroy({
+const deleteBooking = (bookingId) => {
+  return Booking.destroy({
     where: {
       bookingId,
     },

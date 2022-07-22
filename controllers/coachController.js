@@ -13,29 +13,29 @@ class coachController {
   static login(request, response) {
     try {
       const { firstName, password } = request.body;
-      loginCoach(firstName).then(function (foundCoach) {
-        if (!foundCoach) {
-          throw new Error("USER_NOT_FOUND");
-        }
+      const foundCoach = await loginCoach(firstName);
 
-        const correctPassword = compareHash(password, foundCoach.password);
+      if (!foundCoach) {
+        throw new Error("USER_NOT_FOUND");
+      }
 
-        if (!correctPassword) {
-          throw new Error("INVALID_PASSWORD");
-        }
+      const correctPassword = compareHash(password, foundCoach.password);
 
-        const payload = {
-          id: foundCoach.id,
-          username: foundCoach.username,
-        };
+      if (!correctPassword) {
+        throw new Error("INVALID_PASSWORD");
+      }
 
-        const access_token = createToken(payload);
+      const payload = {
+        id: foundCoach.id,
+        username: foundCoach.username,
+      };
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Login Successfully",
-          access_token: access_token,
-        });
+      const access_token = createToken(payload);
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Login Successfully",
+        access_token: access_token,
       });
     } catch (err) {
       console.log(err);
@@ -86,19 +86,18 @@ class coachController {
         budget,
       };
 
-      registerCoach(dataCoach).then(function (newCoach) {
-        if (!newCoach) {
-          throw new Error("FAIL_CREATE_ACCOUNT");
-        }
+      const newCoach = await registerCoach(dataCoach);
+      if (!newCoach) {
+        throw new Error("FAIL_CREATE_ACCOUNT");
+      }
 
-        response.status(201).json({
-          statusCode: 201,
-          message: "Create Account Successfully",
-          data: {
-            id: newCoach.id,
-            email: newCoach.email,
-          },
-        });
+      response.status(201).json({
+        statusCode: 201,
+        message: "Create Account Successfully",
+        data: {
+          id: newCoach.id,
+          email: newCoach.email,
+        },
       });
     } catch (err) {
       let code = 500;
@@ -118,15 +117,14 @@ class coachController {
 
   static list(response) {
     try {
-      readAllCoach().then(function (findAllCoach) {
-        if (findAllCoach <= 0) {
-          throw new Error("COACH_IS_EMPTY");
-        }
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Coach Found",
-          data: findAllCoach,
-        });
+      const findAllCoach = await readAllCoach();
+      if (findAllCoach <= 0) {
+        throw new Error("COACH_IS_EMPTY");
+      }
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Coach Found",
+        data: findAllCoach,
       });
     } catch (err) {
       let code = 500;
@@ -151,7 +149,6 @@ class coachController {
         phone,
         email,
         password,
-        profileImage,
         ktp,
         rating,
         description,
@@ -160,6 +157,7 @@ class coachController {
         comments,
         budget,
       } = request.body;
+      const profileImage = request.file.path;
 
       const updateData = {
         name,
@@ -176,19 +174,17 @@ class coachController {
         budget,
       };
 
-      readOneCoach(coachId).then(function (unUpdatedCoach) {
-        if (unUpdatedCoach <= 0) {
-          throw new Error("COACH_NOT_FOUND");
-        } else {
-          updateCoach(updateData).then(function (updatedCoach) {
-            response.status(200).json({
-              statusCode: 200,
-              message: "Data Coach updated Successfully",
-              data: updatedCoach,
-            });
-          });
-        }
-      });
+      const unUpdatedCoach = await readOneCoach(coachId);
+      if (unUpdatedCoach <= 0) {
+        throw new Error("COACH_NOT_FOUND");
+      } else {
+        const updatedCoach = updateCoach(updateData);
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Coach updated Successfully",
+          data: updatedCoach,
+        });
+      }
     } catch (err) {
       console.log(err);
       let code = 500;
@@ -213,16 +209,15 @@ class coachController {
     try {
       const coachId = request.params.id;
 
-      deleteCoach(coachId).then(function (deletedCoach) {
-        if (deletedCoach <= 0) {
-          throw new Error("COACH_NOT_FOUND");
-        }
+      const deletedCoach = await deleteCoach(coachId);
+      if (deletedCoach <= 0) {
+        throw new Error("COACH_NOT_FOUND");
+      }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Coach deleted Successfully",
-          data: deletedCoach,
-        });
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Coach deleted Successfully",
+        data: deletedCoach,
       });
     } catch (err) {
       let code = 500;
@@ -244,16 +239,15 @@ class coachController {
     try {
       const coachId = request.params.id;
 
-      readOneCoach(coachId).then(function (findCoach) {
-        if (findCoach <= 0) {
-          throw new Error("COACH_NOT_FOUND");
-        }
+      const findCoach = await readOneCoach(coachId);
+      if (findCoach <= 0) {
+        throw new Error("COACH_NOT_FOUND");
+      }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Coach Found",
-          data: findCoach,
-        });
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Coach Found",
+        data: findCoach,
       });
     } catch (err) {
       let code = 500;

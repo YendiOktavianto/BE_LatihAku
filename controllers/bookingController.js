@@ -7,7 +7,7 @@ const {
 } = require("../services/bookingServices");
 
 class bookingController {
-  static create(request, response) {
+  static async create(request, response) {
     try {
       const { bookingDate, notes } = request.body;
 
@@ -16,12 +16,12 @@ class bookingController {
         notes,
       };
 
-      createBooking(dataBooking).then(function (newBooking) {
-        response.status(200).json({
-          statusCode: 200,
-          message: "Create Booking Successfully",
-          data: newBooking,
-        });
+      const newBooking = await createBooking(dataBooking);
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Create Booking Successfully",
+        data: newBooking,
       });
     } catch (err) {
       let code = 500;
@@ -41,17 +41,16 @@ class bookingController {
 
   static list(request, response) {
     try {
-      findAllBooking = await readAllBooking()//.then(function (findAllBooking) {
-        if (findAllBooking <= 0) {
-          throw new Error("BOOKING_IS_EMPTY");
-        }
+      const findAllBooking = await readAllBooking();
+      if (findAllBooking <= 0) {
+        throw new Error("BOOKING_IS_EMPTY");
+      }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Booking found",
-          data: findAllBooking,
-        });
-     // });
+      response.status(200).json({
+        statusCode: 200,
+        message: "Booking found",
+        data: findAllBooking,
+      });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
@@ -76,19 +75,19 @@ class bookingController {
         bookingDate,
         notes,
       };
-      readOneBooking(bookingId).then(function (unUpdatedBooking) {
-        if (unUpdatedBooking <= 0) {
-          throw new Error("BOOKING_NOT_FOUND");
-        } else {
-          updateBooking(updateData).then(function (updatedBooking) {
-            response.status(200).json({
-              statusCode: 200,
-              message: "Data Booking updated successfully",
-              data: updatedBooking,
-            });
-          });
-        }
-      });
+
+      const unUpdatedBooking = await readOneBooking(bookingId);
+
+      if (unUpdatedBooking <= 0) {
+        throw new Error("BOOKING_NOT_FOUND");
+      } else {
+        const updatedBooking = await updateBooking(updateData);
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Booking updated successfully",
+          data: updatedBooking,
+        });
+      }
     } catch (error) {
       let code = 500;
       let msg = "Internal Server Error";
@@ -113,16 +112,17 @@ class bookingController {
   static delete(request, response) {
     try {
       const bookingId = request.params.id;
-      deleteBooking(bookingId).then(function (deletedBooking) {
-        if (deletedBooking <= 0) {
-          throw new Error("BOOKING_NOT_FOUND");
-        }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: `Data Booking deleted successfully`,
-          data: deletedBooking,
-        });
+      const deletedBooking = await deleteBooking(bookingId);
+
+      if (deletedBooking <= 0) {
+        throw new Error("BOOKING_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: `Data Booking deleted successfully`,
+        data: deletedBooking,
       });
     } catch (err) {
       let code = 500;
@@ -145,16 +145,16 @@ class bookingController {
   static search(request, response) {
     try {
       const bookingId = request.params.id;
-      readOneBooking(bookingId).then(function (findBooking) {
-        if (findBooking <= 0) {
-          throw new Error("BOOKING_NOT_FOUND");
-        }
+      const findBooking = await readOneBooking(bookingId);
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Booking Found",
-          data: findBooking,
-        });
+      if (findBooking <= 0) {
+        throw new Error("BOOKING_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Booking Found",
+        data: findBooking,
       });
     } catch (err) {
       let code = 500;
