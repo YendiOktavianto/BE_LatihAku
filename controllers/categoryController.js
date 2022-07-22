@@ -16,12 +16,12 @@ class categoryController {
         image,
       };
 
-      const newCategory = createCategory(dataCategory);
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Create Category Successfully",
-        data: newCategory,
+      createCategory(dataCategory).then(function (newCategory) {
+        response.status(200).json({
+          statusCode: 200,
+          message: "Create Category Successfully",
+          data: newCategory,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -41,15 +41,16 @@ class categoryController {
 
   static list(response) {
     try {
-      const findAllCategory = readAllCategory();
-      if (findAllCategory <= 0) {
-        throw new Error("CATEGORY_IS_EMPTY");
-      }
+      readAllCategory().then(function (findAllCategory) {
+        if (findAllCategory <= 0) {
+          throw new Error("CATEGORY_IS_EMPTY");
+        }
 
-      response.status(200).json({
-        statusCode: 200,
-        message: "Category found",
-        data: findAllCategory,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Category found",
+          data: findAllCategory,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -75,19 +76,18 @@ class categoryController {
         name,
         image,
       };
-
-      const updatedData = "";
-      const oldCategory = readOneCategory(categoryId);
-      if (oldCategory <= 0) {
-        throw new Error("CATEGORY_NOT_FOUND");
-      } else {
-        updatedData = updateCategory(updateData);
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Category updated successfully",
-        data: updatedData,
+      readOneCategory(categoryId).then(function (unUpdatedCategory) {
+        if (unUpdatedCategory <= 0) {
+          throw new Error("CATEGORY_NOT_FOUND");
+        } else {
+          updateCategory(updateData).then(function (updatedCategory) {
+            response.status(200).json({
+              statusCode: 200,
+              message: "Category updated successfully",
+              data: updatedCategory,
+            });
+          });
+        }
       });
     } catch (err) {
       let code = 500;
@@ -113,16 +113,15 @@ class categoryController {
   static delete(request, response) {
     try {
       const categoryId = request.params.id;
-      const deletedCategory = deleteCategory(categoryId);
-
-      if (deletedCategory <= 0) {
-        throw new Error("CATEGORY_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: `Category deleted successfully`,
-        data: deletedCategory,
+      deleteCategory(categoryId).then(function (deletedCategory) {
+        if (deletedCategory <= 0) {
+          throw new Error("CATEGORY_NOT_FOUND");
+        }
+        response.status(200).json({
+          statusCode: 200,
+          message: `Category deleted successfully`,
+          data: deletedCategory,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -145,16 +144,16 @@ class categoryController {
   static search(request, response) {
     try {
       const categoryId = request.params.id;
-      const findCategory = readOneCategory(categoryId);
+      readOneCategory(categoryId).then(function (findCategory) {
+        if (findCategory <= 0) {
+          throw new Error("CATEGORY_NOT_FOUND");
+        }
 
-      if (findCategory <= 0) {
-        throw new Error("CATEGORY_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Category Found",
-        data: findCategory,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Category Found",
+          data: findCategory,
+        });
       });
     } catch (err) {
       let code = 500;

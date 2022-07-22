@@ -1,35 +1,30 @@
 const { Place } = require("../models");
 const createPlace = async (dataPlace) => {
-  const newPlace = await Place.create(dataPlace);
-  return newPlace;
+  return await Place.create(dataPlace);
 };
 
 const readOnePlace = async (placeId) => {
-  const findPlace = await Place.findByPk(placeId);
-  return findPlace;
+  return await Place.findByPk(placeId);
 };
 
 const readAllPlace = async () => {
-  const findAllPlace = await Place.findAll();
-  return findAllPlace;
+  return await Place.findAll();
 };
 
 const updatePlace = async (updateData) => {
-  const updatedPlace = await Place.update({
+  return await Place.update({
     where: {
       updateData,
     },
   });
-  return updatedPlace;
 };
 
 const deletePlace = async (placeId) => {
-  const deletedPlace = await Place.destroy({
+  return await Place.destroy({
     where: {
       placeId,
     },
   });
-  return deletedPlace;
 };
 
 module.exports = {
