@@ -39,7 +39,7 @@ class bookingController {
     }
   }
 
-  static list(request, response) {
+  static async list(request, response) {
     try {
       const findAllBooking = await readAllBooking();
       if (findAllBooking <= 0) {
@@ -66,7 +66,7 @@ class bookingController {
     }
   }
 
-  static update(request, response) {
+  static async update(request, response) {
     try {
       const bookingId = request.params.id;
       const { bookingDate, notes } = request.body;
@@ -109,7 +109,7 @@ class bookingController {
     }
   }
 
-  static delete(request, response) {
+  static async delete(request, response) {
     try {
       const bookingId = request.params.id;
 
@@ -142,7 +142,7 @@ class bookingController {
     }
   }
 
-  static search(request, response) {
+  static async search(request, response) {
     try {
       const bookingId = request.params.id;
       const findBooking = await readOneBooking(bookingId);

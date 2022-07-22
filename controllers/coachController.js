@@ -10,7 +10,7 @@ const { compareHash } = require("../helper/hashPassword");
 const { createToken } = require("../helper/jwt");
 
 class coachController {
-  static login(request, response) {
+  static async login(request, response) {
     try {
       const { firstName, password } = request.body;
       const foundCoach = await loginCoach(firstName);
@@ -54,7 +54,7 @@ class coachController {
     }
   }
 
-  static register(request, response) {
+  static async register(request, response) {
     try {
       const {
         name,
@@ -115,7 +115,7 @@ class coachController {
     }
   }
 
-  static list(response) {
+  static async list(response) {
     try {
       const findAllCoach = await readAllCoach();
       if (findAllCoach <= 0) {
@@ -141,7 +141,7 @@ class coachController {
     }
   }
 
-  static update(request, response) {
+  static async update(request, response) {
     try {
       const coachId = request.params.id;
       const {
@@ -205,7 +205,7 @@ class coachController {
     }
   }
 
-  static delete(request, response) {
+  static async delete(request, response) {
     try {
       const coachId = request.params.id;
 
@@ -235,7 +235,7 @@ class coachController {
     }
   }
 
-  static search(request, response) {
+  static async search(request, response) {
     try {
       const coachId = request.params.id;
 

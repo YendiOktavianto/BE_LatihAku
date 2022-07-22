@@ -7,7 +7,7 @@ const {
 } = require("../services/categoryServices");
 
 class categoryController {
-  static create(request, response) {
+  static async create(request, response) {
     try {
       const { name } = request.body;
 
@@ -41,7 +41,7 @@ class categoryController {
     }
   }
 
-  static list(response) {
+  static async list(response) {
     try {
       const findAllCategory = await readAllCategory();
 
@@ -69,7 +69,7 @@ class categoryController {
     }
   }
 
-  static update(request, response) {
+  static async update(request, response) {
     try {
       const categoryId = request.params.id;
       const { name } = request.body;
@@ -114,7 +114,7 @@ class categoryController {
     }
   }
 
-  static delete(request, response) {
+  static async delete(request, response) {
     try {
       const categoryId = request.params.id;
       const deletedCategory = await deleteCategory(categoryId);
@@ -145,7 +145,7 @@ class categoryController {
     }
   }
 
-  static search(request, response) {
+  static async search(request, response) {
     try {
       const categoryId = request.params.id;
 
