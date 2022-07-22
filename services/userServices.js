@@ -20,10 +20,11 @@ const readAllUser = () => {
   return User.findAll();
 };
 
-const updateUser = (updateData) => {
+const updateUser = (updateData, id) => {
   return User.update({
+    updateData,
     where: {
-      updateData,
+      id,
     },
   });
 };

@@ -8,10 +8,13 @@ const bookingController = require("../controllers/bookingController");
 const myCoachController = require("../controllers/myCoachController");
 const uploadImagesController = require("../controllers/uploadImagesController");
 const { uploadImage } = require("../helper/uploadImage");
+const validate = require("../middlewares/validate");
 
 //user
 routes.post(
   "/user/register",
+  registerUser(),
+  validate,
   uploadImage.single("profileImage"),
   userController.register
 );

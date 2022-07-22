@@ -138,13 +138,16 @@ class userController {
       if (unUpdatedUser <= 0) {
         throw new Error("USER_NOT_FOUND");
       } else {
-        const updatedUser = await updateUser(updateData);
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data User Updated Successfully",
-          data: updatedUser,
-        });
+        unUpdatedUser.update(updateData);
+
+        //const updatedUser = await updateUser(updateData, userId);
       }
+      //console.log(unUpdatedUser);
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data User Updated Successfully",
+        data: unUpdatedUser,
+      });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";

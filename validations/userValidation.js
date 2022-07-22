@@ -1,6 +1,6 @@
 const { body, param, query } = require("express-validator");
 
-const createUser = () => [
+const registerUser = () => [
   param("id").notEmpty().isUUID(),
   body("name").optional().notEmpty().isString(),
   body("age").optional().notEmpty().isInt(),
@@ -33,7 +33,7 @@ const findOneUser = () => [
 ];
 
 module.exports = {
-  createUser,
+  registerUser,
   deleteUser,
   updateUser,
   findOneUser,
