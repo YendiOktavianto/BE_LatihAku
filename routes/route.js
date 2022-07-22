@@ -7,13 +7,14 @@ const categoryController = require("../controllers/categoryController");
 const bookingController = require("../controllers/bookingController");
 const myCoachController = require("../controllers/myCoachController");
 const uploadImagesController = require("../controllers/uploadImagesController");
-const { uploadImage } = require("../helper/uploadImage");
+const uploadImage = require("../helper/uploadImage");
 const validate = require("../middlewares/validate");
+const validation = require("../validations/person");
 
 //user
 routes.post(
   "/user/register",
-  registerUser(),
+  validation.registerUser(),
   validate,
   uploadImage.single("profileImage"),
   userController.register
