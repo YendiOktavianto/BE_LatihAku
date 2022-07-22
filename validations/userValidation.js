@@ -1,0 +1,40 @@
+const { body, param, query } = require("express-validator");
+
+const createUser = () => [
+  param("id").notEmpty().isUUID(),
+  body("name").optional().notEmpty().isString(),
+  body("age").optional().notEmpty().isInt(),
+  body("gender").optional().notEmpty().isIn(["female", "male"]),
+  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+];
+
+const updateUser = () => [
+  param("id").notEmpty().isUUID(),
+  body("name").optional().notEmpty().isString(),
+  body("age").optional().notEmpty().isInt(),
+  body("gender").optional().notEmpty().isIn(["female", "male"]),
+  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+];
+
+const deleteUser = () => [
+  param("id").notEmpty().isUUID(),
+  body("name").optional().notEmpty().isString(),
+  body("age").optional().notEmpty().isInt(),
+  body("gender").optional().notEmpty().isIn(["female", "male"]),
+  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+];
+
+const findOneUser = () => [
+  param("id").notEmpty().isUUID(),
+  body("name").optional().notEmpty().isString(),
+  body("age").optional().notEmpty().isInt(),
+  body("gender").optional().notEmpty().isIn(["female", "male"]),
+  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+];
+
+module.exports = {
+  createUser,
+  deleteUser,
+  updateUser,
+  findOneUser,
+};
