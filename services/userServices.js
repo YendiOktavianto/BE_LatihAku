@@ -1,35 +1,35 @@
 const { User } = require("../models");
 
-const loginUser = async (firstName) => {
-  return await User.findOne({
+const loginUser = (firstName) => {
+  return User.findOne({
     where: {
       firstName: firstName,
     },
   });
 };
 
-const registerUser = async (dataUser) => {
-  return await User.create(dataUser);
+const registerUser = (dataUser) => {
+  return User.create(dataUser);
 };
 
-const readOneUser = async (userId) => {
-  return await User.findByPk(userId);
+const readOneUser = (userId) => {
+  return User.findByPk(userId);
 };
 
-const readAllUser = async () => {
-  return await User.findAll();
+const readAllUser = () => {
+  return User.findAll();
 };
 
-const updateUser = async (updateData) => {
-  return await User.update({
+const updateUser = (updateData) => {
+  return User.update({
     where: {
       updateData,
     },
   });
 };
 
-const deleteUser = async (userId) => {
-  return await User.destroy({
+const deleteUser = (userId) => {
+  return User.destroy({
     where: {
       userId,
     },

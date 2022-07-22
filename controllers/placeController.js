@@ -8,7 +8,7 @@ const {
 } = require("../services/placeServices");
 
 class placeController {
-  static create(request, response) {
+  static async create(request, response) {
     try {
       const {
         name,
@@ -36,16 +36,15 @@ class placeController {
         comments,
       };
 
-      createPlace(dataPlace).then(function (newPlace) {
-        if (!newPlace) {
-          throw new Error("FAIL_CREATE_PLACE");
-        }
+      newPlace = await createPlace(dataPlace);
+      if (!newPlace) {
+        throw new Error("FAIL_CREATE_PLACE");
+      }
 
-        response.status(201).json({
-          statusCode: 201,
-          message: "Create Place Successfully",
-          data: newPlace,
-        });
+      response.status(201).json({
+        statusCode: 201,
+        message: "Create Place Successfully",
+        data: newPlace,
       });
     } catch (err) {
       let code = 500;
@@ -63,17 +62,16 @@ class placeController {
     }
   }
 
-  static list(response) {
+  static async list(response) {
     try {
-      readAllPlace().then(function (findAllPlace) {
-        if (findAllPlace <= 0) {
-          throw new Error("PLACE_IS_EMPTY");
-        }
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Place Found",
-          data: findAllPlace,
-        });
+      findAllPlace = await readAllPlace();
+      if (findAllPlace <= 0) {
+        throw new Error("PLACE_IS_EMPTY");
+      }
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Place Found",
+        data: findAllPlace,
       });
     } catch (err) {
       console.log(err);
@@ -91,7 +89,7 @@ class placeController {
     }
   }
 
-  static update(request, response) {
+  static async update(request, response) {
     try {
       const placeId = request.params.id;
       const {
@@ -120,19 +118,17 @@ class placeController {
         comments,
       };
 
-      readOnePlace(placeId).then(function (unUpdatedPlace) {
-        if (unUpdatedPlace <= 0) {
-          throw new Error("PLACE_NOT_FOUND");
-        } else {
-          updatePlace(updateData).then(function (updatedPlace) {
-            response.status(200).json({
-              statusCode: 200,
-              message: "Data Place Updated Successfully",
-              data: updatedPlace,
-            });
-          });
-        }
-      });
+      const unUpdatedPlace = await readOnePlace(placeId);
+      if (unUpdatedPlace <= 0) {
+        throw new Error("PLACE_NOT_FOUND");
+      } else {
+        const updatedPlace = await updatePlace(updateData);
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Place Updated Successfully",
+          data: updatedPlace,
+        });
+      }
     } catch (err) {
       console.log(err);
       let code = 500;
@@ -153,20 +149,19 @@ class placeController {
     }
   }
 
-  static delete(response) {
+  static async delete(response) {
     try {
       const placeId = request.params.id;
 
-      deletePlace(placeId).then(function (deletedPlace) {
-        if (deletedPlace <= 0) {
-          throw new Error("PLACE_NOT_FOUND");
-        }
+      const deletedPlace = await deletePlace(placeId);
+      if (deletedPlace <= 0) {
+        throw new Error("PLACE_NOT_FOUND");
+      }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Place deleted Successfully",
-          data: deletedPlace,
-        });
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Place deleted Successfully",
+        data: deletedPlace,
       });
     } catch (err) {
       let code = 500;
@@ -184,20 +179,19 @@ class placeController {
     }
   }
 
-  static search(request, response) {
+  static async search(request, response) {
     try {
       const placeId = request.params.id;
 
-      readOnePlace(placeId).then(function (findPlace) {
-        if (findPlace <= 0) {
-          throw new Error("PLACE_NOT_FOUND");
-        }
+      const findPlace = await readOnePlace(placeId);
+      if (findPlace <= 0) {
+        throw new Error("PLACE_NOT_FOUND");
+      }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Place Found",
-          data: findPlace,
-        });
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Place Found",
+        data: findPlace,
       });
     } catch (err) {
       let code = 500;

@@ -6,7 +6,7 @@ const {
   readAllMyCoach,
 } = require("../services/myCoachServices");
 class myCoachController {
-  static create(request, response) {
+  static async create(request, response) {
     try {
       const { schedule, timeRemaining, salary } = request.body;
 
@@ -16,12 +16,11 @@ class myCoachController {
         salary,
       };
 
-      createMyCoach(dataMyCoach).then(function (newMyCoach) {
-        response.status(200).json({
-          statusCode: 200,
-          message: "Create MyCocach Successfully",
-          data: newMyCoach,
-        });
+      newMyCoach = await createMyCoach(dataMyCoach);
+      response.status(200).json({
+        statusCode: 200,
+        message: "Create MyCocach Successfully",
+        data: newMyCoach,
       });
     } catch (err) {
       let code = 500;
@@ -39,17 +38,16 @@ class myCoachController {
     }
   }
 
-  static list(response) {
+  static async list(response) {
     try {
-      readAllMyCoach().then(function (findAllMyCoach) {
-        if (findAllMyCoach <= 0) {
-          throw new Error("MY_COACH_IS_EMPTY");
-        }
-        response.status(200).json({
-          statusCode: 200,
-          message: "My Coach found",
-          data: findAllMyCoach,
-        });
+      const findAllMyCoach = await readAllMyCoach();
+      if (findAllMyCoach <= 0) {
+        throw new Error("MY_COACH_IS_EMPTY");
+      }
+      response.status(200).json({
+        statusCode: 200,
+        message: "My Coach found",
+        data: findAllMyCoach,
       });
     } catch (err) {
       let code = 500;
@@ -66,7 +64,7 @@ class myCoachController {
     }
   }
 
-  static update(request, response) {
+  static async update(request, response) {
     try {
       const myCoachId = request.params.id;
       const { schedule, timeRemaining, salary } = request.body;
@@ -77,19 +75,17 @@ class myCoachController {
         salary,
       };
 
-      FindMyCoach(myCoachId).then(function (unUpdatedMyCoach) {
-        if (unUpdatedMyCoach < 0) {
-          throw new Error("MY_COACH_NOT_FOUND");
-        } else {
-          updateMyCoach(updateData).then(function (updatedMycoach) {
-            response.status(200).json({
-              statusCode: 200,
-              message: "My Coach updated Successfully",
-              data: updatedMycoach,
-            });
-          });
-        }
-      });
+      const unUpdatedMyCoach = await FindMyCoach(myCoachId);
+      if (unUpdatedMyCoach < 0) {
+        throw new Error("MY_COACH_NOT_FOUND");
+      } else {
+        const updatedMycoach = await updateMyCoach(updateData);
+        response.status(200).json({
+          statusCode: 200,
+          message: "My Coach updated Successfully",
+          data: updatedMycoach,
+        });
+      }
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
@@ -109,19 +105,18 @@ class myCoachController {
     }
   }
 
-  static delete(response) {
+  static async delete(response) {
     try {
       const myCoachId = request.params.id;
-      deleteMyCoach(myCoachId).then(function (deletedMyCoach) {
-        if (deletedMyCoach < 0) {
-          throw new Error("MY_COACH_NOT_FOUND");
-        }
+      const deletedMyCoach = await deleteMyCoach(myCoachId);
+      if (deletedMyCoach < 0) {
+        throw new Error("MY_COACH_NOT_FOUND");
+      }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "My Coach deleted Successfully",
-          data: deletedMyCoach,
-        });
+      response.status(200).json({
+        statusCode: 200,
+        message: "My Coach deleted Successfully",
+        data: deletedMyCoach,
       });
     } catch (err) {
       let code = 500;
@@ -139,20 +134,19 @@ class myCoachController {
     }
   }
 
-  static search(request, response) {
+  static async search(request, response) {
     try {
       const myCoachId = request.params.id;
 
-      readOneMyCoach(myCoachId).then(function (findMyCoach) {
-        if (findMyCoach <= 0) {
-          throw new Error("MY_COACH_NOT_FOUND");
-        }
+      const findMyCoach = await readOneMyCoach(myCoachId);
+      if (findMyCoach <= 0) {
+        throw new Error("MY_COACH_NOT_FOUND");
+      }
 
-        response.status(200).json({
-          statusCode: 200,
-          message: "My Coach found",
-          data: findMyCoach,
-        });
+      response.status(200).json({
+        statusCode: 200,
+        message: "My Coach found",
+        data: findMyCoach,
       });
     } catch (err) {
       let code = 500;

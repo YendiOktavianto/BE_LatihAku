@@ -41,7 +41,7 @@ class bookingController {
 
   static list(request, response) {
     try {
-      readAllBooking().then(function (findAllBooking) {
+      findAllBooking = await readAllBooking()//.then(function (findAllBooking) {
         if (findAllBooking <= 0) {
           throw new Error("BOOKING_IS_EMPTY");
         }
@@ -51,7 +51,7 @@ class bookingController {
           message: "Booking found",
           data: findAllBooking,
         });
-      });
+     // });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
