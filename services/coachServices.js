@@ -1,6 +1,6 @@
 const { Coach } = require("../models");
-const loginCoach = async (username) => {
-  const foundCoach = await Coach.findOne({
+const loginCoach =  (username) => {
+  const foundCoach =  Coach.findOne({
     where: {
       username: username,
     },
@@ -8,30 +8,30 @@ const loginCoach = async (username) => {
   return foundCoach;
 };
 
-const registerCoach = async (dataCoach) => {
-  const newCoach = await Coach.create(dataCoach);
+const registerCoach =  (dataCoach) => {
+  const newCoach =  Coach.create(dataCoach);
   return newCoach;
 };
 
-const readOneCoach = async (coachId) => {
-  const findCoach = await Coach.findByPk(coachId);
+const readOneCoach =  (coachId) => {
+  const findCoach =  Coach.findByPk(coachId);
   return findCoach;
 };
 
-const readAllCoach = async () => {
-  return await Coach.findAll();
+const readAllCoach =  () => {
+  return  Coach.findAll();
 };
 
-const updateCoach = async (updateData) => {
-  return await Coach.update({
+const updateCoach =  (updateData) => {
+  return  Coach.update({
     where: {
       updateData,
     },
   });
 };
 
-const deleteCoach = async (coachId) => {
-  return await Coach.destroy({
+const deleteCoach =  (coachId) => {
+  return  Coach.destroy({
     where: {
       coachId,
     },
