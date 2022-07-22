@@ -12,30 +12,30 @@ const { createToken } = require("../helper/jwt");
 class coachController {
   static login(request, response) {
     try {
-      const { username, password } = request.body;
-      const foundCoach = loginCoach(username);
+      const { firstName, password } = request.body;
+      loginCoach(firstName).then(function (foundCoach) {
+        if (!foundCoach) {
+          throw new Error("USER_NOT_FOUND");
+        }
 
-      if (!foundCoach) {
-        throw new Error("USER_NOT_FOUND");
-      }
+        const correctPassword = compareHash(password, foundCoach.password);
 
-      const correctPassword = compareHash(password, foundCoach.password);
+        if (!correctPassword) {
+          throw new Error("INVALID_PASSWORD");
+        }
 
-      if (!correctPassword) {
-        throw new Error("INVALID_PASSWORD");
-      }
+        const payload = {
+          id: foundCoach.id,
+          username: foundCoach.username,
+        };
 
-      const payload = {
-        id: foundCoach.id,
-        username: foundCoach.username,
-      };
+        const access_token = createToken(payload);
 
-      const access_token = createToken(payload);
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Login Successfully",
-        access_token: access_token,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Login Successfully",
+          access_token: access_token,
+        });
       });
     } catch (err) {
       console.log(err);
@@ -86,19 +86,19 @@ class coachController {
         budget,
       };
 
-      const newCoach = registerCoach(dataCoach);
+      registerCoach(dataCoach).then(function (newCoach) {
+        if (!newCoach) {
+          throw new Error("FAIL_CREATE_ACCOUNT");
+        }
 
-      if (!email) {
-        throw new Error("FAIL_CREATE_ACCOUNT");
-      }
-
-      response.status(201).json({
-        statusCode: 201,
-        message: "Create Account Successfully",
-        data: {
-          id: newCoach.id,
-          email: newCoach.email,
-        },
+        response.status(201).json({
+          statusCode: 201,
+          message: "Create Account Successfully",
+          data: {
+            id: newCoach.id,
+            email: newCoach.email,
+          },
+        });
       });
     } catch (err) {
       let code = 500;
@@ -118,14 +118,15 @@ class coachController {
 
   static list(response) {
     try {
-      const findAllCoach = readAllCoach();
-      if (findAllCoach <= 0) {
-        throw new Error("COACH_IS_EMPTY");
-      }
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Coach Found",
-        data: findAllCoach,
+      readAllCoach().then(function (findAllCoach) {
+        if (findAllCoach <= 0) {
+          throw new Error("COACH_IS_EMPTY");
+        }
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Coach Found",
+          data: findAllCoach,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -175,18 +176,18 @@ class coachController {
         budget,
       };
 
-      const newCoach = "";
-      const oldCoach = readOneCoach(coachId);
-      if (oldCoach <= 0) {
-        throw new Error("COACH_NOT_FOUND");
-      } else {
-        newCoach = updateCoach(updateData);
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Coach updated Successfully",
-        data: newCoach,
+      readOneCoach(coachId).then(function (unUpdatedCoach) {
+        if (unUpdatedCoach <= 0) {
+          throw new Error("COACH_NOT_FOUND");
+        } else {
+          updateCoach(updateData).then(function (updatedCoach) {
+            response.status(200).json({
+              statusCode: 200,
+              message: "Data Coach updated Successfully",
+              data: updatedCoach,
+            });
+          });
+        }
       });
     } catch (err) {
       console.log(err);
@@ -212,16 +213,16 @@ class coachController {
     try {
       const coachId = request.params.id;
 
-      const deletedCoach = deleteCoach(coachId);
+      deleteCoach(coachId).then(function (deletedCoach) {
+        if (deletedCoach <= 0) {
+          throw new Error("COACH_NOT_FOUND");
+        }
 
-      if (deletedCoach <= 0) {
-        throw new Error("COACH_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Coach deleted Successfully",
-        data: deletedCoach,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Coach deleted Successfully",
+          data: deletedCoach,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -243,15 +244,16 @@ class coachController {
     try {
       const coachId = request.params.id;
 
-      const findCoach = readOneCoach(coachId);
-      if (findCoach <= 0) {
-        throw new Error("COACH_NOT_FOUND");
-      }
+      readOneCoach(coachId).then(function (findCoach) {
+        if (findCoach <= 0) {
+          throw new Error("COACH_NOT_FOUND");
+        }
 
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Coach Found",
-        data: findCoach,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Coach Found",
+          data: findCoach,
+        });
       });
     } catch (err) {
       let code = 500;

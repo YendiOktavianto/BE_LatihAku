@@ -13,31 +13,27 @@ class userController {
   static login(request, response) {
     try {
       const { firstName, password } = request.body;
-      console.log(firstName);
-      const foundUser = loginUser(firstName);
-      console.log(foundUser);
 
-      if (!foundUser) {
-        throw new Error("USER_NOT_FOUND");
-      }
+      loginUser(firstName).then(function (foundUser) {
+        if (!foundUser) {
+          throw new Error("USER_NOT_FOUND");
+        }
+        const correctPassword = compareHash(password, foundUser.password);
+        if (!correctPassword) {
+          throw new Error("INVALID_PASSWORD");
+        }
+        const payload = {
+          id: foundUser.id,
+          username: foundUser.username,
+        };
 
-      const correctPassword = compareHash(password, foundUser.password);
+        const access_token = createToken(payload);
 
-      if (!correctPassword) {
-        throw new Error("INVALID_PASSWORD");
-      }
-
-      const payload = {
-        id: foundUser.id,
-        username: foundUser.username,
-      };
-
-      const access_token = createToken(payload);
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Login Successfully",
-        access_token: access_token,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Login Successfully",
+          access_token: access_token,
+        });
       });
     } catch (err) {
       console.log(err);
@@ -73,12 +69,12 @@ class userController {
       };
       dataUser.password = hashPassword(password);
 
-      const newUser = registerUser(dataUser);
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Register Successfully",
-        data: newUser,
+      registerUser(dataUser).then.then(function (newUser) {
+        response.status(200).json({
+          statusCode: 200,
+          message: "Register Successfully",
+          data: newUser,
+        });
       });
     } catch (err) {
       console.log(err);
@@ -99,14 +95,15 @@ class userController {
 
   static list(response) {
     try {
-      const findAllUser = readAllUser();
-      if (findAllUser <= 0) {
-        throw new Error("User_IS_EMPTY");
-      }
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data User Found",
-        data: findAllUser,
+      readAllUser().then(function (findAllUser) {
+        if (findAllUser <= 0) {
+          throw new Error("User_IS_EMPTY");
+        }
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data User Found",
+          data: findAllUser,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -139,18 +136,18 @@ class userController {
         address,
       };
 
-      const newUser = "";
-      const oldUser = readOneUser(userId);
-      if (oldUser <= 0) {
-        throw new Error("USER_NOT_FOUND");
-      } else {
-        newUser = updateUser(updateData);
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data User Updated Successfully",
-        data: newUser,
+      readOneUser(userId).then(function (unUpdatedUser) {
+        if (unUpdatedUser <= 0) {
+          throw new Error("USER_NOT_FOUND");
+        } else {
+          updateUser(updateData).then(function (updatedUser) {
+            response.status(200).json({
+              statusCode: 200,
+              message: "Data User Updated Successfully",
+              data: updatedUser,
+            });
+          });
+        }
       });
     } catch (err) {
       let code = 500;
@@ -175,16 +172,16 @@ class userController {
     try {
       const userId = request.params.id;
 
-      const deletedUser = deleteUser(userId);
+      deleteUser(userId).then(function (deletedUser) {
+        if (deletedUser < 0) {
+          throw new Error("USER_NOT_FOUND");
+        }
 
-      if (deletedUser < 0) {
-        throw new Error("USER_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data User Deleted Successfully",
-        data: deletedUser,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data User Deleted Successfully",
+          data: deletedUser,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -206,16 +203,16 @@ class userController {
     try {
       const userId = request.params.id;
 
-      const findUser = readOneUser(userId);
+      readOneUser(userId).then(function (findUser) {
+        if (findUser <= 0) {
+          throw new Error("USER_NOT_FOUND");
+        }
 
-      if (findUser <= 0) {
-        throw new Error("USER_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data User Found",
-        data: findUser,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data User Found",
+          data: findUser,
+        });
       });
     } catch (err) {
       let code = 500;

@@ -36,16 +36,16 @@ class placeController {
         comments,
       };
 
-      const newPlace = createPlace(dataPlace);
+      createPlace(dataPlace).then(function (newPlace) {
+        if (!newPlace) {
+          throw new Error("FAIL_CREATE_PLACE");
+        }
 
-      if (!newPlace) {
-        throw new Error("FAIL_CREATE_PLACE");
-      }
-
-      response.status(201).json({
-        statusCode: 201,
-        message: "Create Place Successfully",
-        data: newPlace,
+        response.status(201).json({
+          statusCode: 201,
+          message: "Create Place Successfully",
+          data: newPlace,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -65,14 +65,15 @@ class placeController {
 
   static list(response) {
     try {
-      const findAllPlace = readAllPlace();
-      if (findAllPlace <= 0) {
-        throw new Error("PLACE_IS_EMPTY");
-      }
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Place Found",
-        data: findAllPlace,
+      readAllPlace().then(function (findAllPlace) {
+        if (findAllPlace <= 0) {
+          throw new Error("PLACE_IS_EMPTY");
+        }
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Place Found",
+          data: findAllPlace,
+        });
       });
     } catch (err) {
       console.log(err);
@@ -119,18 +120,18 @@ class placeController {
         comments,
       };
 
-      const newPlace = "";
-      const oldPlace = readOnePlace(placeId);
-      if (oldPlace <= 0) {
-        throw new Error("PLACE_NOT_FOUND");
-      } else {
-        newPlace = updatePlace(updateData);
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Place Updated Successfully",
-        data: newPlace,
+      readOnePlace(placeId).then(function (unUpdatedPlace) {
+        if (unUpdatedPlace <= 0) {
+          throw new Error("PLACE_NOT_FOUND");
+        } else {
+          updatePlace(updateData).then(function (updatedPlace) {
+            response.status(200).json({
+              statusCode: 200,
+              message: "Data Place Updated Successfully",
+              data: updatedPlace,
+            });
+          });
+        }
       });
     } catch (err) {
       console.log(err);
@@ -156,15 +157,16 @@ class placeController {
     try {
       const placeId = request.params.id;
 
-      const deletedPlace = deletePlace(placeId);
+      deletePlace(placeId).then(function (deletedPlace) {
+        if (deletedPlace <= 0) {
+          throw new Error("PLACE_NOT_FOUND");
+        }
 
-      if (deletedPlace <= 0) {
-        throw new Error("PLACE_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Place deleted Successfully",
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Place deleted Successfully",
+          data: deletedPlace,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -186,15 +188,16 @@ class placeController {
     try {
       const placeId = request.params.id;
 
-      const findPlace = readOnePlace(placeId);
-      if (oldPlace <= 0) {
-        throw new Error("PLACE_NOT_FOUND");
-      }
+      readOnePlace(placeId).then(function (findPlace) {
+        if (findPlace <= 0) {
+          throw new Error("PLACE_NOT_FOUND");
+        }
 
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Place Found",
-        data: findPlace,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Place Found",
+          data: findPlace,
+        });
       });
     } catch (err) {
       let code = 500;

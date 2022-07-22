@@ -1,33 +1,28 @@
 const { Booking } = require("../models");
 const createBooking = async (dataBooking) => {
-  const newBooking = await Booking.create(dataBooking);
-  return newBooking;
+  return await Booking.create(dataBooking);
 };
 
 const readOneBooking = async (bookingId) => {
-  const findBooking = await Booking.findByPk(bookingId);
-  return findBooking;
+  return await Booking.findByPk(bookingId);
 };
 
 const readAllBooking = async () => {
-  const findAllBooking = await Booking.findAll();
-  return findAllBooking;
+  return await Booking.findAll();
 };
 
 const updateBooking = async (updateData) => {
-  const updatedBooking = await Booking.update({
+  return await Booking.update({
     where: { updateData },
   });
-  return updatedBooking;
 };
 
 const deleteBooking = async (bookingId) => {
-  const deleteBooking = await Booking.destroy({
+  return await Booking.destroy({
     where: {
       bookingId,
     },
   });
-  return deleteBooking;
 };
 
 module.exports = {

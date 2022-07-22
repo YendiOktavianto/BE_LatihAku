@@ -1,35 +1,30 @@
 const { Category } = require("../models");
 const createCategory = async (dataCategory) => {
-  const newCategory = await Category.create(dataCategory);
-  return newCategory;
+  return await Category.create(dataCategory);
 };
 
 const readOneCategory = async (categoryId) => {
-  const findCategory = await Category.findByPk(categoryId);
-  return findCategory;
+  return await Category.findByPk(categoryId);
 };
 
 const readAllCategory = async () => {
-  const findAllCategory = await Category.findAll();
-  return findAllCategory;
+  return await Category.findAll();
 };
 
 const updateCategory = async (updateData) => {
-  const updatedCategory = await Category.update({
+  return await Category.update({
     where: {
       updateData,
     },
   });
-  return updatedCategory;
 };
 
 const deleteCategory = async (categoryId) => {
-  const deletedCategory = await Category.destroy({
+  return await Category.destroy({
     where: {
       categoryId,
     },
   });
-  return deletedCategory;
 };
 
 module.exports = {

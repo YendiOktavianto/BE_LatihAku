@@ -19,26 +19,23 @@ const readOneCoach = async (coachId) => {
 };
 
 const readAllCoach = async () => {
-  const findAllCoach = await Coach.findAll();
-  return findAllCoach;
+  return await Coach.findAll();
 };
 
 const updateCoach = async (updateData) => {
-  const updatedCoach = await Coach.update({
+  return await Coach.update({
     where: {
       updateData,
     },
   });
-  return updatedCoach;
 };
 
 const deleteCoach = async (coachId) => {
-  const deletedCoach = await Coach.destroy({
+  return await Coach.destroy({
     where: {
       coachId,
     },
   });
-  return deletedCoach;
 };
 
 module.exports = {

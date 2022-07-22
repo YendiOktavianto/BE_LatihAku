@@ -16,12 +16,12 @@ class myCoachController {
         salary,
       };
 
-      const newMyCoach = createMyCoach(dataMyCoach);
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Create MyCocach Successfully",
-        data: newMyCoach,
+      createMyCoach(dataMyCoach).then(function (newMyCoach) {
+        response.status(200).json({
+          statusCode: 200,
+          message: "Create MyCocach Successfully",
+          data: newMyCoach,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -41,14 +41,15 @@ class myCoachController {
 
   static list(response) {
     try {
-      const findAllMyCoach = readAllMyCoach();
-      if (findAllMyCoach <= 0) {
-        throw new Error("MY_COACH_IS_EMPTY");
-      }
-      response.status(200).json({
-        statusCode: 200,
-        message: "My Coach found",
-        data: findAllMyCoach,
+      readAllMyCoach().then(function (findAllMyCoach) {
+        if (findAllMyCoach <= 0) {
+          throw new Error("MY_COACH_IS_EMPTY");
+        }
+        response.status(200).json({
+          statusCode: 200,
+          message: "My Coach found",
+          data: findAllMyCoach,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -76,18 +77,18 @@ class myCoachController {
         salary,
       };
 
-      const updatedData = "";
-      const oldMyCoach = FindMyCoach(myCoachId);
-      if (oldMyCoach < 0) {
-        throw new Error("MY_COACH_NOT_FOUND");
-      } else {
-        updatedData = updateMyCoach(updateData);
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "My Coach updated Successfully",
-        data: updatedData,
+      FindMyCoach(myCoachId).then(function (unUpdatedMyCoach) {
+        if (unUpdatedMyCoach < 0) {
+          throw new Error("MY_COACH_NOT_FOUND");
+        } else {
+          updateMyCoach(updateData).then(function (updatedMycoach) {
+            response.status(200).json({
+              statusCode: 200,
+              message: "My Coach updated Successfully",
+              data: updatedMycoach,
+            });
+          });
+        }
       });
     } catch (err) {
       let code = 500;
@@ -111,15 +112,16 @@ class myCoachController {
   static delete(response) {
     try {
       const myCoachId = request.params.id;
-      const deletedMyCoach = deleteMyCoach(myCoachId);
+      deleteMyCoach(myCoachId).then(function (deletedMyCoach) {
+        if (deletedMyCoach < 0) {
+          throw new Error("MY_COACH_NOT_FOUND");
+        }
 
-      if (deletedMyCoach < 0) {
-        throw new Error("MY_COACH_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "My Coach deleted Successfully",
+        response.status(200).json({
+          statusCode: 200,
+          message: "My Coach deleted Successfully",
+          data: deletedMyCoach,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -141,15 +143,16 @@ class myCoachController {
     try {
       const myCoachId = request.params.id;
 
-      const findMyCoach = readOneMyCoach(myCoachId);
-      if (findMyCoach <= 0) {
-        throw new Error("MY_COACH_NOT_FOUND");
-      }
+      readOneMyCoach(myCoachId).then(function (findMyCoach) {
+        if (findMyCoach <= 0) {
+          throw new Error("MY_COACH_NOT_FOUND");
+        }
 
-      response.status(200).json({
-        statusCode: 200,
-        message: "My Coach found",
-        data: findMyCoach,
+        response.status(200).json({
+          statusCode: 200,
+          message: "My Coach found",
+          data: findMyCoach,
+        });
       });
     } catch (err) {
       let code = 500;

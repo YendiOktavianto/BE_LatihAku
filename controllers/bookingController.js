@@ -16,12 +16,12 @@ class bookingController {
         notes,
       };
 
-      const newBooking = createBooking(dataBooking);
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Create Booking Successfully",
-        data: newBooking,
+      createBooking(dataBooking).then(function (newBooking) {
+        response.status(200).json({
+          statusCode: 200,
+          message: "Create Booking Successfully",
+          data: newBooking,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -41,15 +41,16 @@ class bookingController {
 
   static list(request, response) {
     try {
-      const findAllBooking = readAllBooking();
-      if (findAllBooking <= 0) {
-        throw new Error("BOOKING_IS_EMPTY");
-      }
+      readAllBooking().then(function (findAllBooking) {
+        if (findAllBooking <= 0) {
+          throw new Error("BOOKING_IS_EMPTY");
+        }
 
-      response.status(200).json({
-        statusCode: 200,
-        message: "Booking found",
-        data: findAllBooking,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Booking found",
+          data: findAllBooking,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -75,19 +76,18 @@ class bookingController {
         bookingDate,
         notes,
       };
-
-      const updatedData = "";
-      const oldBooking = readOneBooking(bookingId);
-      if (oldBooking <= 0) {
-        throw new Error("BOOKING_NOT_FOUND");
-      } else {
-        updatedData = updateBooking(updateData);
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Booking updated successfully",
-        data: updatedData,
+      readOneBooking(bookingId).then(function (unUpdatedBooking) {
+        if (unUpdatedBooking <= 0) {
+          throw new Error("BOOKING_NOT_FOUND");
+        } else {
+          updateBooking(updateData).then(function (updatedBooking) {
+            response.status(200).json({
+              statusCode: 200,
+              message: "Data Booking updated successfully",
+              data: updatedBooking,
+            });
+          });
+        }
       });
     } catch (error) {
       let code = 500;
@@ -113,16 +113,16 @@ class bookingController {
   static delete(request, response) {
     try {
       const bookingId = request.params.id;
-      const deletedBooking = deleteBooking(bookingId);
+      deleteBooking(bookingId).then(function (deletedBooking) {
+        if (deletedBooking <= 0) {
+          throw new Error("BOOKING_NOT_FOUND");
+        }
 
-      if (deleteBooking <= 0) {
-        throw new Error("BOOKING_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: `Data Booking deleted successfully`,
-        data: deletedBooking,
+        response.status(200).json({
+          statusCode: 200,
+          message: `Data Booking deleted successfully`,
+          data: deletedBooking,
+        });
       });
     } catch (err) {
       let code = 500;
@@ -145,16 +145,16 @@ class bookingController {
   static search(request, response) {
     try {
       const bookingId = request.params.id;
-      const findBooking = readOneBooking(bookingId);
+      readOneBooking(bookingId).then(function (findBooking) {
+        if (findBooking <= 0) {
+          throw new Error("BOOKING_NOT_FOUND");
+        }
 
-      if (findBooking <= 0) {
-        throw new Error("BOOKING_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data Booking Found",
-        data: findBooking,
+        response.status(200).json({
+          statusCode: 200,
+          message: "Data Booking Found",
+          data: findBooking,
+        });
       });
     } catch (err) {
       let code = 500;
