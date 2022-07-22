@@ -18,11 +18,10 @@ class placeController {
         rating,
         description,
         favourite,
-        images,
         phone,
         comments,
       } = request.body;
-
+      const images = request.file.path;
       const dataPlace = {
         name,
         owner,
@@ -100,11 +99,10 @@ class placeController {
         rating,
         description,
         favourite,
-        images,
         phone,
         comments,
       } = request.body;
-
+      const images = request.file.path;
       const updateData = {
         name,
         owner,
