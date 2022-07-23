@@ -1,6 +1,6 @@
 const { body, param, query } = require("express-validator");
 
-const createUser = () => [
+const registerUser = () => [
   param("id").notEmpty(),
   body("fistName")
     .optional()
