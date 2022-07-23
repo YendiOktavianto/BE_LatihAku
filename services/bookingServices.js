@@ -11,10 +11,14 @@ const readAllBooking = () => {
   return Booking.findAll();
 };
 
-const updateBooking = (updateData) => {
-  return Booking.update({
-    where: { updateData },
-  });
+const updateBooking = async (updateData) => {
+  const updatedBooking = await readOneBooking(bookingId);
+  if (updatedBooking <= 0) {
+    throw new Error("BOOKING_NOT_FOUND");
+  } else {
+    updatedBooking.update(updateData);
+  }
+  return updatedBooking;
 };
 
 const deleteBooking = (bookingId) => {

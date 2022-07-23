@@ -76,18 +76,18 @@ class bookingController {
         notes,
       };
 
-      const unUpdatedBooking = await readOneBooking(bookingId);
+      const updatedBooking = await readOneBooking(bookingId);
 
-      if (unUpdatedBooking <= 0) {
+      if (updatedBooking <= 0) {
         throw new Error("BOOKING_NOT_FOUND");
       } else {
-        const updatedBooking = await updateBooking(updateData);
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Booking updated successfully",
-          data: updatedBooking,
-        });
+        updatedBooking.update(updateData);
       }
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Booking updated successfully",
+        data: updatedBooking,
+      });
     } catch (error) {
       let code = 500;
       let msg = "Internal Server Error";

@@ -12,12 +12,14 @@ const readAllPlace = () => {
   return Place.findAll();
 };
 
-const updatePlace = (updateData) => {
-  return Place.update({
-    where: {
-      updateData,
-    },
-  });
+const updatePlace = async (updateData, placeId) => {
+  const updatedPlace = await readOnePlace(placeId);
+  if (updatedPlace <= 0) {
+    throw new Error("PLACE_NOT_FOUND");
+  } else {
+    updatedPlace.update(updateData);
+  }
+  return updatedPlace;
 };
 
 const deletePlace = (placeId) => {

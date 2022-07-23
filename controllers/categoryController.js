@@ -41,7 +41,7 @@ class categoryController {
     }
   }
 
-  static async list(response) {
+  static async list(request, response) {
     try {
       const findAllCategory = await readAllCategory();
 
@@ -79,20 +79,12 @@ class categoryController {
         name,
         image,
       };
-
-      const unUpdatedCategory = await readOneCategory(categoryId);
-
-      if (unUpdatedCategory <= 0) {
-        throw new Error("CATEGORY_NOT_FOUND");
-      } else {
-        const updatedCategory = await updateCategory(updateData);
-
-        response.status(200).json({
-          statusCode: 200,
-          message: "Category updated successfully",
-          data: updatedCategory,
-        });
-      }
+      const updatedCategory = await updateCategory(updateData, categoryId);
+      response.status(200).json({
+        statusCode: 200,
+        message: "Category updated successfully",
+        data: updatedCategory,
+      });
     } catch (err) {
       let code = 500;
       let msg = "Internal Server Error";

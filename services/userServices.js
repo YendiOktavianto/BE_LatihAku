@@ -20,13 +20,15 @@ const readAllUser = () => {
   return User.findAll();
 };
 
-const updateUser = (updateData, id) => {
-  return User.update({
-    updateData,
-    where: {
-      id,
-    },
-  });
+const updateUser = async (updateData, userId) => {
+  const updatedUser = await readOneUser(userId);
+
+  if (updatedUser <= 0) {
+    throw new Error("USER_NOT_FOUND");
+  } else {
+    updatedUser.update(updateData);
+  }
+  return updatedUser;
 };
 
 const deleteUser = (userId) => {

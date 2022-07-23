@@ -61,7 +61,7 @@ class placeController {
     }
   }
 
-  static async list(response) {
+  static async list(request, response) {
     try {
       findAllPlace = await readAllPlace();
       if (findAllPlace <= 0) {
@@ -116,17 +116,12 @@ class placeController {
         comments,
       };
 
-      const unUpdatedPlace = await readOnePlace(placeId);
-      if (unUpdatedPlace <= 0) {
-        throw new Error("PLACE_NOT_FOUND");
-      } else {
-        const updatedPlace = await updatePlace(updateData);
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Place Updated Successfully",
-          data: updatedPlace,
-        });
-      }
+      const updatedPlace = await updatePlace(updateData, placeId);
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Place Updated Successfully",
+        data: updatedPlace,
+      });
     } catch (err) {
       console.log(err);
       let code = 500;

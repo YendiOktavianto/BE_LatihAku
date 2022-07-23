@@ -38,7 +38,7 @@ class myCoachController {
     }
   }
 
-  static async list(response) {
+  static async list(request, response) {
     try {
       const findAllMyCoach = await readAllMyCoach();
       if (findAllMyCoach <= 0) {
@@ -75,17 +75,12 @@ class myCoachController {
         salary,
       };
 
-      const unUpdatedMyCoach = await FindMyCoach(myCoachId);
-      if (unUpdatedMyCoach < 0) {
-        throw new Error("MY_COACH_NOT_FOUND");
-      } else {
-        const updatedMycoach = await updateMyCoach(updateData);
-        response.status(200).json({
-          statusCode: 200,
-          message: "My Coach updated Successfully",
-          data: updatedMycoach,
-        });
-      }
+      const updatedMyCoach = await updateMyCoach(updateData, myCoachId);
+      response.status(200).json({
+        statusCode: 200,
+        message: "My Coach updated Successfully",
+        data: updatedMyCoach,
+      });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";

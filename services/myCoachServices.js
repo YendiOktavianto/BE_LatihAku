@@ -11,12 +11,14 @@ const readAllMyCoach = () => {
   return MyCoach.findAll();
 };
 
-const updateMyCoach = (updateData) => {
-  return MyCoach.update({
-    where: {
-      updateData,
-    },
-  });
+const updateMyCoach = async (updateData, myCoachId) => {
+  const updatedMyCoach = await FindMyCoach(myCoachId);
+  if (updatedMyCoach < 0) {
+    throw new Error("MY_COACH_NOT_FOUND");
+  } else {
+    updatedMyCoach.update(updateData);
+  }
+  return updatedMyCoach;
 };
 
 const deleteMyCoach = (myCoachId) => {

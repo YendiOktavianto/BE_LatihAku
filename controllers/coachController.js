@@ -115,7 +115,7 @@ class coachController {
     }
   }
 
-  static async list(response) {
+  static async list(request, response) {
     try {
       const findAllCoach = await readAllCoach();
       if (findAllCoach <= 0) {
@@ -174,17 +174,17 @@ class coachController {
         budget,
       };
 
-      const unUpdatedCoach = await readOneCoach(coachId);
-      if (unUpdatedCoach <= 0) {
+      const updatedCoach = await readOneCoach(coachId);
+      if (updatedCoach <= 0) {
         throw new Error("COACH_NOT_FOUND");
       } else {
-        const updatedCoach = updateCoach(updateData);
-        response.status(200).json({
-          statusCode: 200,
-          message: "Data Coach updated Successfully",
-          data: updatedCoach,
-        });
+        updateCoach.update(updateData);
       }
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Coach updated Successfully",
+        data: updatedCoach,
+      });
     } catch (err) {
       console.log(err);
       let code = 500;

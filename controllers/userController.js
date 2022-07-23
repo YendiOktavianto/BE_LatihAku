@@ -92,10 +92,11 @@ class userController {
     }
   }
 
-  static async list(response) {
+  static async list(request, response) {
     try {
       const findAllUser = await readAllUser();
-      if (findAllUser <= 0) {
+      console.log(findAllUser);
+      if (findAllUser < 0) {
         throw new Error("User_IS_EMPTY");
       }
       response.status(200).json({
@@ -133,20 +134,12 @@ class userController {
         profileImage,
         address,
       };
+      const updatedUser = await updateUser(updateData, userId);
 
-      const unUpdatedUser = await readOneUser(userId);
-      if (unUpdatedUser <= 0) {
-        throw new Error("USER_NOT_FOUND");
-      } else {
-        unUpdatedUser.update(updateData);
-
-        //const updatedUser = await updateUser(updateData, userId);
-      }
-      //console.log(unUpdatedUser);
       response.status(200).json({
         statusCode: 200,
         message: "Data User Updated Successfully",
-        data: unUpdatedUser,
+        data: updatedUser,
       });
     } catch (err) {
       let code = 500;
