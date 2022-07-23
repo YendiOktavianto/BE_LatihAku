@@ -1,7 +1,6 @@
 const { body, param, query } = require("express-validator");
 
 const createBooking = () => [
-  param("id").notEmpty().isUUID(),
   body("name").optional().notEmpty().isString(),
   body("age").optional().notEmpty().isInt(),
   body("gender").optional().notEmpty().isIn(["female", "male"]),

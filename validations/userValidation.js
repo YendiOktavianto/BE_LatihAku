@@ -94,25 +94,28 @@ const updateUser = () => [
     .withMessage("Please enter your Address"),
 ];
 
-// const deleteUser = () => [
-//   param("id").notEmpty().isUUID(),
-//   body("name").optional().notEmpty().isString(),
-//   body("age").optional().notEmpty().isInt(),
-//   body("gender").optional().notEmpty().isIn(["female", "male"]),
-//   body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-// ];
+const loginUser = () => [
+  param("id").notEmpty(),
+  body("username")
+    .optional()
+    .notEmpty()
+    .isString()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Please enter your Username"),
+  body("password")
+    .optional()
+    .notEmpty()
+    .isString()
+    .withMessage("Please enter your Password"),
+];
 
-// const findOneUser = () => [
-//   param("id").notEmpty().isUUID(),
-//   body("name").optional().notEmpty().isString(),
-//   body("age").optional().notEmpty().isInt(),
-//   body("gender").optional().notEmpty().isIn(["female", "male"]),
-//   body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-// ];
+const deleteUser = () => [param("id").notEmpty()];
+const searchUser = () => [param("id").notEmpty()];
 
 module.exports = {
-  createUser,
+  registerUser,
   deleteUser,
   updateUser,
-  findOneUser,
+  searchUser,
+  loginUser,
 };
