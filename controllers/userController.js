@@ -54,12 +54,22 @@ class userController {
 
   static async register(request, response) {
     try {
-      const { firstName, lastName, phoneNumber, email, password, address } =
-        request.body;
+      const {
+        firstName,
+        lastName,
+        username,
+        gender,
+        phoneNumber,
+        email,
+        password,
+        address,
+      } = request.body;
       const profileImage = request.file.path;
 
       const dataUser = {
         firstName,
+        username,
+        gender,
         lastName,
         phoneNumber,
         email,
@@ -121,12 +131,22 @@ class userController {
   static async update(request, response) {
     try {
       const userId = request.params.id;
-      const { firstName, lastName, phoneNumber, email, password, address } =
-        request.body;
+      const {
+        firstName,
+        lastName,
+        username,
+        gender,
+        phoneNumber,
+        email,
+        password,
+        address,
+      } = request.body;
       const profileImage = request.file.path;
       const updateData = {
         firstName,
         lastName,
+        username,
+        gender,
         phoneNumber,
         email,
         password,
