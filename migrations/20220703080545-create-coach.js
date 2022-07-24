@@ -15,6 +15,20 @@ module.exports = {
           len: [3, 100],
         },
       },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 100],
+        },
+      },
+      gender: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 100],
+        },
+      },
       phone: {
         type: Sequelize.STRING,
         allowNull: false,

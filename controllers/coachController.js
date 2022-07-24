@@ -58,6 +58,8 @@ class coachController {
     try {
       const {
         name,
+        username,
+        gender,
         phone,
         email,
         password,
@@ -73,6 +75,8 @@ class coachController {
       const profileImage = request.file.path;
       const dataCoach = {
         name,
+        username,
+        gender,
         phone,
         email,
         password,
@@ -146,6 +150,8 @@ class coachController {
       const coachId = request.params.id;
       const {
         name,
+        username,
+        gender,
         phone,
         email,
         password,
@@ -161,6 +167,8 @@ class coachController {
 
       const updateData = {
         name,
+        username,
+        gender,
         phone,
         email,
         password,

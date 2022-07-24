@@ -40,6 +40,26 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 100],
         },
       },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please enter your username",
+          },
+          len: [3, 100],
+        },
+      },
+      gender: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please choose your gender",
+          },
+          len: [3, 100],
+        },
+      },
       phoneNumber: {
         type: DataTypes.STRING,
         allowNull: false,
