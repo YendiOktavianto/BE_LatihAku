@@ -10,6 +10,7 @@ routesCoach.post(
   "/register",
   coachValidation.registerCoach(),
   validate,
+  uploadImage("coach").single("profileImage"),
   coachController.register
 );
 routesCoach.post(
