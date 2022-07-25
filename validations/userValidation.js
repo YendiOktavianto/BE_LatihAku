@@ -20,7 +20,7 @@ const registerUser = () => [
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your Username"),
-  body("gender").optional().notEmpty().isString().isIn(['Female', 'Male']),
+  body("gender").optional().notEmpty().isString().isIn(["Female", "Male"]),
   body("phoneNumber")
     .optional()
     .notEmpty()
