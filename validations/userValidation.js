@@ -1,7 +1,6 @@
 const { body, param, query } = require("express-validator");
 
 const registerUser = () => [
-  param("id").not().isEmpty(),
   body("fistName")
     .optional()
     .notEmpty()
@@ -95,7 +94,6 @@ const updateUser = () => [
 ];
 
 const loginUser = () => [
-  param("id").not().isEmpty(),
   body("username")
     .optional()
     .notEmpty()

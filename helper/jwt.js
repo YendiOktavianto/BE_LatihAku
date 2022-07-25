@@ -6,16 +6,20 @@ const redisClient = redis.createClient();
 //   await redisClient.connect();
 // })();
 
-const jwtr = new JWTR(redisClient);
+//const jwtr = new JWTR(redisClient);
 
 const SECRET_KEY = process.env.JWT_SECRET;
-const createToken = (data) => {
+const createToken = async (data) => {
+  await redisClient.connect();
+  const jwtr = new JWTR(redisClient);
   return jwtr.sign(data, SECRET_KEY, {
     expiresIn: "5h",
   });
 };
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async (req, res, next) => {
+  await redisClient.connect();
+  const jwtr = new JWTR(redisClient);
   const token =
     req.body.token ||
     req.query.token ||
@@ -35,7 +39,9 @@ const verifyToken = (req, res, next) => {
   return next();
 };
 
-const destroyToken = (token) => {
+const destroyToken = async (token) => {
+  await redisClient.connect();
+  const jwtr = new JWTR(redisClient);
   return jwtr.destroy(token);
 };
 

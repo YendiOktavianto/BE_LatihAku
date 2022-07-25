@@ -1,9 +1,9 @@
 const { User } = require("../models");
 
-const loginUser = (firstName) => {
+const loginUser = (username) => {
   return User.findOne({
     where: {
-      firstName: firstName,
+      username: username,
     },
   });
 };

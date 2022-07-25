@@ -1,21 +1,20 @@
 const { body, param, query } = require("express-validator");
 
 const registerCoach = () => [
-  param("id").not().isEmpty(),
   body("name")
-    .not()
-    .isEmpty()
-    .withMessage("Name must be inserted!")
+    .optional()
+    .notEmpty()
+    //.withMessage("Name must be inserted!")
     .isString()
-    .withMessage("Name must be in String!")
+    //.withMessage("Name must be in String!")
     .isLength({ min: 3, max: 100 })
     .withMessage("Name length must be between 3 until 100 Character!"),
   body("username")
-    .not()
-    .isEmpty()
-    .withMessage("Username must be inserted!")
+    .optional()
+    .notEmpty()
+    //.withMessage("Username must be inserted!")
     .isString()
-    .withMessage("Username must be in String!")
+    //.withMessage("Username must be in String!")
     .isLength({ min: 3, max: 100 })
     .withMessage("Username length must be between 3 until 100 Character!"),
   body("gender")
