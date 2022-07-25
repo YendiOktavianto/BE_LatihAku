@@ -6,11 +6,10 @@ const { uploadImage } = require("../helper/uploadImage");
 const validate = require("../middlewares/validate");
 const placeValidation = require("../validations/placeValidation");
 //place
-routesPlace.get("/place/list", verifyToken, placeController.list);
-
+routesPlace.get("/list", placeController.list);
 routesPlace.post(
-  "/place/create",
-  verifyToken,
+  "/create",
+
   placeValidation.createPlace(),
   validate,
   uploadImage("place").array("images", 5),
@@ -18,8 +17,8 @@ routesPlace.post(
 );
 
 routesPlace.put(
-  "/place/update/:id",
-  verifyToken,
+  "/update/:id",
+
   placeValidation.updatePlace(),
   validate,
   uploadImage("place").array("images", 5),
@@ -27,16 +26,14 @@ routesPlace.put(
 );
 
 routesPlace.delete(
-  "/place/delete/:id",
-  verifyToken,
+  "/delete/:id",
   placeValidation.deletePlace(),
   validate,
   placeController.delete
 );
 
 routesPlace.get(
-  "/place/search/:id",
-  verifyToken,
+  "/search/:id",
   placeValidation.searchPlace(),
   validate,
   placeController.search

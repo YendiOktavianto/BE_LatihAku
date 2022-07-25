@@ -7,34 +7,28 @@ const validate = require("../middlewares/validate");
 const bookingValidation = require("../validations/bookingValidation");
 //booking
 routesBooking.post(
-  "/booking/create",
-  verifyToken,
+  "/create",
   bookingValidation.createBooking(),
   validate,
   bookingController.create
 );
-
-routesBooking.get("/booking/list", verifyToken, bookingController.list);
-
+routesBooking.get("/list", bookingController.list);
 routesBooking.put(
-  "/booking/update/:id",
-  verifyToken,
+  "/update/:id",
   bookingValidation.updateBooking(),
   validate,
   bookingController.update
 );
 
 routesBooking.get(
-  "/booking/search/:id",
-  verifyToken,
+  "/search/:id",
   bookingValidation.searchBooking(),
   validate,
   bookingController.search
 );
 
 routesBooking.delete(
-  "/booking/update/:id",
-  verifyToken,
+  "/update/:id",
   bookingValidation.deleteBooking(),
   validate,
   bookingController.delete

@@ -7,35 +7,29 @@ const validate = require("../middlewares/validate");
 const categoryValidation = require("../validations/categoryValidation");
 //category
 routesCategory.post(
-  "/category/create",
-  verifyToken,
+  "/create",
   uploadImage("category").single("image"),
   categoryValidation.createCategory(),
   validate,
   categoryController.create
 );
-
-routesCategory.get("/category/list", verifyToken, categoryController.list);
-
+routesCategory.get("/list", categoryController.list);
 routesCategory.put(
-  "/category/update/:id",
-  verifyToken,
+  "/update/:id",
   categoryValidation.updateCategory(),
   validate,
   categoryController.update
 );
 
 routesCategory.delete(
-  "/category/delete/:id",
-  verifyToken,
+  "/delete/:id",
   categoryValidation.deleteCategory(),
   validate,
   categoryController.delete
 );
 
 routesCategory.get(
-  "/category/search/:id",
-  verifyToken,
+  "/search/:id",
   categoryValidation.searchCategory(),
   validate,
   categoryController.search

@@ -7,24 +7,23 @@ const validate = require("../middlewares/validate");
 const userValidation = require("../validations/userValidation");
 //user
 routesUser.post(
-  "/user/register",
+  "/register",
+
   userValidation.registerUser(),
   validate,
   uploadImage("user").single("profileImage"),
   userController.register
 );
 routesUser.post(
-  "/user/login",
+  "/login",
+
   userValidation.loginUser(),
   validate,
   userController.login
 );
-
-routesUser.get("/user/list", verifyToken, userController.list);
-
+routesUser.get("/list", userController.list);
 routesUser.put(
-  "/user/update/:id",
-  verifyToken,
+  "/update/:id",
   userValidation.updateUser(),
   validate,
   uploadImage("user").single("profileImage"),
@@ -32,16 +31,14 @@ routesUser.put(
 );
 
 routesUser.delete(
-  "/user/delete/:id",
-  verifyToken,
+  "/delete/:id",
   userValidation.deleteUser(),
   validate,
   userController.delete
 );
 
 routesUser.get(
-  "/user/search/:id",
-  verifyToken,
+  "/search/:id",
   userValidation.searchUser(),
   validate,
   userController.search

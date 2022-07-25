@@ -7,21 +7,21 @@ const validate = require("../middlewares/validate");
 const coachValidation = require("../validations/coachValidation");
 //coach
 routesCoach.post(
-  "/coach/register",
+  "/register",
   coachValidation.registerCoach(),
   validate,
   coachController.register
 );
 routesCoach.post(
-  "/coach/login",
+  "/login",
   coachValidation.loginCoach(),
   validate,
   coachController.login
 );
 routesCoach.get("/coach/list", verifyToken, coachController.list);
 routesCoach.put(
-  "/coach/update/:id",
-  verifyToken,
+  "/update/:id",
+
   coachValidation.updateCoach(),
   validate,
   uploadImage("coach").single("profileImage"),
@@ -29,15 +29,13 @@ routesCoach.put(
 );
 
 routesCoach.delete(
-  "/coach/delete/:id",
-  verifyToken,
+  "/delete/:id",
   coachValidation.deleteCoach(),
   validate,
   coachController.delete
 );
 routesCoach.get(
-  "/coach/search/:id",
-  verifyToken.apply,
+  "/search/:id",
   coachValidation.searchCoach(),
   validate,
   coachController.search

@@ -8,30 +8,26 @@ const myCoachController = require("../controllers/myCoachController");
 const { verifyToken } = require("../helper/jwt");
 //myCoach
 routesMyCoach.post(
-  "/myCoach/create",
-  verifyToken,
+  "/create",
   myCoachValidation.createMyCoach(),
   validate,
   myCoachController.create
 );
 routesMyCoach.get("/myCoach/list", verifyToken, myCoachController.list);
 routesMyCoach.put(
-  "/myCoach/update/:id",
-  verifyToken,
+  "/update/:id",
   myCoachValidation.updateMyCoach(),
   validate,
   myCoachController.update
 );
 routesMyCoach.delete(
-  "/myCoach/delete/:id",
-  verifyToken,
+  "/delete/:id",
   myCoachValidation.deleteMyCoach(),
   validate,
   myCoachController.delete
 );
 routesMyCoach.get(
-  "/myCoach/search/:id",
-  verifyToken,
+  "/search/:id",
   myCoachValidation.searchMyCoach(),
   validate,
   myCoachController.search
