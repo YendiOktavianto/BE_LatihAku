@@ -87,10 +87,10 @@ class myCoachController {
 
       if (err.name === "SequelizeValidationError") {
         code = 400;
-        msg = "Bad Request";
+        message = "Bad Request";
       } else if (err.message === "MY_COACH_NOT_FOUND") {
         code = 404;
-        msg = "My Coach not found";
+        message = "My Coach not found";
       }
 
       response.status(code).json({

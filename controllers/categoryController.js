@@ -87,20 +87,20 @@ class categoryController {
       });
     } catch (err) {
       let code = 500;
-      let msg = "Internal Server Error";
+      let message = "Internal Server Error";
 
       if (err.name === "SequelizeValidationError") {
         code = 400;
-        msg = "Bad Request";
+        message = "Bad Request";
       } else if (err.message === "CATEGORY_NOT_FOUND") {
         code = 404;
-        msg = "Category not found";
+        message = "Category not found";
       }
 
       response.status(code).json({
         statusCode: code,
         error: {
-          message: msg,
+          message: message,
         },
       });
     }
@@ -121,17 +121,17 @@ class categoryController {
       });
     } catch (err) {
       let code = 500;
-      let msg = "Internal Server Error";
+      let message = "Internal Server Error";
 
       if (err.message === "CATEGORY_NOT_FOUND") {
         code = 404;
-        msg = "Category not found";
+        message = "Category not found";
       }
 
       response.status(code).json({
         statusCode: code,
         error: {
-          message: msg,
+          message: message,
         },
       });
     }

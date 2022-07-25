@@ -12,14 +12,14 @@ const { uploadImage } = require("../helper/uploadImage");
 //user
 routes.post(
   "/user/register",
-  uploadImage.single("profileImage"),
+  uploadImage("user").single("profileImage"),
   userController.register
 );
 routes.post("/user/login", userController.login);
 routes.get("/user/list", userController.list);
 routes.put(
   "/user/update/:id",
-  uploadImage.single("profileImage"),
+  uploadImage("user").single("profileImage"),
   userController.update
 );
 routes.delete("/user/delete/:id", userController.delete);
@@ -31,7 +31,7 @@ routes.post("/coach/login", coachController.login);
 routes.get("/coach/list", coachController.list);
 routes.put(
   "/coach/update/:id",
-  uploadImage.single("profileImage"),
+  uploadImage("coach").single("profileImage"),
   coachController.update
 );
 routes.delete("/coach/delete/:id", coachController.delete);
@@ -41,12 +41,12 @@ routes.get("/coach/search/:id", coachController.search);
 routes.get("/place/list", placeController.list);
 routes.post(
   "/place/create",
-  uploadImage.array("images", 5),
+  uploadImage("place").array("images", 5),
   placeController.update
 );
 routes.put(
   "/place/update/:id",
-  uploadImage.array("images", 5),
+  uploadImage("place").array("images", 5),
   placeController.update
 );
 routes.delete("/place/delete/:id", placeController.delete);
@@ -60,7 +60,11 @@ routes.get("/booking/search/:id", bookingController.search);
 routes.delete("/booking/update/:id", bookingController.delete);
 
 //category
-routes.post("/category/create", categoryController.create);
+routes.post(
+  "/category/create",
+  uploadImage("category").single("image"),
+  categoryController.create
+);
 routes.get("/category/list", categoryController.list);
 routes.put("/category/update/:id", categoryController.update);
 routes.delete("/category/delete/:id", categoryController.delete);

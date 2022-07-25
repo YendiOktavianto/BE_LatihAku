@@ -53,6 +53,39 @@ class coachController {
       });
     }
   }
+  static async logout(request, response) {
+    try {
+      const token =
+        request.body.token ||
+        request.query.token ||
+        request.headers["x-access-token"] ||
+        (request.headers.authorization &&
+          request.headers.authorization.split(" ")[1]);
+
+      if (!token) {
+        throw new Error("TOKEN_NOT_FOUND");
+      }
+      destroyToken(token);
+      response.status(200).json({
+        statusCode: 200,
+        message: "Logout Successfully",
+      });
+    } catch (err) {
+      console.log(err);
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "TOKEN_NOT_FOUND") {
+        code = 403;
+        message = "A token is required for authentication";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
 
   static async register(request, response) {
     try {
@@ -200,10 +233,10 @@ class coachController {
 
       if (err.name === "SequelizeValidationError") {
         code = 400;
-        msg = "Bad Request";
+        message = "Bad Request";
       } else if (err.message === "COACH_NOT_FOUND") {
         code = 404;
-        msg = "Coach Not Found";
+        message = "Coach Not Found";
       }
 
       response.status(code).json({

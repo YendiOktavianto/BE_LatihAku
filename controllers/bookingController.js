@@ -90,14 +90,14 @@ class bookingController {
       });
     } catch (error) {
       let code = 500;
-      let msg = "Internal Server Error";
+      let message = "Internal Server Error";
 
       if (err.name === "SequelizeValidationError") {
         code = 400;
-        msg = "Bad Request";
+        message = "Bad Request";
       } else if (err.message === "BOOKING_NOT_FOUND") {
         code = 404;
-        msg = "Booking Not Found";
+        message = "Booking Not Found";
       }
 
       response.status(code).json({
@@ -126,17 +126,17 @@ class bookingController {
       });
     } catch (err) {
       let code = 500;
-      let msg = "Internal Server Error";
+      let message = "Internal Server Error";
 
       if (err.message === "BOOKING_NOT_FOUND") {
         code = 404;
-        msg = "Data Booking Not Found";
+        message = "Data Booking Not Found";
       }
 
       response.status(code).json({
         statusCode: code,
         error: {
-          message: msg,
+          message: message,
         },
       });
     }

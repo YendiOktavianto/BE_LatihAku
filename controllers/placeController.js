@@ -129,10 +129,10 @@ class placeController {
 
       if (err.name === "SequelizeValidationError") {
         code = 400;
-        msg = "Bad Request";
+        message = "Bad Request";
       } else if (err.message === "PLACE_NOT_FOUND") {
         code = 404;
-        msg = "Place Not Found";
+        message = "Place Not Found";
       }
 
       response.status(code).json({

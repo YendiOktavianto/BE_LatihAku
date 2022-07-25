@@ -1,11 +1,12 @@
 const { compareHash, hashPassword } = require("../helper/hashPassword");
-const { createToken } = require("../helper/jwt");
+const { createToken, destroyToken } = require("../helper/jwt");
 const {
   loginUser,
   registerUser,
   deleteUser,
   readOneUser,
   readAllUser,
+  updateUser,
 } = require("../services/userServices");
 
 class userController {
@@ -51,6 +52,39 @@ class userController {
     }
   }
 
+  static async logout(request, response) {
+    try {
+      const token =
+        request.body.token ||
+        request.query.token ||
+        request.headers["x-access-token"] ||
+        (request.headers.authorization &&
+          request.headers.authorization.split(" ")[1]);
+
+      if (!token) {
+        throw new Error("TOKEN_NOT_FOUND");
+      }
+      destroyToken(token);
+      response.status(200).json({
+        statusCode: 200,
+        message: "Logout Successfully",
+      });
+    } catch (err) {
+      console.log(err);
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "TOKEN_NOT_FOUND") {
+        code = 403;
+        message = "A token is required for authentication";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
   static async register(request, response) {
     try {
       const {
@@ -104,8 +138,8 @@ class userController {
   static async list(request, response) {
     try {
       const findAllUser = await readAllUser();
-      console.log(findAllUser);
-      if (findAllUser < 0) {
+
+      if (findAllUser <= 0) {
         throw new Error("User_IS_EMPTY");
       }
       response.status(200).json({
@@ -166,10 +200,10 @@ class userController {
 
       if (err.name === "SequelizeValidationError") {
         code = 400;
-        msg = "Bad Request";
+        message = "Bad Request";
       } else if (err.message === "USER_NOT_FOUND") {
         code = 404;
-        msg = "User Not Found";
+        message = "User Not Found";
       }
 
       response.status(code).json({
