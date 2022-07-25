@@ -30,19 +30,25 @@ class userController {
 
       const access_token = createToken(payload);
 
+      if (!access_token) {
+        throw new Error("ERROR_CREATE_TOKEN");
+      }
+
       response.status(200).json({
         statusCode: 200,
         message: "Login Successfully",
         access_token: access_token,
       });
     } catch (err) {
-      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
       if (err.message === "USER_NOT_FOUND") {
         code = 400;
         message = "Invalid Username or Password";
+      } else if (err.message === "ERROR_CREATE_TOKEN") {
+        code = 401;
+        message = "Error Create Token";
       }
 
       response.status(code).json({

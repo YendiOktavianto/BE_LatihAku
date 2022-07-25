@@ -1,40 +1,55 @@
 const { body, param, query } = require("express-validator");
 
 const createMyCoach = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+  param("id").not().isEmpty(),
+  body("schedule")
+    .not()
+    .isEmpty()
+    .withMessage("Schedule must be choosed!")
+    .isDate()
+    .withMessage("Schedule must be in Valid Date!"),
+  body("timeRemaining")
+    .not()
+    .isEmpty()
+    .withMessage("Time Remaining must be inserted!")
+    .isInt({ min: 1 })
+    .withMessage("Time Remaining must be in Integer and have minimum value 1!"),
+  body("salary")
+    .not()
+    .isEmpty()
+    .withMessage("Salary must be inserted!")
+    .isFloat()
+    .withMessage("Salary must be in Float!"),
 ];
 
 const updateMyCoach = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+  param("id").not().isEmpty(),
+  body("schedule")
+    .not()
+    .isEmpty()
+    .withMessage("Schedule must be choosed!")
+    .isDate()
+    .withMessage("Schedule must be in Valid Date!"),
+  body("timeRemaining")
+    .not()
+    .isEmpty()
+    .withMessage("Time Remaining must be inserted!")
+    .isDate({ min: 1 })
+    .withMessage("Time Remaining must be in Integer and have minimum value 1!"),
+  body("salary")
+    .not()
+    .isEmpty()
+    .withMessage("Salary must be inserted!")
+    .isFloat()
+    .withMessage("Salary must be in Float!"),
 ];
 
-const deleteMyCoach = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-];
-
-const findOneMyCoach = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-];
+const deleteMyCoach = () => [param("id").not().isEmpty()];
+const searchMyCoach = () => [param("id").not().isEmpty()];
 
 module.exports = {
   createMyCoach,
   deleteMyCoach,
   updateMyCoach,
-  findOneMyCoach,
+  searchMyCoach,
 };

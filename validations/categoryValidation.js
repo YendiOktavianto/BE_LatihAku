@@ -1,40 +1,37 @@
 const { body, param, query } = require("express-validator");
 
 const createCategory = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+  param("id").not().isEmpty(),
+  body("name")
+    .not()
+    .isEmpty()
+    .withMessage("Name must be inserted!")
+    .isString()
+    .withMessage("Name must be in String!")
+    .isLength({ min: 3, max: 50 })
+    .withMessage("Name length must be between 3 until 50 Character!"),
+  body("image").isString().withMessage("Image must be in String!"),
 ];
 
 const updateCategory = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+  param("id").not().isEmpty(),
+  body("name")
+    .not()
+    .isEmpty()
+    .withMessage("Name must be inserted!")
+    .isString()
+    .withMessage("Name must be in String!")
+    .isLength({ min: 3, max: 50 })
+    .withMessage("Name length must be between 3 until 50 Character!"),
+  body("image").isString().withMessage("Image must be in String!"),
 ];
 
-const deleteCategory = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-];
-
-const findOneCategory = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-];
+const deleteCategory = () => [param("id").not().isEmpty()];
+const searchCategory = () => [param("id").not().isEmpty()];
 
 module.exports = {
   createCategory,
   deleteCategory,
   updateCategory,
-  findOneCategory,
+  searchCategory,
 };
