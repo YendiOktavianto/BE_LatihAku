@@ -1,7 +1,7 @@
 const { body, param, query } = require("express-validator");
 
 const registerUser = () => [
-  param("id").notEmpty(),
+  param("id").not().isEmpty(),
   body("fistName")
     .optional()
     .notEmpty()
@@ -20,7 +20,7 @@ const registerUser = () => [
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your Username"),
-  body("gender").optional().notEmpty().isString(),
+  body("gender").optional().notEmpty().isString().isIn(['Female', 'Male']),
   body("phoneNumber")
     .optional()
     .notEmpty()
@@ -48,7 +48,7 @@ const registerUser = () => [
 ];
 
 const updateUser = () => [
-  param("id").notEmpty(),
+  param("id").not().isEmpty(),
   body("fistName")
     .optional()
     .notEmpty()
@@ -95,7 +95,7 @@ const updateUser = () => [
 ];
 
 const loginUser = () => [
-  param("id").notEmpty(),
+  param("id").not().isEmpty(),
   body("username")
     .optional()
     .notEmpty()
@@ -109,8 +109,8 @@ const loginUser = () => [
     .withMessage("Please enter your Password"),
 ];
 
-const deleteUser = () => [param("id").notEmpty()];
-const searchUser = () => [param("id").notEmpty()];
+const deleteUser = () => [param("id").not().isEmpty()];
+const searchUser = () => [param("id").not().isEmpty()];
 
 module.exports = {
   registerUser,

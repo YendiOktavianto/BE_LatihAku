@@ -1,39 +1,47 @@
 const { body, param, query } = require("express-validator");
 
 const createBooking = () => [
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+  param("id").not().isEmpty(),
+  body("bookingDate")
+    .not()
+    .isEmpty()
+    .withMessage("Booking Date must be choosed!")
+    .isDate()
+    .withMessage("Booking Date must be in Valid Date!"),
+  body("notes")
+    .not()
+    .isEmpty()
+    .withMessage("Notes must be inserted!")
+    .isString()
+    .withMessage("Notes must be in String!")
+    .isLength({ min: 20, max: 300 })
+    .withMessage("Notes Length must be between 20 until 300 Character!"),
 ];
 
 const updateBooking = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
+  param("id").not().isEmpty(),
+  body("bookingDate")
+    .not()
+    .isEmpty()
+    .withMessage("Booking Date must be choosed!")
+    .isDate()
+    .withMessage("Booking Date must be in Valid Date!"),
+  body("notes")
+    .not()
+    .isEmpty()
+    .withMessage("Notes must be inserted!")
+    .isString()
+    .withMessage("Notes must be in String!")
+    .isLength({ min: 20, max: 300 })
+    .withMessage("Notes Length must be between 20 until 300 Character!"),
 ];
 
-const deleteBooking = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-];
-
-const findOneBooking = () => [
-  param("id").notEmpty().isUUID(),
-  body("name").optional().notEmpty().isString(),
-  body("age").optional().notEmpty().isInt(),
-  body("gender").optional().notEmpty().isIn(["female", "male"]),
-  body("address").optional().notEmpty().isString().isLength({ min: 20 }),
-];
+const deleteBooking = () => [param("id").not().isEmpty()];
+const searchBooking = () => [param("id").not().isEmpty()];
 
 module.exports = {
   createBooking,
   deleteBooking,
   updateBooking,
-  findOneBooking,
+  searchBooking,
 };
