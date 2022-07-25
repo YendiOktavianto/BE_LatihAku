@@ -6,7 +6,7 @@ const validate = require("../middlewares/validate");
 const userValidation = require("../validations/userValidation");
 //user
 routesUser.post(
-  "/user/register",
+  "/register",
 
   userValidation.registerUser(),
   validate,
@@ -14,29 +14,31 @@ routesUser.post(
   userController.register
 );
 routesUser.post(
-  "/user/login",
+  "/login",
 
   userValidation.loginUser(),
   validate,
   userController.login
 );
-routesUser.get("/user/list", userController.list);
+routesUser.get("/list", userController.list);
 routesUser.put(
-  "/user/update/:id",
+  "/update/:id",
   userValidation.updateUser(),
   validate,
   uploadImage("user").single("profileImage"),
   userController.update
 );
 routesUser.delete(
-  "/user/delete/:id",
+  "/delete/:id",
   userValidation.deleteUser(),
   validate,
   userController.delete
 );
 routesUser.get(
-  "/user/search/:id",
+  "/search/:id",
   userValidation.searchUser(),
   validate,
   userController.search
 );
+
+module.exports = routesUser;

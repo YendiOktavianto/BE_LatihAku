@@ -6,20 +6,20 @@ const validate = require("../middlewares/validate");
 const coachValidation = require("../validations/coachValidation");
 //coach
 routesCoach.post(
-  "/coach/register",
+  "/register",
   coachValidation.registerCoach(),
   validate,
   coachController.register
 );
 routesCoach.post(
-  "/coach/login",
+  "/login",
   coachValidation.loginCoach(),
   validate,
   coachController.login
 );
 routesCoach.get("/coach/list", coachController.list);
 routesCoach.put(
-  "/coach/update/:id",
+  "/update/:id",
 
   coachValidation.updateCoach(),
   validate,
@@ -27,14 +27,16 @@ routesCoach.put(
   coachController.update
 );
 routesCoach.delete(
-  "/coach/delete/:id",
+  "/delete/:id",
   coachValidation.deleteCoach(),
   validate,
   coachController.delete
 );
 routesCoach.get(
-  "/coach/search/:id",
+  "/search/:id",
   coachValidation.searchCoach(),
   validate,
   coachController.search
 );
+
+module.exports = routesCoach;
