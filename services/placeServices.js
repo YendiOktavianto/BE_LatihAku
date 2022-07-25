@@ -8,6 +8,12 @@ const readOnePlace = (placeId) => {
   return Place.findByPk(placeId);
 };
 
+const readOnePlaceByName = (name) => {
+  return User.findOne({
+    where: { name: name },
+  });
+};
+
 const readAllPlace = () => {
   return Place.findAll();
 };

@@ -16,8 +16,20 @@ const readOneUser = (userId) => {
   return User.findByPk(userId);
 };
 
+const readOneUserByName = (firstName) => {
+  return User.findOne({
+    where: { firstName: firstName },
+  });
+};
+
 const readAllUser = () => {
   return User.findAll();
+};
+
+const readAllUserByMyCoach = (MyCoachId) => {
+  return User.findAll({
+    where: { MyCoachId: MyCoachId },
+  });
 };
 
 const updateUser = async (updateData, userId) => {

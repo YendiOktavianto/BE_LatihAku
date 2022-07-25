@@ -9,17 +9,28 @@ const loginCoach = (username) => {
 };
 
 const registerCoach = (dataCoach) => {
-  const newCoach = Coach.create(dataCoach);
-  return newCoach;
+  return Coach.create(dataCoach);
 };
 
 const readOneCoach = (coachId) => {
-  const findCoach = Coach.findByPk(coachId);
-  return findCoach;
+  return Coach.findByPk(coachId);
+};
+
+const readOneCoachByName = (firstName) => {
+  return Coach.findOne({
+    where: { firstName: firstName },
+    //include: Profile,
+  });
 };
 
 const readAllCoach = () => {
   return Coach.findAll();
+};
+
+const readAllCoachByCategory = (CategoryId) => {
+  return Coach.findAll({
+    where: { CategoryId: CategoryId },
+  });
 };
 
 const updateCoach = async (updateData, coachId) => {

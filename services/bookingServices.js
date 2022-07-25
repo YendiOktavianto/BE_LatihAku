@@ -7,6 +7,13 @@ const readOneBooking = (bookingId) => {
   return Booking.findByPk(bookingId);
 };
 
+const readOneBookingByUser = (userId) => {
+  return Booking.findOne({
+    where: { userId: userId },
+    //include: Profile,
+  });
+};
+
 const readAllBooking = () => {
   return Booking.findAll();
 };

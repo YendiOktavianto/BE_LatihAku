@@ -1,10 +1,17 @@
 const { MyCoach } = require("../models");
+
 const createMyCoach = (dataMyCoach) => {
   return MyCoach.create(dataMyCoach);
 };
 
 const readOneMyCoach = (myCoachId) => {
   return MyCoach.findByPk(myCoachId);
+};
+const readOneMyCoachByName = (name) => {
+  return MyCoach.findOne({
+    where: { name: name },
+    include: Profile,
+  });
 };
 
 const readAllMyCoach = () => {

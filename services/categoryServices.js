@@ -7,6 +7,12 @@ const readOneCategory = (categoryId) => {
   return Category.findByPk(categoryId);
 };
 
+const readOneCategoryByName = (name) => {
+  return Category.findOne({
+    where: { name: name },
+    //include: Profile
+  });
+};
 const readAllCategory = () => {
   return Category.findAll();
 };
