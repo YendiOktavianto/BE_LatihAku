@@ -21,7 +21,7 @@ routesCoach.post(
 routesCoach.get("/coach/list", verifyToken, coachController.list);
 routesCoach.put(
   "/update/:id",
-
+  verifyToken,
   coachValidation.updateCoach(),
   validate,
   uploadImage("coach").single("profileImage"),
@@ -30,12 +30,14 @@ routesCoach.put(
 
 routesCoach.delete(
   "/delete/:id",
+  verifyToken,
   coachValidation.deleteCoach(),
   validate,
   coachController.delete
 );
 routesCoach.get(
   "/search/:id",
+  verifyToken,
   coachValidation.searchCoach(),
   validate,
   coachController.search
