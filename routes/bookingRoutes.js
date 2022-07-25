@@ -8,13 +8,15 @@ const bookingValidation = require("../validations/bookingValidation");
 //booking
 routesBooking.post(
   "/create",
+  verifyToken,
   bookingValidation.createBooking(),
   validate,
   bookingController.create
 );
-routesBooking.get("/list", bookingController.list);
+routesBooking.get("/list",verifyToken,  bookingController.list);
 routesBooking.put(
   "/update/:id",
+  verifyToken,
   bookingValidation.updateBooking(),
   validate,
   bookingController.update
@@ -22,6 +24,7 @@ routesBooking.put(
 
 routesBooking.get(
   "/search/:id",
+  verifyToken,
   bookingValidation.searchBooking(),
   validate,
   bookingController.search
@@ -29,6 +32,7 @@ routesBooking.get(
 
 routesBooking.delete(
   "/update/:id",
+  verifyToken,
   bookingValidation.deleteBooking(),
   validate,
   bookingController.delete

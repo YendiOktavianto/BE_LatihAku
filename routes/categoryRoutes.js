@@ -8,12 +8,13 @@ const categoryValidation = require("../validations/categoryValidation");
 //category
 routesCategory.post(
   "/create",
+  verifyToken,
   uploadImage("category").single("image"),
   categoryValidation.createCategory(),
   validate,
   categoryController.create
 );
-routesCategory.get("/list", categoryController.list);
+routesCategory.get("/list",verifyToken, categoryController.list);
 routesCategory.put(
   "/update/:id",
   categoryValidation.updateCategory(),
@@ -23,6 +24,7 @@ routesCategory.put(
 
 routesCategory.delete(
   "/delete/:id",
+  verifyToken,
   categoryValidation.deleteCategory(),
   validate,
   categoryController.delete
@@ -30,6 +32,7 @@ routesCategory.delete(
 
 routesCategory.get(
   "/search/:id",
+  verifyToken,
   categoryValidation.searchCategory(),
   validate,
   categoryController.search
