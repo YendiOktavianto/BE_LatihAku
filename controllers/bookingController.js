@@ -4,6 +4,7 @@ const {
   readAllBooking,
   updateBooking,
   deleteBooking,
+  readOneBookingByUser,
 } = require("../services/bookingServices");
 
 class bookingController {
@@ -146,6 +147,36 @@ class bookingController {
     try {
       const bookingId = request.params.id;
       const findBooking = await readOneBooking(bookingId);
+
+      if (findBooking <= 0) {
+        throw new Error("BOOKING_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Booking Found",
+        data: findBooking,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "BOOKING_NOT_FOUND") {
+        code = 400;
+        message = "Category Not Found";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static async searchByUser(request, response) {
+    try {
+      const { userId } = request.params.userId;
+      const findBooking = await readOneBookingByUser(userId);
 
       if (findBooking <= 0) {
         throw new Error("BOOKING_NOT_FOUND");

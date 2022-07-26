@@ -42,4 +42,5 @@ module.exports = {
   readAllBooking,
   updateBooking,
   deleteBooking,
+  readOneBookingByUser,
 };
