@@ -58,4 +58,6 @@ module.exports = {
   updateUser,
   readOneUser,
   readAllUser,
+  readOneUserByName,
+  readAllUserByMyCoach,
 };
