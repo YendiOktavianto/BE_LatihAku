@@ -4,6 +4,7 @@ const {
   updateMyCoach,
   readOneMyCoach,
   readAllMyCoach,
+  readOneMyCoachByName,
 } = require("../services/myCoachServices");
 class myCoachController {
   static async create(request, response) {
@@ -134,6 +135,36 @@ class myCoachController {
       const myCoachId = request.params.id;
 
       const findMyCoach = await readOneMyCoach(myCoachId);
+      if (findMyCoach <= 0) {
+        throw new Error("MY_COACH_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "My Coach found",
+        data: findMyCoach,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "MY_COACH_NOT_FOUND") {
+        code = 400;
+        message = "My Coach Not Found";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static async searchByName(request, response) {
+    try {
+      const { name } = request.body;
+
+      const findMyCoach = await readOneMyCoachByName(name);
       if (findMyCoach <= 0) {
         throw new Error("MY_COACH_NOT_FOUND");
       }

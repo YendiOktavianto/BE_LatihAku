@@ -42,4 +42,5 @@ module.exports = {
   updateMyCoach,
   readOneMyCoach,
   readAllMyCoach,
+  readOneMyCoachByName
 };
