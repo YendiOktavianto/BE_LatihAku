@@ -4,6 +4,7 @@ const {
   readAllCategory,
   updateCategory,
   deleteCategory,
+  readOneCategoryByName,
 } = require("../services/categoryServices");
 
 class categoryController {
@@ -142,6 +143,37 @@ class categoryController {
       const categoryId = request.params.id;
 
       const findCategory = await readOneCategory(categoryId);
+
+      if (findCategory <= 0) {
+        throw new Error("CATEGORY_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Category Found",
+        data: findCategory,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "CATEGORY_NOT_FOUND") {
+        code = 400;
+        message = "Category Not Found";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static async searchByName(request, response) {
+    try {
+      const { name } = request.body;
+
+      const findCategory = await readOneCategoryByName(name);
 
       if (findCategory <= 0) {
         throw new Error("CATEGORY_NOT_FOUND");
