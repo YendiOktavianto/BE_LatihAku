@@ -5,6 +5,8 @@ const {
   readAllCoach,
   updateCoach,
   deleteCoach,
+  readOneCoachByName,
+  readAllCoachByCategory,
 } = require("../services/coachServices");
 const { compareHash } = require("../helper/hashPassword");
 const { createToken } = require("../helper/jwt");
@@ -287,6 +289,66 @@ class coachController {
       const coachId = request.params.id;
 
       const findCoach = await readOneCoach(coachId);
+      if (findCoach <= 0) {
+        throw new Error("COACH_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Coach Found",
+        data: findCoach,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "COACH_NOT_FOUND") {
+        code = 400;
+        message = "Data Coach Not Found";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static async searchByName(request, response) {
+    try {
+      const { name } = request.body;
+
+      const findCoach = await readOneCoachByName(name);
+      if (findCoach <= 0) {
+        throw new Error("COACH_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Coach Found",
+        data: findCoach,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "COACH_NOT_FOUND") {
+        code = 400;
+        message = "Data Coach Not Found";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static async searchByCategory(request, response) {
+    try {
+      const CategoryId = request.params.CategoryId;
+
+      const findCoach = await readAllCoachByCategory(CategoryId);
       if (findCoach <= 0) {
         throw new Error("COACH_NOT_FOUND");
       }

@@ -58,4 +58,6 @@ module.exports = {
   readAllCoach,
   updateCoach,
   deleteCoach,
+  readOneCoachByName,
+  readAllCoachByCategory,
 };
