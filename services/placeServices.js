@@ -42,4 +42,5 @@ module.exports = {
   readAllPlace,
   updatePlace,
   deletePlace,
+  readOnePlaceByName,
 };

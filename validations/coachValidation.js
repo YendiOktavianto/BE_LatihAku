@@ -6,7 +6,7 @@ const registerCoach = () => [
     .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
-    .withMessage("Name length must be between 3 until 100 Character!"),
+    .withMessage("Please enter your Last Name"),
   body("username")
     .not()
     .isEmpty()
@@ -35,7 +35,7 @@ const registerCoach = () => [
     .isEmpty()
     .isString()
     .withMessage("Password must be in String"),
-  body("profileImage").isString().withMessage("Please Insert Image"),
+  body("profileImage").optional().notEmpty().withMessage("Please Insert Image"),
   body("ktp")
     .not()
     .isEmpty()

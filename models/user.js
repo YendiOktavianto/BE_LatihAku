@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
           notNull: {
             msg: "Please choose your gender",
           },
-          len: [3, 100],
+          //len: [, 100],
         },
       },
       phoneNumber: {

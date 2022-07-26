@@ -14,9 +14,9 @@ const {
 class userController {
   static async login(request, response) {
     try {
-      const { firstName, password } = request.body;
+      const { username, password } = request.body;
 
-      const foundUser = await loginUser(firstName);
+      const foundUser = await loginUser(username);
 
       if (!foundUser) {
         throw new Error("USER_NOT_FOUND");

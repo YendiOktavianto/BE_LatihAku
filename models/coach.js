@@ -17,12 +17,32 @@ module.exports = (sequelize, DataTypes) => {
   }
   Coach.init(
     {
-      name: {
+      firstName: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please Insert your name",
+            msg: "Please enter your First Name",
+          },
+          len: [3, 100],
+        },
+      },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please enter your Last Name",
+          },
+          len: [3, 100],
+        },
+      },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please enter your username",
           },
           len: [3, 100],
         },
@@ -93,6 +113,16 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Describe your personality or skill",
           },
           len: [20, 300],
+        },
+      },
+      gender: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Please choose your gender",
+          },
+          //len: [, 100],
         },
       },
       address: {

@@ -3,8 +3,7 @@ const { body, param, query } = require("express-validator");
 const createPlace = () => [
   param("id").not().isEmpty(),
   body("name")
-    .not()
-    .isEmpty()
+    .notEmpty()
     .withMessage("Name must be inserted!")
     .isString()
     .withMessage("Name must be in String!")

@@ -5,6 +5,7 @@ const {
   readAllPlace,
   updatePlace,
   deletePlace,
+  readOnePlaceByName,
 } = require("../services/placeServices");
 
 class placeController {
@@ -177,6 +178,36 @@ class placeController {
       const placeId = request.params.id;
 
       const findPlace = await readOnePlace(placeId);
+      if (findPlace <= 0) {
+        throw new Error("PLACE_NOT_FOUND");
+      }
+
+      response.status(200).json({
+        statusCode: 200,
+        message: "Data Place Found",
+        data: findPlace,
+      });
+    } catch (err) {
+      let code = 500;
+      let message = "Internal Server Error";
+
+      if (err.message === "PLACE_NOT_FOUND") {
+        code = 400;
+        message = "Data Place Not Found";
+      }
+
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
+    }
+  }
+
+  static async searchByName(request, response) {
+    try {
+      const { name } = request.body;
+
+      const findPlace = await readOnePlaceByName(name);
       if (findPlace <= 0) {
         throw new Error("PLACE_NOT_FOUND");
       }

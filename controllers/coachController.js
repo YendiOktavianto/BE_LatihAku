@@ -96,7 +96,8 @@ class coachController {
   static async register(request, response) {
     try {
       const {
-        name,
+        firstName,
+        lastName,
         username,
         gender,
         phone,
@@ -113,7 +114,8 @@ class coachController {
 
       const profileImage = request.file.path;
       const dataCoach = {
-        name,
+        firstName,
+        lastName,
         username,
         gender,
         phone,
@@ -137,12 +139,10 @@ class coachController {
       response.status(201).json({
         statusCode: 201,
         message: "Create Account Successfully",
-        data: {
-          id: newCoach.id,
-          email: newCoach.email,
-        },
+        data: newCoach,
       });
     } catch (err) {
+      console.log(err);
       let code = 500;
       let message = "Internal Server Error";
 
