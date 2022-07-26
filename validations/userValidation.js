@@ -3,45 +3,45 @@ const { body, param, query } = require("express-validator");
 const registerUser = () => [
   param("id").not().isEmpty(),
   body("fistName")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your First Name"),
   body("lastName")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your First Name"),
   body("username")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your Username"),
   body("gender").optional().notEmpty().isString().isIn(["Female", "Male"]),
   body("phoneNumber")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 10, max: 13 })
     .withMessage("Please enter your Phone Number"),
   body("email")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isEmail()
     .withMessage("Please enter your Email"),
   body("password")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .withMessage("Please enter your Password"),
   body("profileImage").optional().isString().withMessage("Please Insert Image"),
   body("address")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 20, max: 100 })
     .withMessage("Please enter your Address"),
@@ -50,45 +50,45 @@ const registerUser = () => [
 const updateUser = () => [
   param("id").not().isEmpty(),
   body("fistName")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your First Name"),
   body("lastName")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your First Name"),
   body("username")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your Username"),
   body("gender").optional().notEmpty().isString(),
   body("phoneNumber")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 10, max: 13 })
     .withMessage("Please enter your Phone Number"),
   body("email")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isEmail()
     .withMessage("Please enter your Email"),
   body("password")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .withMessage("Please enter your Password"),
-  body("profileImage").optional().isString().withMessage("Please Insert Image"),
+  body("profileImage").isString().withMessage("Please Insert Image"),
   body("address")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 20, max: 100 })
     .withMessage("Please enter your Address"),
@@ -97,14 +97,14 @@ const updateUser = () => [
 const loginUser = () => [
   param("id").not().isEmpty(),
   body("username")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Please enter your Username"),
   body("password")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .withMessage("Please enter your Password"),
 ];

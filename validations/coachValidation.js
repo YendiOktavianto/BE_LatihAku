@@ -2,79 +2,79 @@ const { body, param, query } = require("express-validator");
 
 const registerCoach = () => [
   body("name")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Name length must be between 3 until 100 Character!"),
   body("username")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
     .withMessage("Username length must be between 3 until 100 Character!"),
   body("gender")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isIn(["Female", "Male"])
     .withMessage("Gender must be in Female or Male!"),
   body("phone")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 10, max: 13 })
     .withMessage("Phone number length must be between 3 until 100 Character!"),
   body("email")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isEmail()
     .withMessage("Must be in Email format!"),
   body("password")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .withMessage("Password must be in String"),
   body("profileImage").isString().withMessage("Please Insert Image"),
   body("ktp")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 16, max: 16 })
     .withMessage("NIK length must be 16 Character!"),
   body("rating")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isFloat({ min: 0.0, max: 5.0 })
     .withMessage(
       "Rating must be in Float and Value must be between 0 until 5!"
     ),
   body("description")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 20, max: 100 })
     .withMessage("Description Length must be between 20 until 100 Character!"),
   body("address")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 20, max: 100 })
     .withMessage("Address Length must be between 20 until 100 Character!"),
   body("favourite")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isBoolean()
     .withMessage("Favourite must be in Boolean!"),
   body("comments")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isString()
     .isLength({ min: 20, max: 100 })
     .withMessage("Comments Length must be between 20 until 100 Character!"),
   body("budget")
-    .optional()
-    .notEmpty()
+    .not()
+    .isEmpty()
     .isFloat({ min: 10000 })
     .withMessage("Budget Value minimum Rp. 10.000,00!"),
 ];
@@ -98,14 +98,22 @@ const loginCoach = () => [
 
 const updateCoach = () => [
   param("id").not().isEmpty(),
-  body("name")
+  body("fistName")
     .not()
     .isEmpty()
-    .withMessage("Name must be inserted!")
+    .withMessage("First Name must be inserted!")
     .isString()
-    .withMessage("Name must be in String!")
+    .withMessage("First Name must be in String!")
     .isLength({ min: 3, max: 100 })
-    .withMessage("Name length must be between 3 until 100 Character!"),
+    .withMessage("First Name length must be between 3 until 100 Character!"),
+  body("lastName")
+    .not()
+    .isEmpty()
+    .withMessage("Last Name must be inserted!")
+    .isString()
+    .withMessage("Last Name must be in String!")
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Last Name length must be between 3 until 100 Character!"),
   body("username")
     .not()
     .isEmpty()
