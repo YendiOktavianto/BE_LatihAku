@@ -9,9 +9,9 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.JWT_SECRET;
 const createToken = (data) => {
   //   await redisClient.connect();
-  //redisClient.on("connect", () => {
+  //   redisClient.on("connect", () => {
   //   console.log("client connect to redis");
-  // });
+  //   });
   //const jwtr = new JWTR(redisClient);
   return jwt.sign(data, SECRET_KEY, {
     expiresIn: "5h",
@@ -46,12 +46,12 @@ const verifyToken = (req, res, next) => {
 //   //return jwtr.destroy(token);
 // };
 
-const destroyToken = (req, res, next) => {
-  const token =
-    req.body.token ||
-    req.query.token ||
-    req.headers["x-access-token"] ||
-    (req.headers.authorization && req.headers.authorization.split(" ")[1]);
+const destroyToken = (token) => {
+  // const token =
+  //   req.body.token ||
+  //   req.query.token ||
+  //   req.headers["x-access-token"] ||
+  //   (req.headers.authorization && req.headers.authorization.split(" ")[1]);
 
   if (!token) {
     return res.status(403).send("A token is required for authentication");
