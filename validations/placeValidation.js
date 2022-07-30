@@ -3,8 +3,9 @@ const { body, param, query } = require("express-validator");
 const createPlace = () => [
   param("id").not().isEmpty(),
   body("name")
-    .notEmpty()
-    .withMessage("Name must be inserted!")
+    .not()
+    .isEmpty()
+    .withMessage("Owner must be inserted!")
     .isString()
     .withMessage("Name must be in String!")
     .isLength({ min: 3, max: 100 })
