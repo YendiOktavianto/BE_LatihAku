@@ -1,7 +1,7 @@
 const { body, param, query } = require("express-validator");
 
 const registerCoach = () => [
-  body("name")
+  body("name").trim()
     .not()
     .isEmpty()
     .isString()

@@ -1,7 +1,7 @@
 const { body, param, query } = require("express-validator");
 
 const registerUser = () => [
-  body("fistName")
+  body("firstName")
     .not()
     .isEmpty()
     .isString()
@@ -12,7 +12,7 @@ const registerUser = () => [
     .isEmpty()
     .isString()
     .isLength({ min: 3, max: 100 })
-    .withMessage("Please enter your First Name"),
+    .withMessage("Please enter your Last Name"),
   body("username")
     .not()
     .isEmpty()
