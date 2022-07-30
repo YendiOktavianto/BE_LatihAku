@@ -56,13 +56,16 @@ const destroyToken = (token) => {
   if (!token) {
     return res.status(403).send("A token is required for authentication");
   }
-  jwt.sign(token, "", { expiresIn: 1 }, (logout, err) => {
-    if (logout) {
-      res.send({ msg: "You have been Logged Out" });
-    } else {
-      res.send({ msg: "Error" });
-    }
-  });
+  return jwt.sign(token, SECRET_KEY, { expiresIn: "2000ms" });
+  // , (logout, err) => {
+  //   if (logout) {
+  //     return "You have been Logged Out";
+  //   }
+  //   //res.send({ msg: "You have been Logged Out" });
+  //   // } else {
+  //   //   throw new Error("ERROR_LOGGED_OUT");
+  //   // }
+  // });
 };
 module.exports = {
   createToken,

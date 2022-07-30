@@ -72,10 +72,14 @@ class userController {
       if (!token) {
         throw new Error("TOKEN_NOT_FOUND");
       }
-      destroyToken(token);
+      const destroy_token = destroyToken(token);
+
+      if (!destroy_token) {
+        throw new Error("ERROR_LOGGED_OUT");
+      }
       response.status(200).json({
         statusCode: 200,
-        message: "Logout Successfully",
+        message: destroyToken,
       });
     } catch (err) {
       console.log(err);
