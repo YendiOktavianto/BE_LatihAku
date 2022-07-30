@@ -1,4 +1,4 @@
-const { MyFavoriteCoach } = require("../models");
+const { MyFavouriteCoach } = require("../models");
 
 const createMyFavouriteCoach = (dataMyCoach) => {
   return MyFavouriteCoach.create(dataMyCoach);
