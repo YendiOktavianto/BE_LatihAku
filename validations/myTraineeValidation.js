@@ -46,3 +46,10 @@ const updateMyTrainee = () => [
 
 const deleteMyTrainee = () => [param("id").not().isEmpty()];
 const searchMyTrainee = () => [param("id").not().isEmpty()];
+
+module.exports = {
+  deleteMyTrainee,
+  searchMyTrainee,
+  updateMyTrainee,
+  createMyTrainee,
+};
