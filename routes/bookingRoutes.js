@@ -13,7 +13,7 @@ routesBooking.post(
   validate,
   bookingController.create
 );
-routesBooking.get("/list",verifyToken,  bookingController.list);
+routesBooking.get("/list", verifyToken, bookingController.list);
 routesBooking.put(
   "/update/:id",
   verifyToken,
@@ -36,6 +36,14 @@ routesBooking.delete(
   bookingValidation.deleteBooking(),
   validate,
   bookingController.delete
+);
+
+routesBooking.get(
+  "/search/:userId",
+  verifyToken,
+  bookingValidation.searchBookingByUser(),
+  validate,
+  bookingController.searchByUser
 );
 
 module.exports = routesBooking;

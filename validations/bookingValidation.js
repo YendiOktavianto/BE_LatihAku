@@ -38,10 +38,15 @@ const updateBooking = () => [
 
 const deleteBooking = () => [param("id").not().isEmpty()];
 const searchBooking = () => [param("id").not().isEmpty()];
+const searchBookingByUser = () => [
+  param("id").not().isEmpty(),
+  param("userId").not().isEmpty().withMessage("Notes must be inserted!"),
+];
 
 module.exports = {
   createBooking,
   deleteBooking,
   updateBooking,
   searchBooking,
+  searchBookingByUser,
 };

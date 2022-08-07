@@ -314,36 +314,6 @@ class userController {
       });
     }
   }
-
-  static async searchByCoach(request, response) {
-    try {
-      const MyCoachId = request.body.MyCoachId;
-
-      const findUser = await readAllUserByMyCoach(MyCoachId);
-      if (findUser <= 0) {
-        throw new Error("USER_NOT_FOUND");
-      }
-
-      response.status(200).json({
-        statusCode: 200,
-        message: "Data User Found",
-        data: findUser,
-      });
-    } catch (err) {
-      let code = 500;
-      let message = "Internal Server Error";
-
-      if (err.message === "USER_NOT_FOUND") {
-        code = 400;
-        message = "Data User Not Found";
-      }
-
-      response.status(code).json({
-        statusCode: code,
-        message,
-      });
-    }
-  }
 }
 
 module.exports = userController;

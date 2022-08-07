@@ -14,7 +14,7 @@ routesCategory.post(
   validate,
   categoryController.create
 );
-routesCategory.get("/list",verifyToken, categoryController.list);
+routesCategory.get("/list", verifyToken, categoryController.list);
 routesCategory.put(
   "/update/:id",
   categoryValidation.updateCategory(),
@@ -36,6 +36,14 @@ routesCategory.get(
   categoryValidation.searchCategory(),
   validate,
   categoryController.search
+);
+
+routesCategory.get(
+  "/searchByName",
+  verifyToken,
+  categoryValidation.searchCategoryByName(),
+  validate,
+  categoryController.searchByName
 );
 
 module.exports = routesCategory;
