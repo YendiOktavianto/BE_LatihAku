@@ -21,7 +21,7 @@ routesUser.post(
   userController.login
 );
 
-routesUser.post("/logout", userController.logout);
+routesUser.post("/logout", verifyToken, userController.logout);
 
 routesUser.get("/list", verifyToken, userController.list);
 routesUser.put(

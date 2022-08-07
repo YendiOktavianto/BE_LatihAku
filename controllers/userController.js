@@ -62,25 +62,24 @@ class userController {
 
   static async logout(request, response) {
     try {
-      const token =
-        request.body.token ||
-        request.query.token ||
-        request.headers["x-access-token"] ||
-        (request.headers.authorization &&
-          request.headers.authorization.split(" ")[1]);
+      const { username } = request.body;
 
-      if (!token) {
-        throw new Error("TOKEN_NOT_FOUND");
+      const foundUser = await loginUser(username);
+      if (!foundUser) {
+        throw new Error("USER_NOT_FOUND");
       }
-      console.log(token);
-      const destroy_token = destroyToken(token);
+      const payload = {
+        id: foundUser.id,
+        username: foundUser.username,
+      };
+      const destroy_token = destroyToken(payload);
 
       if (!destroy_token) {
         throw new Error("ERROR_LOGGED_OUT");
       }
       response.status(200).json({
         statusCode: 200,
-        message: destroyToken,
+        message: destroy_token,
       });
     } catch (err) {
       console.log(err);

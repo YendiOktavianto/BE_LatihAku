@@ -40,32 +40,11 @@ const verifyToken = (req, res, next) => {
   return next();
 };
 
-// const destroyToken = async (token) => {
-//   // await redisClient.connect();
-//   // const jwtr = new JWTR(redisClient);
-//   //return jwtr.destroy(token);
-// };
-
-const destroyToken = (token) => {
-  // const token =
-  //   req.body.token ||
-  //   req.query.token ||
-  //   req.headers["x-access-token"] ||
-  //   (req.headers.authorization && req.headers.authorization.split(" ")[1]);
-
-  if (!token) {
+const destroyToken = (data) => {
+  if (!data) {
     return res.status(403).send("A token is required for authentication");
   }
-  return jwt.sign(token, SECRET_KEY, { expiresIn: "5h" });
-  // , (logout, err) => {
-  //   if (logout) {
-  //     return "You have been Logged Out";
-  //   }
-  //   //res.send({ msg: "You have been Logged Out" });
-  //   // } else {
-  //   //   throw new Error("ERROR_LOGGED_OUT");
-  //   // }
-  // });
+  return jwt.sign(data, SECRET_KEY, { expiresIn: "1" });
 };
 module.exports = {
   createToken,
