@@ -46,10 +46,22 @@ const updateMyCoach = () => [
 
 const deleteMyCoach = () => [param("id").not().isEmpty()];
 const searchMyCoach = () => [param("id").not().isEmpty()];
+const searchMyCoachByName = () => [
+  param("id").not().isEmpty(),
+  body("name")
+    .not()
+    .isEmpty()
+    .withMessage("Name must be inserted!")
+    .isString()
+    .withMessage("Name must be in String!")
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Name length must be between 3 until 100 Character!"),
+];
 
 module.exports = {
   createMyCoach,
   deleteMyCoach,
   updateMyCoach,
   searchMyCoach,
+  searchMyCoachByName,
 };

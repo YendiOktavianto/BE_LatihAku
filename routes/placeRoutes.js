@@ -41,4 +41,12 @@ routesPlace.get(
   placeController.search
 );
 
+routesPlace.get(
+  "/searchByName",
+  verifyToken,
+  placeValidation.searchPlaceByName(),
+  validate,
+  placeController.searchByName
+);
+
 module.exports = routesPlace;

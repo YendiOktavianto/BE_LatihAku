@@ -109,6 +109,15 @@ const loginUser = () => [
 
 const deleteUser = () => [param("id").not().isEmpty()];
 const searchUser = () => [param("id").not().isEmpty()];
+const searchUserByName = () => [
+  param("id").not().isEmpty(),
+  body("firstName")
+    .not()
+    .isEmpty()
+    .isString()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Please enter your First Name"),
+];
 
 module.exports = {
   registerUser,
@@ -116,4 +125,5 @@ module.exports = {
   updateUser,
   searchUser,
   loginUser,
+  searchUserByName,
 };

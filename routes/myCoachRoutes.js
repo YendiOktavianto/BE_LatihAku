@@ -37,4 +37,12 @@ routesMyCoach.get(
   myCoachController.search
 );
 
+routesMyCoach.get(
+  "/searchByName",
+  verifyToken,
+  myCoachValidation.searchMyCoachByName(),
+  validate,
+  myCoachController.searchByName
+);
+
 module.exports = routesMyCoach;

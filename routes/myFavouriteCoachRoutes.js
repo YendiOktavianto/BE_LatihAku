@@ -41,4 +41,12 @@ routesMyFavouriteCoach.get(
   myFavouriteCoachController.search
 );
 
+routesMyFavouriteCoach.get(
+  "/searchByName",
+  verifyToken,
+  myFavouriteCoachValidation.searchMyFavouriteCoachByName(),
+  validate,
+  myFavouriteCoachController.searchByName
+);
+
 module.exports = routesMyFavouriteCoach;

@@ -51,4 +51,12 @@ routesUser.get(
   userController.search
 );
 
+routesUser.get(
+  "/searchByName",
+  verifyToken,
+  userValidation.searchUser(),
+  validate,
+  userController.searchByName
+);
+
 module.exports = routesUser;

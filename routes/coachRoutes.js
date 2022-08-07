@@ -43,5 +43,19 @@ routesCoach.get(
   validate,
   coachController.search
 );
+routesCoach.get(
+  "/searchByName",
+  verifyToken,
+  coachValidation.searchCoachByName(),
+  validate,
+  coachController.searchByName
+);
+routesCoach.get(
+  "/searchByCategory",
+  verifyToken,
+  coachValidation.searchCoachByCategory(),
+  validate,
+  coachController.searchByCategory
+);
 
 module.exports = routesCoach;
