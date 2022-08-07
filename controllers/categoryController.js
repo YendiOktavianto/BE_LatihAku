@@ -19,6 +19,7 @@ class categoryController {
         image,
       };
 
+      console.log(name, image);
       const newCategory = await createCategory(dataCategory);
 
       response.status(200).json({

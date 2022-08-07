@@ -141,15 +141,6 @@ module.exports = (sequelize, DataTypes) => {
           len: [20, 100],
         },
       },
-      favourite: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        validate: {
-          notNull: {
-            msg: "Please Insert your favourite or not",
-          },
-        },
-      },
       comments: {
         type: DataTypes.TEXT,
         allowNull: false,

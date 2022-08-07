@@ -46,7 +46,7 @@ const updateCoach = async (updateData, coachId) => {
 const deleteCoach = (coachId) => {
   return Coach.destroy({
     where: {
-      coachId,
+      id: coachId,
     },
   });
 };

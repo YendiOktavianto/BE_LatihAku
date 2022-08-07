@@ -8,14 +8,15 @@ const {
   readOneCoachByName,
   readAllCoachByCategory,
 } = require("../services/coachServices");
-const { compareHash } = require("../helper/hashPassword");
-const { createToken } = require("../helper/jwt");
+const { compareHash, hashPassword } = require("../helper/hashPassword");
+const { createToken, destroyToken } = require("../helper/jwt");
 
 class coachController {
   static async login(request, response) {
     try {
-      const { firstName, password } = request.body;
-      const foundCoach = await loginCoach(firstName);
+      const { username, password } = request.body;
+
+      const foundCoach = await loginCoach(username);
 
       if (!foundCoach) {
         throw new Error("USER_NOT_FOUND");
@@ -132,7 +133,7 @@ class coachController {
         comments,
         budget,
       };
-
+      dataCoach.password = hashPassword(password);
       const newCoach = await registerCoach(dataCoach);
       if (!newCoach) {
         throw new Error("FAIL_CREATE_ACCOUNT");

@@ -91,10 +91,6 @@ module.exports = {
           len: [20, 100],
         },
       },
-      favourite: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-      },
       comments: {
         type: Sequelize.TEXT,
         allowNull: false,

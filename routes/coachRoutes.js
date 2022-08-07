@@ -19,7 +19,7 @@ routesCoach.post(
   validate,
   coachController.login
 );
-routesCoach.get("/coach/list", verifyToken, coachController.list);
+routesCoach.get("/list", verifyToken, coachController.list);
 routesCoach.put(
   "/update/:id",
   verifyToken,

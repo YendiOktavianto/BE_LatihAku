@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.belongsTo(models.Booking);
+      //Category.belongsTo(models.Booking);
+      Category.belongsTo(models.Coach);
     }
   }
   Category.init(
@@ -33,9 +34,6 @@ module.exports = (sequelize, DataTypes) => {
       image: {
         type: DataTypes.STRING,
         allowNull: true,
-        validate: {
-          isUrl: true,
-        },
       },
       CoachId: DataTypes.INTEGER,
     },
