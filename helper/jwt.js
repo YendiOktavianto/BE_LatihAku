@@ -1,26 +1,12 @@
-// const redis = require("redis");
-// const JWTR = require("jwt-redis").default;
-//ES6 import JWTR from 'jwt-redis';
-// const redisClient = redis.createClient({
-//   host: "127.0.0.1",
-//   port: "6379",
-// });
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.JWT_SECRET;
 const createToken = (data) => {
-  //   await redisClient.connect();
-  //   redisClient.on("connect", () => {
-  //   console.log("client connect to redis");
-  //   });
-  //const jwtr = new JWTR(redisClient);
   return jwt.sign(data, SECRET_KEY, {
     expiresIn: "5h",
   });
 };
 
 const verifyToken = (req, res, next) => {
-  // await redisClient.connect();
-  // const jwtr = new JWTR(redisClient);
   const token =
     req.body.token ||
     req.query.token ||
@@ -46,6 +32,7 @@ const destroyToken = (data) => {
   }
   return jwt.sign(data, SECRET_KEY, { expiresIn: "1" });
 };
+
 module.exports = {
   createToken,
   verifyToken,

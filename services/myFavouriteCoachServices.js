@@ -10,7 +10,6 @@ const readOneMyFavouriteCoach = (myCoachId) => {
 const readOneMyFavouriteCoachByName = (name) => {
   return MyFavouriteCoach.findOne({
     where: { name: name },
-    include: Profile,
   });
 };
 

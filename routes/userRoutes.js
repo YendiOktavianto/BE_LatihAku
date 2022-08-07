@@ -1,4 +1,5 @@
 const express = require("express");
+const uploadImagesController = require("../controllers/uploadImagesController");
 const routesUser = express.Router();
 const userController = require("../controllers/userController");
 const { verifyToken } = require("../helper/jwt");
@@ -29,6 +30,7 @@ routesUser.put(
   verifyToken,
   userValidation.updateUser(),
   validate,
+  //uploadImagesController.uploadOneImage,
   uploadImage("user").single("profileImage"),
   userController.update
 );

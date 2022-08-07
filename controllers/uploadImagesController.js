@@ -1,13 +1,12 @@
 const { uploadImage } = require("../helper/uploadImage");
 
 class uploadImagesController {
-  static uploadOneImage(request, response) {
+  static uploadOneImage(request, response, next) {
     try {
-      uploadImage.single(request);
+      uploadImage("user").single("profileImage");
       if (err instanceof multer.MulterError) {
         throw new Error("MULTER_UPLOADING_ERROR");
-      }
-
+      } else return next();
       //response.status(200).end("Your files uploaded.");
     } catch (err) {
       let code = 500;
@@ -19,10 +18,10 @@ class uploadImagesController {
         code = 413;
         message = err.message;
       }
-      // response.status(code).json({
-      //   statusCode: code,
-      //   message,
-      // });
+      response.status(code).json({
+        statusCode: code,
+        message,
+      });
     }
   }
   static uploadMultipleImage(request, response, limit) {

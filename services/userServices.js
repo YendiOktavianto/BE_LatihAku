@@ -34,7 +34,7 @@ const readAllUserByMyCoach = (MyCoachId) => {
 
 const updateUser = async (updateData, userId) => {
   const updatedUser = await readOneUser(userId);
-
+  console.log(updatedUser, updateData);
   if (updatedUser <= 0) {
     throw new Error("USER_NOT_FOUND");
   } else {
@@ -43,11 +43,13 @@ const updateUser = async (updateData, userId) => {
   return updatedUser;
 };
 
-const deleteUser = (userId) => {
-  return User.destroy({
+const deleteUser = async (userId) => {
+  return await User.destroy({
     where: {
-      userId,
+      id: userId,
     },
+
+    truncate: { cascade: true, restartIdentity: true },
   });
 };
 

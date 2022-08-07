@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class myFavouriteCoach extends Model {
     /**
@@ -17,11 +15,20 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  myFavouriteCoach.init({
-    favourite: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'myFavouriteCoach',
-  });
+  myFavouriteCoach.init(
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      favourite: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: "myFavouriteCoach",
+    }
+  );
   return myFavouriteCoach;
 };

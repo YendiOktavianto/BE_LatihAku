@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   myTrainee.init(
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       schedule: DataTypes.DATE,
       timeRemaining: DataTypes.INTEGER,
       salary: DataTypes.FLOAT,

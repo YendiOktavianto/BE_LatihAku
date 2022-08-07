@@ -150,9 +150,8 @@ class userController {
   static async list(request, response) {
     try {
       const findAllUser = await readAllUser();
-
       if (findAllUser <= 0) {
-        throw new Error("User_IS_EMPTY");
+        throw new Error("USER_IS_EMPTY");
       }
       response.status(200).json({
         statusCode: 200,
@@ -199,6 +198,7 @@ class userController {
         profileImage,
         address,
       };
+      console.log(userId);
       const updatedUser = await updateUser(updateData, userId);
 
       response.status(200).json({
@@ -225,12 +225,12 @@ class userController {
     }
   }
 
-  static async delete(response) {
+  static async delete(request, response) {
     try {
       const userId = request.params.id;
 
       const deletedUser = await deleteUser(userId);
-      if (deletedUser < 0) {
+      if (deletedUser <= 0) {
         throw new Error("USER_NOT_FOUND");
       }
 

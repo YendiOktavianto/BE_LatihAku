@@ -10,7 +10,6 @@ const readOneMyCoach = (myCoachId) => {
 const readOneMyCoachByName = (name) => {
   return MyCoach.findOne({
     where: { name: name },
-    include: Profile,
   });
 };
 
@@ -42,5 +41,5 @@ module.exports = {
   updateMyCoach,
   readOneMyCoach,
   readAllMyCoach,
-  readOneMyCoachByName
+  readOneMyCoachByName,
 };
