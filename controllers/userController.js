@@ -72,6 +72,7 @@ class userController {
       if (!token) {
         throw new Error("TOKEN_NOT_FOUND");
       }
+      console.log(token);
       const destroy_token = destroyToken(token);
 
       if (!destroy_token) {

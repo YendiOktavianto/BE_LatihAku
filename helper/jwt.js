@@ -56,7 +56,7 @@ const destroyToken = (token) => {
   if (!token) {
     return res.status(403).send("A token is required for authentication");
   }
-  return jwt.sign(token, SECRET_KEY, { expiresIn: "2000ms" });
+  return jwt.sign(token, SECRET_KEY, { expiresIn: "5h" });
   // , (logout, err) => {
   //   if (logout) {
   //     return "You have been Logged Out";
