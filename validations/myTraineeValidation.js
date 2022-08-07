@@ -46,10 +46,22 @@ const updateMyTrainee = () => [
 
 const deleteMyTrainee = () => [param("id").not().isEmpty()];
 const searchMyTrainee = () => [param("id").not().isEmpty()];
+const searchMyTraineeByName = () => [
+  param("id").not().isEmpty(),
+  body("name")
+    .not()
+    .isEmpty()
+    .withMessage("Name must be inserted!")
+    .isString()
+    .withMessage("Name must be in String!")
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Name length must be between 3 until 100 Character!"),
+];
 
 module.exports = {
   deleteMyTrainee,
   searchMyTrainee,
   updateMyTrainee,
   createMyTrainee,
+  searchMyTraineeByName,
 };

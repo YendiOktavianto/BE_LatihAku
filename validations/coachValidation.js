@@ -1,7 +1,8 @@
 const { body, param, query } = require("express-validator");
 
 const registerCoach = () => [
-  body("name").trim()
+  body("name")
+    .trim()
     .not()
     .isEmpty()
     .isString()
@@ -207,6 +208,26 @@ const updateCoach = () => [
 
 const deleteCoach = () => [param("id").not().isEmpty()];
 const searchCoach = () => [param("id").not().isEmpty()];
+const searchCoachByName = () => [
+  param("id").not().isEmpty(),
+  body("name")
+    .trim()
+    .not()
+    .isEmpty()
+    .isString()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Please enter your Name"),
+];
+const searchCoachByCategory = () => [
+  param("id").not().isEmpty(),
+  body("name")
+    .trim()
+    .not()
+    .isEmpty()
+    .isString()
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Please enter Category Name"),
+];
 
 module.exports = {
   registerCoach,
@@ -214,4 +235,6 @@ module.exports = {
   updateCoach,
   searchCoach,
   loginCoach,
+  searchCoachByName,
+  searchCoachByCategory
 };

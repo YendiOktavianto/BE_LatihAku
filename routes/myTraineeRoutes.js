@@ -37,4 +37,12 @@ routesMyTrainee.get(
   myTraineeController.search
 );
 
+routesMyTrainee.get(
+  "/searchByName",
+  verifyToken,
+  myTraineeValidation.searchMyTraineeByName(),
+  validate,
+  myTraineeController.searchByName
+);
+
 module.exports = routesMyTrainee;
