@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     bankName: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
-    deletedAt: DataTypes.DATE
+    deletedAt: DataTypes.DATE,
+    BookingId:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'PlacePayment',
