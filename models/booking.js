@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Booking.belongsTo(models.User);
       Booking.hasMany(models.Place, {
-        foreignKey: "BookingId",
+        foreignKey: "BookingId"
+      });
+
+      Booking.hasOne(models.PlacePayment, {
+        foreignKey: "PlaceId"
       });
     }
   }
@@ -28,25 +32,25 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please choose the date",
+            msg: "Please choose the date"
           },
-          isDate: true,
-        },
+          isDate: true
+        }
       },
       notes: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter the text",
+            msg: "Please enter the text"
           },
-          len: [20, 300],
-        },
-      },
+          len: [20, 300]
+        }
+      }
     },
     {
       sequelize,
-      modelName: "Booking",
+      modelName: "Booking"
     }
   );
   return Booking;
