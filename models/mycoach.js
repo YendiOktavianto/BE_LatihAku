@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       MyCoach.hasMany(models.Coach, {
         foreignKey: "MyCoachId",
       });
+
+      MyCoach.hasOne(models.CoachPayment, {
+        foreignKey: "MyCoachId",
+      })
     }
   }
   MyCoach.init(
