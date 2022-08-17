@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('CoachPayments', {
+    await queryInterface.createTable("CoachPayments", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,14 +11,12 @@ module.exports = {
       bankName: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        type: Sequelize.DATE
+      status: {
+        type: Sequelize.STRING
       },
       deletedAt: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('CoachPayments');
+    await queryInterface.dropTable("CoachPayments");
   }
 };

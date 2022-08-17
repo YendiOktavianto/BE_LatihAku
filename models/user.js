@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.MyCoach, {
-        foreignKey: "UserId",
+        foreignKey: "UserId"
       });
 
       User.hasOne(models.Booking, {
-        foreignKey: "BookingId",
+        foreignKey: "BookingId"
       });
     }
   }
@@ -31,73 +31,73 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your First Name",
+            msg: "Please enter your First Name"
           },
-          len: [3, 100],
-        },
+          len: [3, 100]
+        }
       },
       lastName: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your Last Name",
+            msg: "Please enter your Last Name"
           },
-          len: [3, 100],
-        },
+          len: [3, 100]
+        }
       },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your username",
+            msg: "Please enter your username"
           },
-          len: [3, 100],
-        },
+          len: [3, 100]
+        }
       },
       gender: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please choose your gender",
-          },
+            msg: "Please choose your gender"
+          }
           //len: [, 100],
-        },
+        }
       },
       phoneNumber: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your Phone Number",
+            msg: "Please enter your Phone Number"
           },
-          len: [10, 13],
-        },
+          len: [10, 13]
+        }
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your Email",
+            msg: "Please enter your Email"
           },
-          isEmail: true,
-        },
+          isEmail: true
+        }
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your password",
-          },
-        },
+            msg: "Please enter your password"
+          }
+        }
       },
       profileImage: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: true
         // validate: {
         //   isUrl: true,
         // },
@@ -107,16 +107,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: "Please enter your address",
+            msg: "Please enter your address"
           },
-          len: [20, 100],
-        },
+          len: [20, 100]
+        }
       },
-      BookingId: DataTypes.INTEGER,
+      BookingId: DataTypes.INTEGER
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "User"
     }
   );
   return User;

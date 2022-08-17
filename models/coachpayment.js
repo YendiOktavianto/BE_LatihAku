@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   CoachPayment.init({
     bankName: DataTypes.STRING,
+    status: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
     deletedAt: DataTypes.DATE,

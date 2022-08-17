@@ -11,14 +11,12 @@ module.exports = {
       bankName: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        type: Sequelize.DATE
+      status: {
+        type: Sequelize.STRING
       },
       deletedAt: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
