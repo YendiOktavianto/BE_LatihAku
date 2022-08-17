@@ -1,30 +1,30 @@
 const {
-  createPaymentCoach,
-  readOnePaymentCoach,
-  readAllPaymentCoach,
-  updatePaymentCoach,
-  deletePaymentCoach,
-  readOnePaymentCoachByName,
-} = require("../services/paymentCoachServices");
+  createPlacePayment,
+  readOnePlacePayment,
+  readAllPlacePayment,
+  updatePlacePayment,
+  deletePlacePayment,
+  readOnePlacePaymentByName,
+} = require("../services/placePaymentServices");
 
-class paymentCoachController {
+class PlacePaymentController {
   static async create(request, response) {
     try {
       const { name } = request.body;
 
       const image = request.file.path;
 
-      const dataPaymentCoach = {
+      const dataPlacePayment = {
         name,
         image,
       };
 
-      const newPaymentCoach = await createPaymentCoach(dataPaymentCoach);
+      const newPlacePayment = await createPlacePayment(dataPlacePayment);
 
       response.status(200).json({
         statusCode: 200,
-        message: "Create paymentCoach Successfully",
-        data: newPaymentCoach,
+        message: "Create Place Payment Successfully",
+        data: newPlacePayment,
       });
     } catch (err) {
       let code = 500;
@@ -44,24 +44,24 @@ class paymentCoachController {
 
   static async list(request, response) {
     try {
-      const findAllPaymentCoach = await readAllPaymentCoach();
+      const findAllPlacePayment = await readAllPlacePayment();
 
-      if (findAllPaymentCoach <= 0) {
-        throw new Error("PAYMENT_COACH_IS_EMPTY");
+      if (findAllPlacePayment <= 0) {
+        throw new Error("PLACE_PAYMENT_IS_EMPTY");
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Payment Coach found",
-        data: findAllPaymentCoach,
+        message: "Place Payment found",
+        data: findAllPlacePayment,
       });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "PAYMENT_COACH_IS_EMPTY") {
+      if (err.message === "PLACE_PAYMENT_IS_EMPTY") {
         code = 400;
-        message = "Data Payment Coach Is Empty";
+        message = "Data Place Payment Is Empty";
       }
       response.status(code).json({
         statusCode: code,
@@ -72,7 +72,7 @@ class paymentCoachController {
 
   static async update(request, response) {
     try {
-      const paymentCoachId = request.params.id;
+      const PlacePaymentId = request.params.id;
       const { name } = request.body;
       const image = request.file.path;
 
@@ -80,14 +80,14 @@ class paymentCoachController {
         name,
         image,
       };
-      const updatedPaymentCoach = await updatePaymentCoach(
+      const updatedPlacePayment = await updatePlacePayment(
         updateData,
-        paymentCoachId
+        PlacePaymentId
       );
       response.status(200).json({
         statusCode: 200,
-        message: "Payment Coach updated successfully",
-        data: updatedPaymentCoach,
+        message: "Place Payment updated successfully",
+        data: updatedPlacePayment,
       });
     } catch (err) {
       let code = 500;
@@ -96,9 +96,9 @@ class paymentCoachController {
       if (err.name === "SequelizeValidationError") {
         code = 400;
         message = "Bad Request";
-      } else if (err.message === "PAYMENT_COACH_NOT_FOUND") {
+      } else if (err.message === "PLACE_PAYMENT_NOT_FOUND") {
         code = 404;
-        message = "Payment Coach not found";
+        message = "Place Payment not found";
       }
 
       response.status(code).json({
@@ -112,24 +112,24 @@ class paymentCoachController {
 
   static async delete(request, response) {
     try {
-      const paymentCoachId = request.params.id;
-      const deletedPaymentCoach = await deletePaymentCoach(paymentCoachId);
+      const PlacePaymentId = request.params.id;
+      const deletedPlacePayment = await deletePlacePayment(PlacePaymentId);
 
-      if (deletedPaymentCoach <= 0) {
-        throw new Error("PAYMENT_COACH_NOT_FOUND");
+      if (deletedPlacePayment <= 0) {
+        throw new Error("PLACE_PAYMENT_NOT_FOUND");
       }
       response.status(200).json({
         statusCode: 200,
-        message: `Payment Coach deleted successfully`,
-        data: deletedPaymentCoach,
+        message: `Place Payment deleted successfully`,
+        data: deletedPlacePayment,
       });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "PAYMENT_COACH_NOT_FOUND") {
+      if (err.message === "PLACE_PAYMENT_NOT_FOUND") {
         code = 404;
-        message = "Payment Coach not found";
+        message = "Place Payment not found";
       }
 
       response.status(code).json({
@@ -143,26 +143,26 @@ class paymentCoachController {
 
   static async search(request, response) {
     try {
-      const paymentCoachId = request.params.id;
+      const PlacePaymentId = request.params.id;
 
-      const findPaymentCoach = await readOnePaymentCoach(paymentCoachId);
+      const findPlacePayment = await readOnePlacePayment(PlacePaymentId);
 
-      if (findPaymentCoach <= 0) {
-        throw new Error("PAYMENT_COACH_NOT_FOUND");
+      if (findPlacePayment <= 0) {
+        throw new Error("PLACE_PAYMENT_NOT_FOUND");
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Data Payment Coach Found",
-        data: findPaymentCoach,
+        message: "Data Place Payment Found",
+        data: findPlacePayment,
       });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "PAYMENT_COACH_NOT_FOUND") {
+      if (err.message === "PLACE_PAYMENT_NOT_FOUND") {
         code = 400;
-        message = "Payment Coach Not Found";
+        message = "Place Payment Not Found";
       }
 
       response.status(code).json({
@@ -176,24 +176,24 @@ class paymentCoachController {
     try {
       const { name } = request.body;
 
-      const findPaymentCoach = await readOnePaymentCoachByName(name);
+      const findPlacePayment = await readOnePlacePaymentByName(name);
 
-      if (findPaymentCoach <= 0) {
-        throw new Error("PAYMENT_COACH_NOT_FOUND");
+      if (findPlacePayment <= 0) {
+        throw new Error("PLACE_PAYMENT_NOT_FOUND");
       }
 
       response.status(200).json({
         statusCode: 200,
-        message: "Data paymentCoach Found",
-        data: findPaymentCoach,
+        message: "Data Place Payment Found",
+        data: findPlacePayment,
       });
     } catch (err) {
       let code = 500;
       let message = "Internal Server Error";
 
-      if (err.message === "paymentCoach_NOT_FOUND") {
+      if (err.message === "PLACE_PAYMENT_NOT_FOUND") {
         code = 400;
-        message = "Payment Coach Not Found";
+        message = "Place Payment Not Found";
       }
 
       response.status(code).json({
@@ -204,4 +204,4 @@ class paymentCoachController {
   }
 }
 
-module.exports = paymentCoachController;
+module.exports = PlacePaymentController;
