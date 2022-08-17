@@ -10,13 +10,14 @@ const {
 class PlacePaymentController {
   static async create(request, response) {
     try {
-      const { name } = request.body;
-
-      const image = request.file.path;
+      const { bankName, status, BookingId } = request.body;
 
       const dataPlacePayment = {
-        name,
-        image,
+        id,
+        bankName,
+        deletedAt,
+        status,
+        BookingId,
       };
 
       const newPlacePayment = await createPlacePayment(dataPlacePayment);

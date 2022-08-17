@@ -10,13 +10,14 @@ const {
 class CoachPaymentController {
   static async create(request, response) {
     try {
-      const { name } = request.body;
-
-      const image = request.file.path;
+      const { bankName, deletedAt, status, MyCoachId } = request.body;
 
       const dataCoachPayment = {
-        name,
-        image,
+        id,
+        bankName,
+        deletedAt,
+        status,
+        MyCoachId,
       };
 
       const newCoachPayment = await createCoachPayment(dataCoachPayment);
