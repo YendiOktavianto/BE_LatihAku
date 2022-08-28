@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class PlacePayment extends Model {
     /**
@@ -14,15 +12,19 @@ module.exports = (sequelize, DataTypes) => {
       PlacePayment.belongsTo(models.Booking);
     }
   }
-  PlacePayment.init({
-    bankName: DataTypes.STRING,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
-    deletedAt: DataTypes.DATE,
-    BookingId:DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'PlacePayment',
-  });
+  PlacePayment.init(
+    {
+      bankName: DataTypes.STRING,
+      status: DataTypes.STRING,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
+      deletedAt: DataTypes.DATE,
+      BookingId: DataTypes.INTEGER
+    },
+    {
+      sequelize,
+      modelName: "PlacePayment"
+    }
+  );
   return PlacePayment;
 };

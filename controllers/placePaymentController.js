@@ -4,20 +4,20 @@ const {
   readAllPlacePayment,
   updatePlacePayment,
   deletePlacePayment,
-  readOnePlacePaymentByName,
+  readOnePlacePaymentByName
 } = require("../services/placePaymentServices");
 
 class PlacePaymentController {
   static async create(request, response) {
     try {
-      const { bankName, status, BookingId } = request.body;
+      const { bankName, status, deletedAt, BookingId } = request.body;
 
       const dataPlacePayment = {
         id,
         bankName,
         deletedAt,
         status,
-        BookingId,
+        BookingId
       };
 
       const newPlacePayment = await createPlacePayment(dataPlacePayment);
@@ -25,7 +25,7 @@ class PlacePaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Create Place Payment Successfully",
-        data: newPlacePayment,
+        data: newPlacePayment
       });
     } catch (err) {
       let code = 500;
@@ -38,7 +38,7 @@ class PlacePaymentController {
 
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }
@@ -54,7 +54,7 @@ class PlacePaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Place Payment found",
-        data: findAllPlacePayment,
+        data: findAllPlacePayment
       });
     } catch (err) {
       let code = 500;
@@ -66,7 +66,7 @@ class PlacePaymentController {
       }
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }
@@ -74,12 +74,13 @@ class PlacePaymentController {
   static async update(request, response) {
     try {
       const PlacePaymentId = request.params.id;
-      const { name } = request.body;
-      const image = request.file.path;
+      const { bankName, status, deletedAt, BookingId } = request.body;
 
       const updateData = {
-        name,
-        image,
+        bankName,
+        status,
+        deletedAt,
+        BookingId
       };
       const updatedPlacePayment = await updatePlacePayment(
         updateData,
@@ -88,7 +89,7 @@ class PlacePaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Place Payment updated successfully",
-        data: updatedPlacePayment,
+        data: updatedPlacePayment
       });
     } catch (err) {
       let code = 500;
@@ -105,8 +106,8 @@ class PlacePaymentController {
       response.status(code).json({
         statusCode: code,
         error: {
-          message: message,
-        },
+          message: message
+        }
       });
     }
   }
@@ -122,7 +123,7 @@ class PlacePaymentController {
       response.status(200).json({
         statusCode: 200,
         message: `Place Payment deleted successfully`,
-        data: deletedPlacePayment,
+        data: deletedPlacePayment
       });
     } catch (err) {
       let code = 500;
@@ -136,8 +137,8 @@ class PlacePaymentController {
       response.status(code).json({
         statusCode: code,
         error: {
-          message: message,
-        },
+          message: message
+        }
       });
     }
   }
@@ -155,7 +156,7 @@ class PlacePaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Data Place Payment Found",
-        data: findPlacePayment,
+        data: findPlacePayment
       });
     } catch (err) {
       let code = 500;
@@ -168,7 +169,7 @@ class PlacePaymentController {
 
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }
@@ -186,7 +187,7 @@ class PlacePaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Data Place Payment Found",
-        data: findPlacePayment,
+        data: findPlacePayment
       });
     } catch (err) {
       let code = 500;
@@ -199,7 +200,7 @@ class PlacePaymentController {
 
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }

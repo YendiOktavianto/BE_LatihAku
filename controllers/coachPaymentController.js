@@ -4,7 +4,7 @@ const {
   readAllCoachPayment,
   updateCoachPayment,
   deleteCoachPayment,
-  readOneCoachPaymentByName,
+  readOneCoachPaymentByName
 } = require("../services/coachPaymentServices");
 
 class CoachPaymentController {
@@ -17,7 +17,7 @@ class CoachPaymentController {
         bankName,
         deletedAt,
         status,
-        MyCoachId,
+        MyCoachId
       };
 
       const newCoachPayment = await createCoachPayment(dataCoachPayment);
@@ -25,7 +25,7 @@ class CoachPaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Create Coach Payment Successfully",
-        data: newCoachPayment,
+        data: newCoachPayment
       });
     } catch (err) {
       let code = 500;
@@ -38,7 +38,7 @@ class CoachPaymentController {
 
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }
@@ -54,7 +54,7 @@ class CoachPaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Coach Payment found",
-        data: findAllCoachPayment,
+        data: findAllCoachPayment
       });
     } catch (err) {
       let code = 500;
@@ -66,7 +66,7 @@ class CoachPaymentController {
       }
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }
@@ -74,12 +74,13 @@ class CoachPaymentController {
   static async update(request, response) {
     try {
       const CoachPaymentId = request.params.id;
-      const { name } = request.body;
-      const image = request.file.path;
+      const { bankName, deletedAt, status, MyCoachId } = request.body;
 
       const updateData = {
-        name,
-        image,
+        bankName,
+        deletedAt,
+        status,
+        MyCoachId
       };
       const updatedCoachPayment = await updateCoachPayment(
         updateData,
@@ -88,7 +89,7 @@ class CoachPaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Payment Coach updated successfully",
-        data: updatedCoachPayment,
+        data: updatedCoachPayment
       });
     } catch (err) {
       let code = 500;
@@ -105,16 +106,16 @@ class CoachPaymentController {
       response.status(code).json({
         statusCode: code,
         error: {
-          message: message,
-        },
+          message: message
+        }
       });
     }
   }
 
   static async delete(request, response) {
     try {
-      const CoachPaymentId = request.params.id;
-      const deletedCoachPayment = await deleteCoachPayment(CoachPaymentId);
+      const coachPaymentId = request.params.id;
+      const deletedCoachPayment = await deleteCoachPayment(coachPaymentId);
 
       if (deletedCoachPayment <= 0) {
         throw new Error("COACH_PAYMENT_NOT_FOUND");
@@ -122,7 +123,7 @@ class CoachPaymentController {
       response.status(200).json({
         statusCode: 200,
         message: `Coach Payment deleted successfully`,
-        data: deletedCoachPayment,
+        data: deletedCoachPayment
       });
     } catch (err) {
       let code = 500;
@@ -136,17 +137,17 @@ class CoachPaymentController {
       response.status(code).json({
         statusCode: code,
         error: {
-          message: message,
-        },
+          message: message
+        }
       });
     }
   }
 
   static async search(request, response) {
     try {
-      const CoachPaymentId = request.params.id;
+      const coachPaymentId = request.params.id;
 
-      const findCoachPayment = await readOneCoachPayment(CoachPaymentId);
+      const findCoachPayment = await readOneCoachPayment(coachPaymentId);
 
       if (findCoachPayment <= 0) {
         throw new Error("COACH_PAYMENT_NOT_FOUND");
@@ -155,7 +156,7 @@ class CoachPaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Data Payment Coach Found",
-        data: findCoachPayment,
+        data: findCoachPayment
       });
     } catch (err) {
       let code = 500;
@@ -168,16 +169,16 @@ class CoachPaymentController {
 
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }
 
-  static async searchByName(request, response) {
+  static async searchByUserId(request, response) {
     try {
-      const { name } = request.body;
+      const { MyCoachId } = request.body;
 
-      const findCoachPayment = await readOneCoachPaymentByName(name);
+      const findCoachPayment = await readOneCoachPaymentByName(MyCoachId);
 
       if (findCoachPayment <= 0) {
         throw new Error("COACH_PAYMENT_NOT_FOUND");
@@ -186,7 +187,7 @@ class CoachPaymentController {
       response.status(200).json({
         statusCode: 200,
         message: "Data Coach Payment Found",
-        data: findCoachPayment,
+        data: findCoachPayment
       });
     } catch (err) {
       let code = 500;
@@ -199,7 +200,7 @@ class CoachPaymentController {
 
       response.status(code).json({
         statusCode: code,
-        message,
+        message
       });
     }
   }

@@ -2,18 +2,18 @@ const express = require("express");
 const routesCoachPayment = express.Router();
 const coachPaymentController = require("../controllers/coachPaymentController");
 const { verifyToken } = require("../helper/jwt");
-const { uploadImage } = require("../helper/uploadImage");
 const validate = require("../middlewares/validate");
 const coachPaymentValidation = require("../validations/coachPaymentValidation");
+
 //CoachPayment
 routesCoachPayment.post(
   "/create",
   verifyToken,
-  uploadImage("CoachPayment").single("image"),
   coachPaymentValidation.createCoachPayment(),
   validate,
   coachPaymentController.create
 );
+
 routesCoachPayment.get("/list", verifyToken, coachPaymentController.list);
 routesCoachPayment.put(
   "/update/:id",
